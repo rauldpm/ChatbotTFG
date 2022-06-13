@@ -66,6 +66,7 @@ nlu:
     - so good
     - so perfect
 
+<<<<<<< HEAD
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -89,3 +90,23 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+=======
+# If the action 'ValidateNameForm' recognizes a name with other intent as 'repetir_nombre' is due to lack of examples
+# Remove foxy example and try: hola -> manue -> foxy (own message)
+- intent: repetir_nombre
+  examples: |
+    - [aslan]{"entity":"first_name", "value":"aslan"}
+    - [roxan]{"entity":"first_name", "value":"roxan"}
+    - [tayana]{"entity":"first_name", "value":"tayana"}
+    - [jyl]{"entity":"first_name", "value":"jyl"}
+    - [nimra]{"entity":"first_name", "value":"nimra"}
+    - [hatsumi]{"entity":"first_name", "value":"hatsumi"}
+    - [danessa]{"entity":"first_name", "value":"danessa"}
+    - [seikichi]{"entity":"first_name", "value":"seikichi"}
+    - [rosene]{"entity":"first_name", "value":"rosene"}
+    - [claryssa]{"entity":"first_name", "value":"claryssa"}
+    - [satsuki]{"entity":"first_name", "value":"satsuki"}
+    - [manuelote]{"entity":"first_name", "value":"manuelote"}
+    - [foxy]{"entity":"first_name", "value":"foxy"}
+    - /repetir_nombre
+>>>>>>> e7fd007 (Added unrecognized username loop, added more username recognition)
