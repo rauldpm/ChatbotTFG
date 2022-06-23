@@ -28,6 +28,7 @@ rules:
     steps:
       - intent: saludo
       - action: utter_saludo
+      - action: utter_opciones
 
   - rule: El usuario pregunta quien es
     steps:
