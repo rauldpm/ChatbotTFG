@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
-=======
 import pathlib
 from typing import Text, List, Any, Dict, Optional
 
@@ -131,11 +102,5 @@ class ValidateNameForm(FormValidationAction):
                 dispatcher.utter_message(text=f"El nombre no cumple con los requisitos (minimo 3 letras y maximo 11)")
                 return {"first_name": None, "name_spelled_correctly": False}
             else:
-<<<<<<< HEAD
-                return {"first_name": slot_value}
-        return {"first_name": None, "name_spelled_correctly": False }
->>>>>>> e7fd007 (Added unrecognized username loop, added more username recognition)
-=======
                 return {"first_name": slot_value, "first_name_set": True}
         return {"first_name": None, "name_spelled_correctly": False}
->>>>>>> 8edb96e (Enhance user recognition)

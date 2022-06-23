@@ -1,46 +1,8 @@
 version: "3.1"
-<<<<<<< HEAD
-
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
-<<<<<<< HEAD
-=======
-=======
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 
->>>>>>> 8edb96e (Enhance user recognition)
 intents:
   - affirm
   - ask_nombre
@@ -142,15 +104,6 @@ responses:
     - text: ""
 
 actions:
-<<<<<<< HEAD
-- utter_ask_continue
-- utter_despedida
-- utter_saludo
-- utter_name_slots
-- validate_name_form
-
->>>>>>> e7fd007 (Added unrecognized username loop, added more username recognition)
-=======
   - opciones
   - utter_ask_name
   - utter_despedida
@@ -159,4 +112,3 @@ actions:
   - utter_saludo_identificacion
   - utter_ya_identificado
   - validate_name_form
->>>>>>> 8edb96e (Enhance user recognition)
