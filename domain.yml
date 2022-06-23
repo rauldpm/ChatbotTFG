@@ -1,4 +1,5 @@
 version: "3.1"
+<<<<<<< HEAD
 
 intents:
   - greet
@@ -34,51 +35,68 @@ session_config:
   carry_over_slots_to_new_session: true
 <<<<<<< HEAD
 =======
+=======
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+>>>>>>> 8edb96e (Enhance user recognition)
 intents:
-- saludo
-- despedida
-- affirm
-- deny
-- stop
-- repetir_nombre
+  - affirm
+  - ask_nombre
+  - deny
+  - despedida
+  - identificar
+  - cual_es_mi_nombre
+  - opciones
+  - repetir_nombre
+  - saludo
+  - stop
 
 entities:
-- first_name
-- first_name_save
+  - first_name
+  - first_name_save
 
 slots:
   first_name:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_text
-      conditions:
-      - active_loop: name_form
-        requested_slot: first_name
+      - type: from_text
+        conditions:
+          - active_loop: name_form
+            requested_slot: first_name
+
+  first_name_set:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: custom
+
   first_name_save:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_text
-      conditions:
-      - active_loop: name_form
-        requested_slot: first_name_save
+      - type: from_text
+        conditions:
+          - active_loop: name_form
+            requested_slot: first_name_save
+
   name_spelled_correctly:
     type: bool
     mappings:
-    - type: from_intent
-      intent: affirm
-      value: true
-      conditions:
-      - active_loop: name_form
-        requested_slot: first_name
-    - type: from_intent
-      intent: deny
-      value: false
-      conditions:
-      - active_loop: name_form
-        requested_slot: first_name
-
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: name_form
+            requested_slot: first_name
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: name_form
+            requested_slot: first_name
 
 forms:
   name_form:
@@ -87,26 +105,44 @@ forms:
 
 responses:
   utter_saludo:
-    - condition:
-      - type: slot
-        name: first_name
-        value: true
-      text: Hola {first_name}!
-    - text: Holi
+    - text: Hola
   utter_did_that_help:
-  - text: Did that help you?
+    - text: Did that help you?
   utter_despedida:
-  - text: Bye
+    - text: Hasta otra
   utter_parar:
-  - text: Parando
-  utter_name_slots:
-  - text: Encantado {first_name}
-  utter_ask_continue:
-  - text: Are you sure you want to stop the form?
+    - text: Parando
+  utter_saludo_identificacion:
+    - condition:
+        - type: slot
+          name: first_name_set
+          value: true
+      text: Hola {first_name}!
+    - text: ""
+  utter_te_llamas:
+    - condition:
+        - type: slot
+          name: first_name_set
+          value: true
+      text: Te llamas {first_name}
+    - text: Aun no me has dicho como te llamas, escribe "Identificarme" para establecer tu nombre
   utter_ask_name:
-  - text: Como te llamas?
+    - text: Introduce solo tu nombre, escribe "stop" para parar el formulario
+  utter_opciones:
+    - text: |
+        Estas son las opciones de las que dispones:
+        - Opciones
+        - Identificarme
+  utter_ya_identificado:
+    - condition:
+        - type: slot
+          name: first_name_set
+          value: true
+      text: Ya te has identificado
+    - text: ""
 
 actions:
+<<<<<<< HEAD
 - utter_ask_continue
 - utter_despedida
 - utter_saludo
@@ -114,3 +150,13 @@ actions:
 - validate_name_form
 
 >>>>>>> e7fd007 (Added unrecognized username loop, added more username recognition)
+=======
+  - opciones
+  - utter_ask_name
+  - utter_despedida
+  - utter_opciones
+  - utter_saludo
+  - utter_saludo_identificacion
+  - utter_ya_identificado
+  - validate_name_form
+>>>>>>> 8edb96e (Enhance user recognition)

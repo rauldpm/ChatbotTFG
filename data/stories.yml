@@ -1,6 +1,7 @@
 version: "3.1"
 
 stories:
+<<<<<<< HEAD
 
 - story: happy path
   steps:
@@ -28,3 +29,5 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+=======
+>>>>>>> 8edb96e (Enhance user recognition)

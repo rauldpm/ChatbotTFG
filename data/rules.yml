@@ -1,7 +1,9 @@
 version: "3.1"
 
 rules:
+  # -------------------------------------
 
+<<<<<<< HEAD
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
@@ -11,3 +13,55 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+=======
+  - rule: Despedida
+    steps:
+      - intent: despedida
+      - action: utter_despedida
+
+  - rule: Opciones
+    steps:
+      - intent: opciones
+      - action: utter_opciones
+
+  - rule: Saludo
+    steps:
+      - intent: saludo
+      - action: utter_saludo
+
+  - rule: El usuario pregunta quien es
+    steps:
+      - intent: cual_es_mi_nombre
+      - action: utter_te_llamas
+
+  # -------------------------------------
+
+  - rule: Avisa al usuario de que ya esta identificado
+    condition:
+      - slot_was_set:
+          - first_name_set: true
+    steps:
+      - intent: identificar
+      - action: utter_ya_identificado
+
+  - rule: Activa el formulario de identificacion
+    condition:
+      - slot_was_set:
+          - first_name_set: null
+    steps:
+      - intent: identificar
+      - action: utter_ask_name
+      - action: name_form
+      - active_loop: name_form
+
+  - rule: Termina el formulario de ifentificacion
+    condition:
+      - active_loop: name_form
+    steps:
+      - action: name_form
+      - active_loop: null
+      - slot_was_set:
+          - requested_slot: null
+      - action: utter_saludo_identificacion
+# -------------------------------------
+>>>>>>> 8edb96e (Enhance user recognition)
