@@ -180,6 +180,7 @@ nlu:
   - intent: identificar
     examples: |
       - identificarme
+      - quiero identificarme
       - /identificar
 
   - intent: cual_es_mi_nombre
