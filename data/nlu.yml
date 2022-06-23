@@ -1,91 +1,87 @@
 version: "3.1"
-
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+  - intent: saludo
+    examples: |
+      - hey
+      - hola
+      - holi
+      - que hay
+      - que pasa
+      - buenos dias
+      - buenas tardes
+      - buenas noches
+      - /saludo
 
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+  - intent: despedida
+    examples: |
+      - adios
+      - hasta otra
+      - hasta luego
+      - que tengas un buen dia
+      - nos vemos
+      - /despedida
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+  - intent: affirm
+    examples: |
+      - si
+      - yes
+      - y
+      - por supuesto
+      - claro
+      - suena bien
+      - /affirm
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - nunca
+      - no lo creo
+      - /deny
 
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+  - intent: stop
+    examples: |
+      - para
+      - da igual
+      - por favor para
+      - quiero parar
+      - para el formulario
+      - parar
+      - /stop
 
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+  - intent: repetir_nombre
+    examples: |
+      - [aslan](first_name)
+      - [roxan](first_name)
+      - [tayana](first_name)
+      - [jyl](first_name)
+      - [nimra](first_name)
+      - [hatsumi](first_name)
+      - [danessa](first_name)
+      - [seikichi](first_name)
+      - [rosene](first_name)
+      - [claryssa](first_name)
+      - [satsuki](first_name)
+      - [manuelote](first_name)
+      - [foxy](first_name)
+      - /repetir_nombre
 
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+  - intent: identificar
+    examples: |
+      - identificarme
+      - quiero identificarme
+      - /identificar
+
+  - intent: cual_es_mi_nombre
+    examples: |
+      - como me llamo
+      - cual es mi nombre
+      - quien soy
+      - sabes quien soy
+
+  - intent: opciones
+    examples: |
+      - Que puedo hacer?
+      - Dime que puedo hacer
+      - Muestrame las opciones
+      - /opciones
