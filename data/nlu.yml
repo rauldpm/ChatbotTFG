@@ -85,3 +85,21 @@ nlu:
       - Dime que puedo hacer
       - Muestrame las opciones
       - /opciones
+
+  - intent: horario
+    examples: |
+      - Que horario tienes
+      - Cuando estais abiertos
+      - /horario
+
+  - intent: apertura
+    examples: |
+      - A que hora abris
+      - Cuando abre el restaurante
+      - /apertura
+
+  - intent: cierre
+    examples: |
+      - A que hora cerrais
+      - Cuando cierra el restaurante
+      - /cierre

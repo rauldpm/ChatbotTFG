@@ -14,6 +14,9 @@ intents:
   - repetir_nombre
   - saludo
   - stop
+  - horario
+  - apertura
+  - cierre
 
 entities:
   - first_name
@@ -95,6 +98,9 @@ responses:
         Estas son las opciones de las que dispones:
         - Opciones
         - Identificarme
+        - Horario
+        - Apertura
+        - Cierre
   utter_ya_identificado:
     - condition:
         - type: slot
@@ -102,6 +108,8 @@ responses:
           value: true
       text: Ya te has identificado
     - text: ""
+  utter_horario:
+    - text: "Nuestro horario es:"
 
 actions:
   - opciones
@@ -112,3 +120,4 @@ actions:
   - utter_saludo_identificacion
   - utter_ya_identificado
   - validate_name_form
+  - GetHorario

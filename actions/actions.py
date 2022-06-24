@@ -1,9 +1,11 @@
 import pathlib
 from typing import Text, List, Any, Dict, Optional
+import json
 
 from rasa_sdk import Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
+from rasa_sdk.interfaces import Action
 
 names = pathlib.Path("data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path("data/diccionarios/malsonante.txt").read_text().split("\n")
@@ -104,3 +106,40 @@ class ValidateNameForm(FormValidationAction):
             else:
                 return {"first_name": slot_value, "first_name_set": True}
         return {"first_name": None, "name_spelled_correctly": False}
+
+class GetHorario(Action):
+    def name(self):
+        return 'GetHorario'
+
+    def run(self, dispatcher, tracker, domain):
+
+        f = open(pathlib.Path("data/menu/horario.json"))
+        data = json.load(f)
+        f.close()
+
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "horario" or intent == "apertura" or intent == "cierre":
+            dispatcher.utter_message(response="utter_horario")
+        if intent == "horario":
+            message = "" + \
+                "Lunes:     " + data["horario"]["Lunes"][0] + " - " + data["horario"]["Lunes"][1] + "\n" + \
+                "Martes:    " + data["horario"]["Martes"][0] + " - " + data["horario"]["Martes"][1] + "\n" + \
+                "Miercoles: " + data["horario"]["Miercoles"][0] + " - " + data["horario"]["Miercoles"][1] + "\n" + \
+                "Jueves:    " + data["horario"]["Jueves"][0] + " - " + data["horario"]["Jueves"][1] + "\n" + \
+                "Viernes:   " + data["horario"]["Viernes"][0] + " - " + data["horario"]["Viernes"][1] + "\n" + \
+                "Sabado:    " + data["horario"]["Sabado"][0] + " - " + data["horario"]["Sabado"][1] + "\n" + \
+                "Domingo:   " + data["horario"]["Domingo"][0] + " - " + data["horario"]["Domingo"][1] + "\n"
+        elif intent == "apertura" or intent == "cierre":
+            value = 0 if intent == "apertura" else 1
+            message = "" + \
+                "Lunes:     " + data["horario"]["Lunes"][value] + "\n" + \
+                "Martes:    " + data["horario"]["Martes"][value] + "\n" + \
+                "Miercoles: " + data["horario"]["Miercoles"][value] + "\n" + \
+                "Jueves:    " + data["horario"]["Jueves"][value] + "\n" + \
+                "Viernes:   " + data["horario"]["Viernes"][value] + "\n" + \
+                "Sabado:    " + data["horario"]["Sabado"][value] + "\n" + \
+                "Domingo:   " + data["horario"]["Domingo"][value] + "\n"
+        else:
+            message = ""
+        dispatcher.utter_message(message)
+        return ''
