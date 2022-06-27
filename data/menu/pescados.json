@@ -1,0 +1,29 @@
+{
+    "pescados": [
+        {
+            "id": "0",
+            "nombre": "Lubina a la espalda con salteado de ajetes tiernos",
+            "precio": "13"
+        },
+        {
+            "id": "1",
+            "nombre": "Salmon parrilla",
+            "precio": "14"
+        },
+        {
+            "id": "2",
+            "nombre": "Sardinas en escabeche",
+            "precio": "10"
+        },
+        {
+            "id": "3",
+            "nombre": "Bacalao al pil-pil",
+            "precio": "15"
+        },
+        {
+            "id": "4",
+            "nombre": "Ostras de Galicia en salsa tartara",
+            "precio": "12"
+        }
+    ]
+}

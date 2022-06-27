@@ -1,0 +1,29 @@
+{
+    "postres": [
+        {
+            "id": "0",
+            "nombre": "Queso, tarta cremosa",
+            "precio": "6€"
+        },
+        {
+            "id": "1",
+            "nombre": "Frutos rojos, en infusión con helado de yogur",
+            "precio": "5,50€"
+        },
+        {
+            "id": "2",
+            "nombre": "Milhojas de hojaldre y crema pastelera caramelizada",
+            "precio": "6€"
+        },
+        {
+            "id": "3",
+            "nombre": "Mango, curry rojo, apio y lima",
+            "precio": "6,5€"
+        },
+        {
+            "id": "4",
+            "nombre": "Tiramisú, así lo vemos nosotros",
+            "precio": "6€"
+        }
+    ]
+}
