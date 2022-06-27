@@ -87,3 +87,47 @@ rules:
           - requested_slot: null
       - action: utter_saludo_identificacion
 # -------------------------------------
+
+  - rule: Muestra el menu completo
+    steps:
+      - intent: menu
+      - action: GetMenu
+      - active_loop: GetMenu
+
+  - rule: Muestra el menu de entrantes
+    steps:
+      - intent: entrantes
+      - action: GetMenu
+      - active_loop: GetMenu
+
+  - rule: Muestra el menu de carnes
+    steps:
+      - intent: carnes
+      - action: GetMenu
+      - active_loop: GetMenu
+
+  - rule: Muestra el menu de pescados
+    steps:
+      - intent: pescados
+      - action: GetMenu
+      - active_loop: GetMenu
+
+  - rule: Muestra el menu de postres
+    steps:
+      - intent: postres
+      - action: GetMenu
+      - active_loop: GetMenu
+
+  - rule: Muestra el menu de bebidas
+    steps:
+      - intent: bebidas
+      - action: GetMenu
+      - active_loop: GetMenu
+
+  - rule: Submit menu
+    condition:
+      - active_loop: GetMenu
+    steps:
+      - action: GetMenu
+      - active_loop: null
+# -------------------------------------

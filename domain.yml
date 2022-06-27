@@ -7,17 +7,23 @@ intents:
   - affirm
   - apertura
   - ask_nombre
+  - bebidas
+  - carnes
   - cierre
   - cual_es_mi_nombre
   - deny
   - despedida
+  - entrantes
   - horario
   - horario_concreto
   - identificar
+  - menu
   - opciones
   - repetir_nombre
   - saludo
   - stop
+  - pescados
+  - postres
 
 entities:
   - first_name
@@ -118,6 +124,7 @@ responses:
 
 actions:
   - GetHorario
+  - GetMenu
   - opciones
   - utter_ask_name
   - utter_despedida

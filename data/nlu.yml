@@ -81,42 +81,75 @@ nlu:
 
   - intent: opciones
     examples: |
-      - Que puedo hacer?
-      - Dime que puedo hacer
-      - Muestrame las opciones
+      - que puedo hacer
+      - dime que puedo hacer
+      - muestrame las opciones
       - /opciones
 
   - intent: horario
     examples: |
-      - Que horario tienes
-      - Cuando estais abiertos
+      - que horario tienes
+      - cuando estais abiertos
       - /horario
 
   - intent: apertura
     examples: |
-      - A que hora abris
-      - Cuando abre el restaurante
+      - a que hora abris
+      - cuando abre el restaurante
       - /apertura
 
   - intent: cierre
     examples: |
-      - A que hora cerrais
-      - Cuando cierra el restaurante
+      - a que hora cerrais
+      - cuando cierra el restaurante
       - /cierre
 
   - intent: horario_concreto
     examples: |
-      - A que hora abris el [lunes](dia)
-      - A que hora abris el [martes](dia)
-      - A que hora abris el [miercoles](dia)
-      - A que hora abris el [jueves](dia)
-      - A que hora abris el [viernes](dia)
-      - A que hora abris el [sabado](dia)
-      - A que hora abris el [domingo](dia)
-      - A que hora cerrais el [lunes](dia)
-      - A que hora cerrais el [martes](dia)
-      - A que hora cerrais el [miercoles](dia)
-      - A que hora cerrais el [jueves](dia)
-      - A que hora cerrais el [viernes](dia)
-      - A que hora cerrais el [sabado](dia)
-      - A que hora cerrais el [domingo](dia)
+      - a que hora abris el [lunes](dia)
+      - a que hora abris el [martes](dia)
+      - a que hora abris el [miercoles](dia)
+      - a que hora abris el [jueves](dia)
+      - a que hora abris el [viernes](dia)
+      - a que hora abris el [sabado](dia)
+      - a que hora abris el [domingo](dia)
+      - a que hora cerrais el [lunes](dia)
+      - a que hora cerrais el [martes](dia)
+      - a que hora cerrais el [miercoles](dia)
+      - a que hora cerrais el [jueves](dia)
+      - a que hora cerrais el [viernes](dia)
+      - a que hora cerrais el [sabado](dia)
+      - a que hora cerrais el [domingo](dia)
+
+  - intent: menu
+    examples: |
+      - cual es vuestro menu
+      - dime el menu
+      - muestra el menu
+      - /menu
+
+  - intent: entrantes
+    examples: |
+      - muestrame los entrantes
+      - /entrantes
+
+
+  - intent: carnes
+    examples: |
+      - muestrame las carnes
+      - /carnes
+
+  - intent: pescados
+    examples: |
+      - muestrame los pescados
+      - /pescados
+
+  - intent: postres
+    examples: |
+      - muestrame los postres
+      - /postres
+
+  - intent: bebidas
+    examples: |
+      - muestrame las bebidas
+      - /bebidas

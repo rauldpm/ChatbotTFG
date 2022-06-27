@@ -12,7 +12,7 @@ names = pathlib.Path("data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path("data/diccionarios/malsonante.txt").read_text().split("\n")
 
 DIAS_SEMANA = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
-
+MENU = ["entrantes", "carnes", "pescados", "postres", "bebidas"]
 
 class ValidateNameForm(FormValidationAction):
 
@@ -142,4 +142,28 @@ class GetHorario(Action):
             else:
                 message = "El " + dia + " abrimos a las " + data["horario"][dia][0] + " y cerramos a las " + data["horario"][dia][1] + "."
         dispatcher.utter_message(message)
+        return ''
+
+class GetMenu(Action):
+    def name(self):
+        return 'GetMenu'
+
+    def getSubmenu(Action, tipo):
+        f = open(pathlib.Path("data/menu/"+tipo+".json"))
+        data = json.load(f)
+        f.close()
+        message = tipo.capitalize() + ":" + "\n"
+        for it in data[tipo]:
+            message += "Nombre: " + it['nombre'] + "\n"
+            message += "Precio: " + it['precio'] + "\n"
+        return message
+
+    def run(self, dispatcher, tracker, domain):
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "menu":
+            for item in MENU:
+                dispatcher.utter_message(self.getSubmenu(item))
+        elif intent in MENU:
+            dispatcher.utter_message(self.getSubmenu(intent))
+
         return ''
