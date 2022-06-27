@@ -1,30 +1,30 @@
 {
     "horario": {
-       "Lunes": [
+       "lunes": [
           "08:00",
           "23:00"
        ],
-       "Martes": [
+       "martes": [
           "Cerrado",
           "Cerrado"
        ],
-       "Miercoles": [
+       "miercoles": [
           "08:00",
           "23:00"
        ],
-       "Jueves": [
+       "jueves": [
           "08:00",
           "23:00"
        ],
-       "Viernes": [
+       "viernes": [
           "08:00",
           "23:00"
        ],
-       "Sabado": [
+       "sabado": [
           "08:00",
           "23:00"
        ],
-       "Domingo": [
+       "domingo": [
           "08:00",
           "23:00"
        ]

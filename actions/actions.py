@@ -6,9 +6,12 @@ from rasa_sdk import Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.interfaces import Action
+from rasa_sdk.events import SlotSet
 
 names = pathlib.Path("data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path("data/diccionarios/malsonante.txt").read_text().split("\n")
+
+DIAS_SEMANA = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
 
 
 class ValidateNameForm(FormValidationAction):
@@ -120,26 +123,23 @@ class GetHorario(Action):
         intent = tracker.get_intent_of_latest_message()
         if intent == "horario" or intent == "apertura" or intent == "cierre":
             dispatcher.utter_message(response="utter_horario")
+        message = ""
         if intent == "horario":
-            message = "" + \
-                "Lunes:     " + data["horario"]["Lunes"][0] + " - " + data["horario"]["Lunes"][1] + "\n" + \
-                "Martes:    " + data["horario"]["Martes"][0] + " - " + data["horario"]["Martes"][1] + "\n" + \
-                "Miercoles: " + data["horario"]["Miercoles"][0] + " - " + data["horario"]["Miercoles"][1] + "\n" + \
-                "Jueves:    " + data["horario"]["Jueves"][0] + " - " + data["horario"]["Jueves"][1] + "\n" + \
-                "Viernes:   " + data["horario"]["Viernes"][0] + " - " + data["horario"]["Viernes"][1] + "\n" + \
-                "Sabado:    " + data["horario"]["Sabado"][0] + " - " + data["horario"]["Sabado"][1] + "\n" + \
-                "Domingo:   " + data["horario"]["Domingo"][0] + " - " + data["horario"]["Domingo"][1] + "\n"
+            for dia in DIAS_SEMANA:
+                message += dia.capitalize() + ": " + data["horario"][dia][0] + " - " + data["horario"][dia][1] + "." + "\n"
         elif intent == "apertura" or intent == "cierre":
             value = 0 if intent == "apertura" else 1
-            message = "" + \
-                "Lunes:     " + data["horario"]["Lunes"][value] + "\n" + \
-                "Martes:    " + data["horario"]["Martes"][value] + "\n" + \
-                "Miercoles: " + data["horario"]["Miercoles"][value] + "\n" + \
-                "Jueves:    " + data["horario"]["Jueves"][value] + "\n" + \
-                "Viernes:   " + data["horario"]["Viernes"][value] + "\n" + \
-                "Sabado:    " + data["horario"]["Sabado"][value] + "\n" + \
-                "Domingo:   " + data["horario"]["Domingo"][value] + "\n"
-        else:
-            message = ""
+            for dia in DIAS_SEMANA:
+                message += dia.capitalize() + ": " + data["horario"][dia][value] + "." + "\n"
+        elif intent == "horario_concreto":
+            dia = tracker.get_slot("dia").lower()
+            if dia not in DIAS_SEMANA:
+                message = "Ese dia de la semana es incorrecto."
+                dispatcher.utter_message(message)
+                return [SlotSet("dia", None)]
+            elif data["horario"][dia][0] == "Cerrado":
+                message = "El " + dia + " estamos cerrados por descanso del personal."
+            else:
+                message = "El " + dia + " abrimos a las " + data["horario"][dia][0] + " y cerramos a las " + data["horario"][dia][1] + "."
         dispatcher.utter_message(message)
         return ''

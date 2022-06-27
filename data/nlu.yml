@@ -103,3 +103,20 @@ nlu:
       - A que hora cerrais
       - Cuando cierra el restaurante
       - /cierre
+
+  - intent: horario_concreto
+    examples: |
+      - A que hora abris el [lunes](dia)
+      - A que hora abris el [martes](dia)
+      - A que hora abris el [miercoles](dia)
+      - A que hora abris el [jueves](dia)
+      - A que hora abris el [viernes](dia)
+      - A que hora abris el [sabado](dia)
+      - A que hora abris el [domingo](dia)
+      - A que hora cerrais el [lunes](dia)
+      - A que hora cerrais el [martes](dia)
+      - A que hora cerrais el [miercoles](dia)
+      - A que hora cerrais el [jueves](dia)
+      - A que hora cerrais el [viernes](dia)
+      - A que hora cerrais el [sabado](dia)
+      - A que hora cerrais el [domingo](dia)
