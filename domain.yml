@@ -5,11 +5,15 @@ session_config:
 
 intents:
   - affirm
+  - apertura
   - ask_nombre
+  - cierre
+  - cual_es_mi_nombre
   - deny
   - despedida
+  - horario
+  - horario_concreto
   - identificar
-  - cual_es_mi_nombre
   - opciones
   - repetir_nombre
   - saludo
@@ -18,6 +22,7 @@ intents:
 entities:
   - first_name
   - first_name_save
+  - dia
 
 slots:
   first_name:
@@ -28,13 +33,11 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
-
   first_name_set:
     type: bool
     influence_conversation: true
     mappings:
       - type: custom
-
   first_name_save:
     type: text
     influence_conversation: true
@@ -43,7 +46,6 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name_save
-
   name_spelled_correctly:
     type: bool
     mappings:
@@ -59,6 +61,12 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
+  dia:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: dia
 
 forms:
   name_form:
@@ -95,6 +103,9 @@ responses:
         Estas son las opciones de las que dispones:
         - Opciones
         - Identificarme
+        - Horario
+        - Apertura
+        - Cierre
   utter_ya_identificado:
     - condition:
         - type: slot
@@ -102,8 +113,11 @@ responses:
           value: true
       text: Ya te has identificado
     - text: ""
+  utter_horario:
+    - text: "Nuestro horario es:"
 
 actions:
+  - GetHorario
   - opciones
   - utter_ask_name
   - utter_despedida

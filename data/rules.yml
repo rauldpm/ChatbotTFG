@@ -19,12 +19,45 @@ rules:
       - action: utter_saludo
       - action: utter_opciones
 
+  # -------------------------------------
+
+  - rule: El usuario pregunta por horario
+    steps:
+      - intent: horario
+      - action: GetHorario
+      - active_loop: GetHorario
+
+  - rule: El usuario pregunta por la apertura de un dia concreto
+    steps:
+      - intent: horario_concreto
+      - action: GetHorario
+      - active_loop: GetHorario
+
+  - rule: El usuario pregunta por apertura
+    steps:
+      - intent: apertura
+      - action: GetHorario
+      - active_loop: GetHorario
+
+  - rule: El usuario pregunta por cierre
+    steps:
+      - intent: cierre
+      - action: GetHorario
+      - active_loop: GetHorario
+
+  - rule: Submit horario
+    condition:
+      - active_loop: GetHorario
+    steps:
+      - action: GetHorario
+      - active_loop: null
+
+  # -------------------------------------
+
   - rule: El usuario pregunta quien es
     steps:
       - intent: cual_es_mi_nombre
       - action: utter_te_llamas
-
-  # -------------------------------------
 
   - rule: Avisa al usuario de que ya esta identificado
     condition:

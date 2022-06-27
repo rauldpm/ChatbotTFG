@@ -1,12 +1,17 @@
 import pathlib
 from typing import Text, List, Any, Dict, Optional
+import json
 
 from rasa_sdk import Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
+from rasa_sdk.interfaces import Action
+from rasa_sdk.events import SlotSet
 
 names = pathlib.Path("data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path("data/diccionarios/malsonante.txt").read_text().split("\n")
+
+DIAS_SEMANA = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
 
 
 class ValidateNameForm(FormValidationAction):
@@ -104,3 +109,37 @@ class ValidateNameForm(FormValidationAction):
             else:
                 return {"first_name": slot_value, "first_name_set": True}
         return {"first_name": None, "name_spelled_correctly": False}
+
+class GetHorario(Action):
+    def name(self):
+        return 'GetHorario'
+
+    def run(self, dispatcher, tracker, domain):
+
+        f = open(pathlib.Path("data/menu/horario.json"))
+        data = json.load(f)
+        f.close()
+
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "horario" or intent == "apertura" or intent == "cierre":
+            dispatcher.utter_message(response="utter_horario")
+        message = ""
+        if intent == "horario":
+            for dia in DIAS_SEMANA:
+                message += dia.capitalize() + ": " + data["horario"][dia][0] + " - " + data["horario"][dia][1] + "." + "\n"
+        elif intent == "apertura" or intent == "cierre":
+            value = 0 if intent == "apertura" else 1
+            for dia in DIAS_SEMANA:
+                message += dia.capitalize() + ": " + data["horario"][dia][value] + "." + "\n"
+        elif intent == "horario_concreto":
+            dia = tracker.get_slot("dia").lower()
+            if dia not in DIAS_SEMANA:
+                message = "Ese dia de la semana es incorrecto."
+                dispatcher.utter_message(message)
+                return [SlotSet("dia", None)]
+            elif data["horario"][dia][0] == "Cerrado":
+                message = "El " + dia + " estamos cerrados por descanso del personal."
+            else:
+                message = "El " + dia + " abrimos a las " + data["horario"][dia][0] + " y cerramos a las " + data["horario"][dia][1] + "."
+        dispatcher.utter_message(message)
+        return ''
