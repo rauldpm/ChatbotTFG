@@ -1,29 +1,29 @@
 {
     "carnes": [
         {
-            "id": "0",
+            "id": 10,
             "nombre": "Lomo con tomate al aroma de albahaca",
-            "precio": "32"
+            "precio": "32€"
         },
         {
-            "id": "1",
+            "id": 11,
             "nombre": "Chuletillas Lechazos",
-            "precio": "17"
+            "precio": "17€"
         },
         {
-            "id": "2",
+            "id": 12,
             "nombre": "Pulardita rellena de boletus y salsa de mostaza dijon",
-            "precio": "25"
+            "precio": "25€"
         },
         {
-            "id": "3",
+            "id": 13,
             "nombre": "Chuletón de cerdo ibérico a la parrilla",
-            "precio": "23"
+            "precio": "23€"
         },
         {
-            "id": "4",
+            "id": 14,
             "nombre": "Lomo bajo de buey a la parrilla",
-            "precio": "18"
+            "precio": "18€"
         }
     ]
 }
