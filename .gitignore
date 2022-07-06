@@ -6,3 +6,4 @@ models/*.tar.gz
 *.db
 *.dot
 *.html
+results
