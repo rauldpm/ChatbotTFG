@@ -86,48 +86,40 @@ rules:
       - slot_was_set:
           - requested_slot: null
       - action: utter_saludo_identificacion
-# -------------------------------------
 
-  - rule: Muestra el menu completo
+  # -------------------------------------
+
+  - rule: Menu selecionado
+    steps:
+      - intent: mi_menu
+      - action: GetUserMenu
+
+  - rule: Mostrar menu completo
     steps:
       - intent: menu
       - action: GetMenu
-      - active_loop: GetMenu
 
-  - rule: Muestra el menu de entrantes
+  - rule: Borrar entrante
     steps:
-      - intent: entrantes
-      - action: GetMenu
-      - active_loop: GetMenu
+      - intent: borrar_entrante
+      - action: ResetMenu
 
-  - rule: Muestra el menu de carnes
+  - rule: Borrar carne
     steps:
-      - intent: carnes
-      - action: GetMenu
-      - active_loop: GetMenu
+      - intent: borrar_carne
+      - action: ResetMenu
 
-  - rule: Muestra el menu de pescados
+  - rule: Borrar pescado
     steps:
-      - intent: pescados
-      - action: GetMenu
-      - active_loop: GetMenu
+      - intent: borrar_pescado
+      - action: ResetMenu
 
-  - rule: Muestra el menu de postres
+  - rule: Borrar postre
     steps:
-      - intent: postres
-      - action: GetMenu
-      - active_loop: GetMenu
+      - intent: borrar_postre
+      - action: ResetMenu
 
-  - rule: Muestra el menu de bebidas
+  - rule: Borrar bebida
     steps:
-      - intent: bebidas
-      - action: GetMenu
-      - active_loop: GetMenu
-
-  - rule: Submit menu
-    condition:
-      - active_loop: GetMenu
-    steps:
-      - action: GetMenu
-      - active_loop: null
-# -------------------------------------
+      - intent: borrar_bebida
+      - action: ResetMenu

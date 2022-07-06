@@ -2,36 +2,137 @@ version: "3.1"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-
 intents:
   - affirm
   - apertura
   - ask_nombre
-  - bebidas
-  - carnes
+  - borrar_bebida
+  - borrar_carne
+  - borrar_entrante
+  - borrar_menu
+  - borrar_pescado
+  - borrar_postre
   - cierre
   - cual_es_mi_nombre
   - deny
   - despedida
-  - entrantes
+  - establecer_menu
+  - establecer_plato_bebida
+  - establecer_plato_bebida_id
+  - establecer_plato_carne
+  - establecer_plato_carne_id
+  - establecer_plato_entrante
+  - establecer_plato_entrante_id
+  - establecer_plato_id
+  - establecer_plato_pescado
+  - establecer_plato_pescado_id
+  - establecer_plato_postre
+  - establecer_plato_postre_id
   - horario
   - horario_concreto
   - identificar
   - menu
+  - mi_menu
   - opciones
   - repetir_nombre
   - saludo
   - stop
-  - pescados
-  - postres
-
 entities:
+  - bebida_id
+  - bebida_nombre
+  - bebida_precio
+  - carne_id
+  - carne_nombre
+  - carne_precio
+  - categoria
+  - dia
+  - entrante_id
+  - entrante_nombre
+  - entrante_precio
   - first_name
   - first_name_save
-  - dia
-
+  - pescado_id
+  - pescado_nombre
+  - pescado_precio
+  - plato_id
+  - postre_id
+  - postre_nombre
+  - postre_precio
 slots:
+  bebida_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: bebida_id
+  bebida_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: bebida_nombre
+  bebida_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: bebida_precio
+  carne_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: carne_id
+  carne_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: carne_nombre
+  carne_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: carne_precio
+  categoria:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: categoria
+  dia:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: dia
+  entrante_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: entrante_id
+  entrante_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: entrante_nombre
+  entrante_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: entrante_precio
   first_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: name_form
+            requested_slot: first_name
+  first_name_save:
     type: text
     influence_conversation: true
     mappings:
@@ -44,14 +145,9 @@ slots:
     influence_conversation: true
     mappings:
       - type: custom
-  first_name_save:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_text
         conditions:
           - active_loop: name_form
-            requested_slot: first_name_save
+            requested_slot: first_name
   name_spelled_correctly:
     type: bool
     mappings:
@@ -67,27 +163,82 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
-  dia:
+  pescado_id:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: dia
-
+        entity: pescado_id
+  pescado_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: pescado_nombre
+  pescado_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: pescado_precio
+  plato_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        condition:
+          - active_loop: plato_form
+            requested_slot: plato_id
+  postre_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: postre_id
+  postre_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: postre_nombre
+  postre_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: postre_precio
 forms:
+  bebida_form:
+    required_slots:
+      - bebida_id
+  carne_form:
+    required_slots:
+      - carne_id
+  categoria_form:
+    required_slots:
+      - categoria
+  entrante_form:
+    required_slots:
+      - entrante_id
   name_form:
     required_slots:
       - first_name
-
+  pescado_form:
+    required_slots:
+      - pescado_id
+  plato_form:
+    required_slots:
+      - plato_id
+  postre_form:
+    required_slots:
+      - postre_id
 responses:
   utter_saludo:
-    - text: Hola
+    - text: Hola.
   utter_did_that_help:
-    - text: Did that help you?
+    - text: ¿Ha ayudado?
   utter_despedida:
-    - text: Hasta otra
-  utter_parar:
-    - text: Parando
+    - text: Hasta otra.
   utter_saludo_identificacion:
     - condition:
         - type: slot
@@ -101,9 +252,9 @@ responses:
           name: first_name_set
           value: true
       text: Te llamas {first_name}
-    - text: Aun no me has dicho como te llamas, escribe "Identificarme" para establecer tu nombre
+    - text: Aun no me has dicho como te llamas, escribe "Identificarme" para establecer tu nombre.
   utter_ask_name:
-    - text: Introduce solo tu nombre, escribe "stop" para parar el formulario
+    - text: Introduce solo tu nombre, escribe "stop" para parar el formulario.
   utter_opciones:
     - text: |
         Estas son las opciones de las que dispones:
@@ -112,24 +263,77 @@ responses:
         - Horario
         - Apertura
         - Cierre
+        - Establecer plato entrante
+        - Establecer plato de carne
+        - Establecer plato de pescado
+        - Establecer plato de postre
+        - Establecer la bebida
+        - Borrar menu
+        - Borrar plato entrante
+        - Borrar plato de carne
+        - Borrar plato de pescado
+        - Borrar postre
+        - Borrar bebida
   utter_ya_identificado:
     - condition:
         - type: slot
           name: first_name_set
           value: true
-      text: Ya te has identificado
+      text: Ya te has identificado.
     - text: ""
   utter_horario:
     - text: "Nuestro horario es:"
-
+  utter_show_menu:
+    - text: |
+        Estas son las categorias disponibles:
+        - Entrantes
+        - Carnes
+        - Pescados
+        - Postres
+        - Bebidas
+  utter_ask_categoria:
+    - text: Dime la categoria que deseas establecer.
+  utter_ask_plato_ids:
+    - text: Dime el ID del plato que deseas.
+  utter_entrante_seleccionado:
+    - text: Se ha establecido el plato "{entrante_nombre}" como entrante, con un precio de "{entrante_precio}".
+  utter_carne_seleccionado:
+    - text: Se ha establecido el plato "{carne_nombre}" como carne, con un precio de "{carne_precio}".
+  utter_pescado_seleccionado:
+    - text: Se ha establecido el plato "{pescado_nombre}" como pescado, con un precio de "{pescado_precio}".
+  utter_postre_seleccionado:
+    - text: Se ha establecido el plato "{postre_nombre}" como postre, con un precio de "{postre_precio}".
+  utter_bebida_seleccionado:
+    - text: Se ha establecido el plato "{bebida_nombre}" como bebida, con un precio de "{bebida_precio}".
+  utter_stop:
+    - text: Parando.
+  utter_restablecer:
+    - text: ¿Estas seguro de que quieres borrar todo el menu establecido?
+  utter_change_plato_info:
+    - text: Si en cualquier momento deseas cambiar el plato establecido, vuelve a repetir el proceso.
 actions:
   - GetHorario
   - GetMenu
+  - GetUserMenu
   - opciones
+  - ResetMenu
+  - utter_ask_categoria
   - utter_ask_name
+  - utter_ask_plato_ids
+  - utter_bebida_seleccionado
+  - utter_carne_seleccionado
+  - utter_change_plato_info
   - utter_despedida
+  - utter_entrante_seleccionado
   - utter_opciones
+  - utter_pescado_seleccionado
+  - utter_postre_seleccionado
+  - utter_restablecer
   - utter_saludo
   - utter_saludo_identificacion
+  - utter_show_menu
+  - utter_stop
   - utter_ya_identificado
+  - validate_categoria_form
   - validate_name_form
+  - validate_plato_form

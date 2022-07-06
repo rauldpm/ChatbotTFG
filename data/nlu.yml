@@ -10,8 +10,6 @@ nlu:
       - buenos dias
       - buenas tardes
       - buenas noches
-      - /saludo
-
   - intent: despedida
     examples: |
       - adios
@@ -19,8 +17,6 @@ nlu:
       - hasta luego
       - que tengas un buen dia
       - nos vemos
-      - /despedida
-
   - intent: affirm
     examples: |
       - si
@@ -29,16 +25,12 @@ nlu:
       - por supuesto
       - claro
       - suena bien
-      - /affirm
-
   - intent: deny
     examples: |
       - no
       - n
       - nunca
       - no lo creo
-      - /deny
-
   - intent: stop
     examples: |
       - para
@@ -47,8 +39,7 @@ nlu:
       - quiero parar
       - para el formulario
       - parar
-      - /stop
-
+      - stop
   - intent: repetir_nombre
     examples: |
       - [aslan](first_name)
@@ -65,45 +56,35 @@ nlu:
       - [manuelote](first_name)
       - [foxy](first_name)
       - /repetir_nombre
-
   - intent: identificar
     examples: |
       - identificarme
       - quiero identificarme
-      - /identificar
-
+      - identificar
   - intent: cual_es_mi_nombre
     examples: |
       - como me llamo
       - cual es mi nombre
       - quien soy
       - sabes quien soy
-
   - intent: opciones
     examples: |
       - que puedo hacer
       - dime que puedo hacer
       - muestrame las opciones
-      - /opciones
-
+      - opciones
   - intent: horario
     examples: |
       - que horario tienes
       - cuando estais abiertos
-      - /horario
-
   - intent: apertura
     examples: |
       - a que hora abris
       - cuando abre el restaurante
-      - /apertura
-
   - intent: cierre
     examples: |
       - a que hora cerrais
       - cuando cierra el restaurante
-      - /cierre
-
   - intent: horario_concreto
     examples: |
       - a que hora abris el [lunes](dia)
@@ -120,36 +101,88 @@ nlu:
       - a que hora cerrais el [viernes](dia)
       - a que hora cerrais el [sabado](dia)
       - a que hora cerrais el [domingo](dia)
-
   - intent: menu
     examples: |
       - cual es vuestro menu
       - dime el menu
       - muestra el menu
-      - /menu
-
-  - intent: entrantes
+      - menu
+  - intent: establecer_menu
     examples: |
-      - muestrame los entrantes
-      - /entrantes
-
-
-  - intent: carnes
+      - establecer menu
+      - quiero establecer el menu
+  - intent: establecer_plato_entrante
     examples: |
-      - muestrame las carnes
-      - /carnes
-
-  - intent: pescados
+      - quiero establecer el plato [entrante](categoria)
+      - establecer plato [entrante](categoria)
+      - establecer [entrante](categoria)
+      - [entrante](categoria)
+  - intent: establecer_plato_carne
     examples: |
-      - muestrame los pescados
-      - /pescados
-
-  - intent: postres
+      - quiero establecer el plato de [carne](categoria)
+      - establecer plato [carne](categoria)
+      - establecer [carne](categoria)
+      - [carne](categoria)
+  - intent: establecer_plato_pescado
     examples: |
-      - muestrame los postres
-      - /postres
-
-  - intent: bebidas
+      - quiero establecer el plato de [pescado](categoria)
+      - establecer plato [pescado](categoria)
+      - establecer [pescado](categoria)
+      - [pescado](categoria)
+  - intent: establecer_plato_postre
     examples: |
-      - muestrame las bebidas
-      - /bebidas
+      - quiero establecer el [postre](categoria)
+      - establecer plato [postre](categoria)
+      - establecer [postre](categoria)
+      - [postre](categoria)
+  - intent: establecer_plato_bebida
+    examples: |
+      - quiero establecer la [bebida](categoria)
+      - establecer plato [bebida](categoria)
+      - establecer [bebida](categoria)
+      - [bebida](categoria)
+  - intent: establecer_plato_id
+    examples: |
+      - [0](plato_id)
+      - [1](plato_id)
+      - [2](plato_id)
+      - [3](plato_id)
+      - [4](plato_id)
+      - [5](plato_id)
+      - [6](plato_id)
+      - [0](plato_id)
+  - intent: mi_menu
+    examples: |
+      - cual es mi menu
+      - muestrame mi menu
+      - que menu he elegido
+      - mi menu
+  - intent: borrar_menu
+    examples: |
+      - borrar menu
+      - resetear menu
+  - intent: borrar_entrante
+    examples: |
+      - borrar entrante
+      - borrar plato entrante
+      - restart entrante
+  - intent: borrar_carne
+    examples: |
+      - borrar carne
+      - borrar plato de carne
+      - restart carne
+  - intent: borrar_pescado
+    examples: |
+      - borrar pescado
+      - borrar plato de pescado
+      - restart pescado
+  - intent: borrar_postre
+    examples: |
+      - borrar postre
+      - borrar el postre
+      - restart postre
+  - intent: borrar_bebida
+    examples: |
+      - borrar bebida
+      - borrar la bebida
+      - restart bebida
