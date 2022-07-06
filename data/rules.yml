@@ -86,4 +86,40 @@ rules:
       - slot_was_set:
           - requested_slot: null
       - action: utter_saludo_identificacion
-# -------------------------------------
+
+  # -------------------------------------
+
+  - rule: Menu selecionado
+    steps:
+      - intent: mi_menu
+      - action: GetUserMenu
+
+  - rule: Mostrar menu completo
+    steps:
+      - intent: menu
+      - action: GetMenu
+
+  - rule: Borrar entrante
+    steps:
+      - intent: borrar_entrante
+      - action: ResetMenu
+
+  - rule: Borrar carne
+    steps:
+      - intent: borrar_carne
+      - action: ResetMenu
+
+  - rule: Borrar pescado
+    steps:
+      - intent: borrar_pescado
+      - action: ResetMenu
+
+  - rule: Borrar postre
+    steps:
+      - intent: borrar_postre
+      - action: ResetMenu
+
+  - rule: Borrar bebida
+    steps:
+      - intent: borrar_bebida
+      - action: ResetMenu
