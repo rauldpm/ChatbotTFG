@@ -1,3 +1,217 @@
 version: "3.1"
 
 stories:
+  - story: Establecer menu
+    steps:
+      - intent: establecer_menu
+      - action: utter_show_menu
+      - action: utter_ask_categoria
+
+  - story: Restablecer menu completo happy path
+    steps:
+      - intent: borrar_menu
+      - action: utter_restablecer
+      - intent: affirm
+      - action: ResetMenu
+
+  - story: Restablecer menu completo unhappy
+    steps:
+      - intent: borrar_menu
+      - action: utter_restablecer
+      - intent: deny
+      - action: ResetMenu
+
+  - story: interactive_story_1
+    steps:
+      - intent: establecer_plato_entrante
+        entities:
+          - categoria: entrantes
+      - slot_was_set:
+          - categoria: entrantes
+      - slot_was_set:
+          - plato_id: establecer plato entrante
+      - action: GetMenu
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: entrantes
+      - action: utter_ask_plato_ids
+      - action: plato_form
+      - active_loop: plato_form
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: entrantes
+      - slot_was_set:
+          - requested_slot: plato_id
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - categoria: null
+      - slot_was_set:
+          - entrante_id: "0"
+      - slot_was_set:
+          - entrante_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - entrante_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+
+  - story: interactive_story_1
+    steps:
+      - intent: establecer_plato_carne
+        entities:
+          - categoria: carnes
+      - slot_was_set:
+          - categoria: carnes
+      - slot_was_set:
+          - plato_id: establecer plato carne
+      - action: GetMenu
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: carnes
+      - action: utter_ask_plato_ids
+      - action: plato_form
+      - active_loop: plato_form
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: carnes
+      - slot_was_set:
+          - requested_slot: plato_id
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - categoria: null
+      - slot_was_set:
+          - carne_id: "0"
+      - slot_was_set:
+          - carne_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - carne_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+
+  - story: interactive_story_1
+    steps:
+      - intent: establecer_plato_pescado
+        entities:
+          - categoria: pescados
+      - slot_was_set:
+          - categoria: pescados
+      - slot_was_set:
+          - plato_id: establecer plato pescado
+      - action: GetMenu
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: pescados
+      - action: utter_ask_plato_ids
+      - action: plato_form
+      - active_loop: plato_form
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: pescados
+      - slot_was_set:
+          - requested_slot: plato_id
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - categoria: null
+      - slot_was_set:
+          - pescado_id: "0"
+      - slot_was_set:
+          - pescado_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - pescado_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+
+  - story: interactive_story_1
+    steps:
+      - intent: establecer_plato_postre
+        entities:
+          - categoria: postres
+      - slot_was_set:
+          - categoria: postres
+      - slot_was_set:
+          - plato_id: establecer plato postre
+      - action: GetMenu
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: postres
+      - action: utter_ask_plato_ids
+      - action: plato_form
+      - active_loop: plato_form
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: postres
+      - slot_was_set:
+          - requested_slot: plato_id
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - categoria: null
+      - slot_was_set:
+          - postre_id: "0"
+      - slot_was_set:
+          - postre_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - postre_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+
+  - story: interactive_story_1
+    steps:
+      - intent: establecer_plato_bebida
+        entities:
+          - categoria: bebidas
+      - slot_was_set:
+          - categoria: bebidas
+      - slot_was_set:
+          - plato_id: establecer plato bebida
+      - action: GetMenu
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: bebidas
+      - action: utter_ask_plato_ids
+      - action: plato_form
+      - active_loop: plato_form
+      - slot_was_set:
+          - plato_id: null
+      - slot_was_set:
+          - categoria: bebidas
+      - slot_was_set:
+          - requested_slot: plato_id
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - plato_id: "0"
+      - slot_was_set:
+          - categoria: null
+      - slot_was_set:
+          - bebida_id: "0"
+      - slot_was_set:
+          - bebida_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - bebida_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
