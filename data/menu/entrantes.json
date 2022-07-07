@@ -1,29 +1,29 @@
 {
-    "entrantes": [
-        {
-            "id": 0,
-            "nombre": "Alcachofa de temporada con foie caramelizado y velo panceta ibérica",
-            "precio": "4,5€ / unidad"
-        },
-        {
-            "id": 1,
-            "nombre": "Tempura de langostinos y esparragos trigueros con salsa Japo",
-            "precio": "16€"
-        },
-        {
-            "id": 2,
-            "nombre": "Garbanzos pedrosillanos salteados con carabinero",
-            "precio": "16€"
-        },
-        {
-            "id": 3,
-            "nombre": "Carpaccio de gamba, sriracha, tomate y ajoblanco",
-            "precio": "10€ / unidad"
-        },
-        {
-            "id": 4,
-            "nombre": "Carpaccio de vacuno con foie y aliño de trufa",
-            "precio": "12€"
-        }
-    ]
+  "entrantes": [
+    {
+      "id": 0,
+      "nombre": "Alcachofa de temporada con foie caramelizado y velo panceta ibérica",
+      "precio": "4,5€ / unidad"
+    },
+    {
+      "id": 1,
+      "nombre": "Tempura de langostinos y esparragos trigueros con salsa Japo",
+      "precio": "16€"
+    },
+    {
+      "id": 2,
+      "nombre": "Garbanzos pedrosillanos salteados con carabinero",
+      "precio": "16€"
+    },
+    {
+      "id": 3,
+      "nombre": "Carpaccio de gamba, sriracha, tomate y ajoblanco",
+      "precio": "10€ / unidad"
+    },
+    {
+      "id": 4,
+      "nombre": "Carpaccio de vacuno con foie y aliño de trufa",
+      "precio": "12€"
+    }
+  ]
 }
