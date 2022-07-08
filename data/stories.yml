@@ -1,6 +1,65 @@
 version: "3.1"
 
 stories:
+
+  - story: Reserva mesa happy path 1
+    steps:
+      - intent: hacer_reserva_comensales
+        entities:
+          - comensales: "4"
+      - slot_was_set:
+          - comensales: "4"
+      - action: ValidateComensales
+      - slot_was_set:
+          - comensales: "4"
+      - action: utter_ask_reservar_mesa
+      - intent: affirm
+      - action: ReservarMesa
+      - slot_was_set:
+          - mesa_reservada: 5
+
+  - story: Reserva mesa unhappy path 1
+    steps:
+      - intent: hacer_reserva_comensales
+        entities:
+          - comensales: "4"
+      - slot_was_set:
+          - comensales: "4"
+      - action: ValidateComensales
+      - slot_was_set:
+          - comensales: "4"
+      - slot_was_set:
+          - mesa_disponible: true
+      - action: utter_ask_reservar_mesa
+      - intent: deny
+      - action: ReservarMesa
+      - slot_was_set:
+          - comensales: null
+      - slot_was_set:
+          - mesa_reservada: null
+      - slot_was_set:
+          - mesa_disponible: null
+
+  - story: Eliminar reserva happy path 1
+    steps:
+      - intent: eliminar_reserva
+      - action: utter_ask_remove_reserva
+      - intent: affirm
+      - action: RemoveMesa
+      - slot_was_set:
+          - comensales: null
+      - slot_was_set:
+          - mesa_reservada: null
+
+  - story: Eliminar reserva unhappy path 1
+    steps:
+      - intent: eliminar_reserva
+      - action: utter_ask_remove_reserva
+      - intent: deny
+      - action: RemoveMesa
+
+  # -------------------------------------------
+
   - story: Establecer menu
     steps:
       - intent: establecer_menu
@@ -29,25 +88,25 @@ stories:
       - slot_was_set:
           - categoria: entrantes
       - slot_was_set:
-          - plato_id: establecer plato entrante
+          - cantidad: establecer plato entrante
       - action: GetMenu
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: entrantes
       - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+      - action: cantidad_form
+      - active_loop: cantidad_form
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: entrantes
       - slot_was_set:
-          - requested_slot: plato_id
+          - requested_slot: cantidad
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
           - categoria: null
       - slot_was_set:
@@ -68,25 +127,25 @@ stories:
       - slot_was_set:
           - categoria: carnes
       - slot_was_set:
-          - plato_id: establecer plato carne
+          - cantidad: establecer plato carne
       - action: GetMenu
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: carnes
       - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+      - action: cantidad_form
+      - active_loop: cantidad_form
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: carnes
       - slot_was_set:
-          - requested_slot: plato_id
+          - requested_slot: cantidad
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
           - categoria: null
       - slot_was_set:
@@ -107,25 +166,25 @@ stories:
       - slot_was_set:
           - categoria: pescados
       - slot_was_set:
-          - plato_id: establecer plato pescado
+          - cantidad: establecer plato pescado
       - action: GetMenu
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: pescados
       - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+      - action: cantidad_form
+      - active_loop: cantidad_form
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: pescados
       - slot_was_set:
-          - requested_slot: plato_id
+          - requested_slot: cantidad
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
           - categoria: null
       - slot_was_set:
@@ -146,25 +205,25 @@ stories:
       - slot_was_set:
           - categoria: postres
       - slot_was_set:
-          - plato_id: establecer plato postre
+          - cantidad: establecer plato postre
       - action: GetMenu
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: postres
       - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+      - action: cantidad_form
+      - active_loop: cantidad_form
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: postres
       - slot_was_set:
-          - requested_slot: plato_id
+          - requested_slot: cantidad
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
           - categoria: null
       - slot_was_set:
@@ -185,25 +244,25 @@ stories:
       - slot_was_set:
           - categoria: bebidas
       - slot_was_set:
-          - plato_id: establecer plato bebida
+          - cantidad: establecer plato bebida
       - action: GetMenu
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: bebidas
       - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+      - action: cantidad_form
+      - active_loop: cantidad_form
       - slot_was_set:
-          - plato_id: null
+          - cantidad: null
       - slot_was_set:
           - categoria: bebidas
       - slot_was_set:
-          - requested_slot: plato_id
+          - requested_slot: cantidad
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
-          - plato_id: "0"
+          - cantidad: "0"
       - slot_was_set:
           - categoria: null
       - slot_was_set:

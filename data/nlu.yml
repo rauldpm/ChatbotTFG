@@ -141,16 +141,15 @@ nlu:
       - establecer plato [bebida](categoria)
       - establecer [bebida](categoria)
       - [bebida](categoria)
-  - intent: establecer_plato_id
+  - intent: establecer_cantidad
     examples: |
-      - [0](plato_id)
-      - [1](plato_id)
-      - [2](plato_id)
-      - [3](plato_id)
-      - [4](plato_id)
-      - [5](plato_id)
-      - [6](plato_id)
-      - [0](plato_id)
+      - [0](cantidad)
+      - [1](cantidad)
+      - [2](cantidad)
+      - [3](cantidad)
+      - [4](cantidad)
+      - [5](cantidad)
+      - [6](cantidad)
   - intent: mi_menu
     examples: |
       - cual es mi menu
@@ -161,6 +160,11 @@ nlu:
     examples: |
       - borrar menu
       - resetear menu
+  - intent: borrar_plato
+    examples: |
+      - borrar plato
+      - quiero eliminar un plato
+      - eliminar plato
   - intent: borrar_entrante
     examples: |
       - borrar entrante
@@ -186,3 +190,47 @@ nlu:
       - borrar bebida
       - borrar la bebida
       - restart bebida
+  - intent: mostrar_cantidad_mesas_libres
+    examples: |
+      - hay mesas libres
+      - hay mesas disponibles
+      - teneis mesa disponibles
+      - hay sitio para reservar
+  - intent: mostrar_mesas_libres
+    examples: |
+      - muestrame las mesas libres
+      - muestrame las mesas disponibles
+      - que mesas libres teneis
+  - intent: hacer_reserva_comensales
+    examples: |
+      - quiero hacer reserva para [1](comensales) persona
+      - quiero hacer reserva para [2](comensales) personas
+      - quiero hacer reserva para [3](comensales) personas
+      - quiero hacer reserva para [4](comensales) personas
+      - quiero hacer reserva para [5](comensales) personas
+      - reserva para [1](comensales) persona
+      - reserva para [2](comensales) personas
+      - reserva para [3](comensales) personas
+      - reserva para [4](comensales) personas
+      - reserva para [5](comensales) personas
+      - reserva mesa [1](comensales) persona
+      - reserva mesa [2](comensales) personas
+      - reserva mesa [3](comensales) personas
+      - reserva mesa [4](comensales) personas
+      - reserva mesa [5](comensales) personas
+  - intent: reservar_mesa
+    examples: |
+      - quiero reservar mesa
+      - reservar mesa
+      - hacer reserva
+  - intent: eliminar_reserva
+    examples: |
+      - quiero eliminar reserva
+      - eliminar reserva
+      - cancelar reserva
+      - borrar reserva
+  - intent: mostrar_reserva_user
+    examples: |
+      - quiero ver mi reserva
+      - he reservado
+      - tengo reserva

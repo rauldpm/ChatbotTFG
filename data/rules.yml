@@ -99,6 +99,12 @@ rules:
       - intent: menu
       - action: GetMenu
 
+  - rule: Borrar plato generico
+    steps:
+      - intent: borrar_plato
+      - action: utter_ask_borrar_plato
+      - action: GetUserMenu
+
   - rule: Borrar entrante
     steps:
       - intent: borrar_entrante
@@ -123,3 +129,20 @@ rules:
     steps:
       - intent: borrar_bebida
       - action: ResetMenu
+
+  # -------------------------------------
+
+  - rule: Mostrar mesas disponibles
+    steps:
+      - intent: mostrar_cantidad_mesas_libres
+      - action: GetMesasLibres
+
+  - rule: Reservar mesa general
+    steps:
+      - intent: reservar_mesa
+      - action: utter_ask_reservar_mesa_general
+
+  - rule: Mostrar reserva de usuario
+    steps:
+      - intent: mostrar_reserva_user
+      - action: MostrarReserva

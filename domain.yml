@@ -11,30 +11,37 @@ intents:
   - borrar_entrante
   - borrar_menu
   - borrar_pescado
+  - borrar_plato
   - borrar_postre
   - cierre
   - cual_es_mi_nombre
   - deny
   - despedida
+  - eliminar_reserva
   - establecer_menu
+  - establecer_cantidad
   - establecer_plato_bebida
   - establecer_plato_bebida_id
   - establecer_plato_carne
   - establecer_plato_carne_id
   - establecer_plato_entrante
   - establecer_plato_entrante_id
-  - establecer_plato_id
   - establecer_plato_pescado
   - establecer_plato_pescado_id
   - establecer_plato_postre
   - establecer_plato_postre_id
+  - hacer_reserva_comensales
   - horario
   - horario_concreto
   - identificar
   - menu
   - mi_menu
+  - mostrar_cantidad_mesas_libres
+  - mostrar_mesas_libres
+  - mostrar_reserva_user
   - opciones
   - repetir_nombre
+  - reservar_mesa
   - saludo
   - stop
 entities:
@@ -44,17 +51,21 @@ entities:
   - carne_id
   - carne_nombre
   - carne_precio
+  - cantidad
   - categoria
+  - comensales
   - dia
   - entrante_id
   - entrante_nombre
   - entrante_precio
   - first_name
   - first_name_save
+  - mesa_disponible
+  - mesa_reservada
   - pescado_id
   - pescado_nombre
   - pescado_precio
-  - plato_id
+  - plato_establecido
   - postre_id
   - postre_nombre
   - postre_precio
@@ -77,6 +88,15 @@ slots:
     mappings:
       - type: from_entity
         entity: bebida_precio
+  cantidad:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: cantidad
+        condition:
+          - active_loop: cantidad_form
+            requested_slot: cantidad
   carne_id:
     type: text
     influence_conversation: true
@@ -100,6 +120,12 @@ slots:
     mappings:
       - type: from_entity
         entity: categoria
+  comensales:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: comensales
   dia:
     type: text
     influence_conversation: true
@@ -148,6 +174,17 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
+  mesa_disponible:
+    type: bool
+    mappings:
+      - type: from_entity
+        entity: mesa_disponible
+        value: true
+  mesa_reservada:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: mesa_reservada
   name_spelled_correctly:
     type: bool
     mappings:
@@ -181,14 +218,13 @@ slots:
     mappings:
       - type: from_entity
         entity: pescado_precio
-  plato_id:
-    type: text
+  plato_establecido:
+    type: bool
     influence_conversation: true
     mappings:
-      - type: from_text
-        condition:
-          - active_loop: plato_form
-            requested_slot: plato_id
+      - type: from_entity
+        entity: plato_establecido
+        value: false
   postre_id:
     type: text
     influence_conversation: true
@@ -211,6 +247,9 @@ forms:
   bebida_form:
     required_slots:
       - bebida_id
+  cantidad_form:
+    required_slots:
+      - cantidad
   carne_form:
     required_slots:
       - carne_id
@@ -226,9 +265,6 @@ forms:
   pescado_form:
     required_slots:
       - pescado_id
-  plato_form:
-    required_slots:
-      - plato_id
   postre_form:
     required_slots:
       - postre_id
@@ -263,11 +299,7 @@ responses:
         - Horario
         - Apertura
         - Cierre
-        - Establecer plato entrante
-        - Establecer plato de carne
-        - Establecer plato de pescado
-        - Establecer plato de postre
-        - Establecer la bebida
+        - Establecer menu
         - Borrar menu
         - Borrar plato entrante
         - Borrar plato de carne
@@ -308,18 +340,46 @@ responses:
   utter_stop:
     - text: Parando.
   utter_restablecer:
-    - text: ¿Estas seguro de que quieres borrar todo el menu establecido?
+    - text: ¿Estas seguro de que quieres borrar todo el menu establecido? (Si/No)
   utter_change_plato_info:
     - text: Si en cualquier momento deseas cambiar el plato establecido, vuelve a repetir el proceso.
+  utter_ask_numero_comensales:
+    - text: ¿Cuantos comensales sereis?
+  utter_ask_reservar_mesa:
+    - condition:
+        - type: slot
+          name: mesa_disponible
+          value: False
+      text: ""
+    - text: ¿Quieres reservar mesa? (Si/No)
+  utter_ask_reservar_mesa_general:
+    - text: "Para reservar mesa introduce: <Reservar mesa para X comensales>, donde X es el numero de personas."
+  utter_ask_remove_reserva:
+    - text: "¿Estas seguro de querer eliminar la reserva?"
+  utter_ask_borrar_plato:
+    - condition:
+        - type: slot
+          name: plato_establecido
+          value: True
+      text: "¿Que plato quieres eliminar? Escribe <Borrar plato categoria>"
+    - text: ""
 actions:
   - GetHorario
   - GetMenu
+  - GetMesasLibres
   - GetUserMenu
+  - MostrarReserva
   - opciones
+  - RemoveMesa
+  - ReservarMesa
   - ResetMenu
   - utter_ask_categoria
+  - utter_ask_borrar_plato
   - utter_ask_name
   - utter_ask_plato_ids
+  - utter_ask_remove_reserva
+  - utter_ask_reservar_mesa
+  - utter_ask_reservar_mesa_general
   - utter_bebida_seleccionado
   - utter_carne_seleccionado
   - utter_change_plato_info
@@ -334,6 +394,7 @@ actions:
   - utter_show_menu
   - utter_stop
   - utter_ya_identificado
+  - validate_cantidad_form
   - validate_categoria_form
   - validate_name_form
-  - validate_plato_form
+  - ValidateComensales
