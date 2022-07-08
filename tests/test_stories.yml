@@ -31,3 +31,79 @@ stories:
           No
         intent: deny
       - action: ResetMenu
+
+  # -------------------------------------------
+
+  - story: Reserva mesa happy path 1
+    steps:
+      - user: |
+          quiero hacer reserva para [4]{"entity": "comensales"} comensales
+        intent: hacer_reserva_comensales
+        entities:
+          - comensales: "4"
+      - slot_was_set:
+          - comensales: "4"
+      - action: ValidateComensales
+      - slot_was_set:
+          - comensales: "4"
+      - action: utter_ask_reservar_mesa
+      - user: |
+          Si
+        intent: affirm
+      - action: ReservarMesa
+      - slot_was_set:
+          - mesa_reservada: 5
+
+  - story: Reserva mesa unhappy path 1
+    steps:
+      - user: |
+          quiero hacer reserva para [4](comensales) comensales
+        intent: hacer_reserva_comensales
+        entities:
+          - comensales: "4"
+      - slot_was_set:
+          - comensales: "4"
+      - action: ValidateComensales
+      - slot_was_set:
+          - comensales: "4"
+      - slot_was_set:
+          - mesa_disponible: true
+      - action: utter_ask_reservar_mesa
+      - user: |
+          No
+        intent: deny
+      - action: ReservarMesa
+      - slot_was_set:
+          - comensales: null
+      - slot_was_set:
+          - mesa_reservada: null
+      - slot_was_set:
+          - mesa_disponible: null
+
+  - story: Eliminar reserva happy path 1
+    steps:
+      - user: |
+          borrar reserva
+        intent: eliminar_reserva
+      - action: utter_ask_remove_reserva
+      - user: |
+          Si
+        intent: affirm
+      - action: RemoveMesa
+      - slot_was_set:
+          - comensales: null
+      - slot_was_set:
+          - mesa_reservada: null
+
+  - story: Eliminar reserva unhappy path 1
+    steps:
+      - user: |
+          borrar reserva
+        intent: eliminar_reserva
+      - action: utter_ask_remove_reserva
+      - user: |
+          No
+        intent: deny
+      - action: RemoveMesa
+
+# -------------------------------------------
