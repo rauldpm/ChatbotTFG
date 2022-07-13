@@ -1,0 +1,1068 @@
+{
+  "horas": {
+    "lunes": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ],
+    "martes": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ],
+    "miercoles": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ],
+    "jueves": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ],
+    "viernes": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ],
+    "sabado": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ],
+    "domingo": [
+      {
+        "id": 0,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 1,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 2,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 3,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 4,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 5,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 6,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 7,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 8,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      },
+      {
+        "id": 9,
+        "max_comensales": "4",
+        "comensales": "0",
+        "ocupada": "False",
+        "time": {
+          "08:00": "False",
+          "10:00": "False",
+          "12:00": "False",
+          "14:00": "False",
+          "16:00": "False",
+          "18:00": "False",
+          "20:00": "False"
+        }
+      }
+    ]
+  }
+}

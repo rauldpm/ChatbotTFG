@@ -2,63 +2,143 @@
   "mesas": [
     {
       "id": 0,
-      "max_comensales": "2",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 1,
-      "max_comensales": "2",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 2,
-      "max_comensales": "2",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 3,
-      "max_comensales": "2",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 4,
-      "max_comensales": "2",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 5,
-      "max_comensales": "4",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 6,
-      "max_comensales": "4",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 7,
-      "max_comensales": "4",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 8,
-      "max_comensales": "4",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     },
     {
       "id": 9,
-      "max_comensales": "4",
-      "comensales": "0",
-      "ocupada": "False"
+      "ocupada_dia": [
+        {
+          "lunes": "False",
+          "martes": "False",
+          "miercoles": "False",
+          "jueves": "False",
+          "viernes": "False",
+          "sabado": "False",
+          "domingo": "False"
+        }
+      ]
     }
   ]
 }
