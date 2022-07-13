@@ -7,3 +7,5 @@ models/*.tar.gz
 *.dot
 *.html
 results
+.keras
+.config
