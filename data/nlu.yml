@@ -25,6 +25,7 @@ nlu:
       - por supuesto
       - claro
       - suena bien
+      - /affirm
   - intent: deny
     examples: |
       - no
@@ -40,6 +41,158 @@ nlu:
       - para el formulario
       - parar
       - stop
+  - intent: reservar
+    examples: |
+      - quiero reservar mesa
+      - reservar mesa
+      - hacer reserva
+  - intent: reserva_borrar_mesa
+    examples: |
+      - eliminar reserva
+      - eliminar mesa
+      - borrar reserva
+      - borrar mesa
+  - intent: establecer_menu
+    examples: |
+      - quiero establecer el menu
+      - establecer menu
+  - intent: establecer_menu_plato
+    examples: |
+      - [entrante](menu_plato_categoria)
+      - [carne](menu_plato_categoria)
+      - [pescado](menu_plato_categoria)
+      - [postre](menu_plato_categoria)
+      - [bebida](menu_plato_categoria)
+      - [entrantes](menu_plato_categoria)
+      - [carnes](menu_plato_categoria)
+      - [pescados](menu_plato_categoria)
+      - [postres](menu_plato_categoria)
+      - [bebidas](menu_plato_categoria)
+      - establecer [entrante](menu_plato_categoria)
+      - establecer [carne](menu_plato_categoria)
+      - establecer [pescado](menu_plato_categoria)
+      - establecer [postre](menu_plato_categoria)
+      - establecer [bebida](menu_plato_categoria)
+      - establecer [entrantes](menu_plato_categoria)
+      - establecer [carnes](menu_plato_categoria)
+      - establecer [pescados](menu_plato_categoria)
+      - establecer [postres](menu_plato_categoria)
+      - establecer [bebidas](menu_plato_categoria)
+      - establecer plato [entrante](menu_plato_categoria)
+      - establecer plato [carne](menu_plato_categoria)
+      - establecer plato [pescado](menu_plato_categoria)
+      - establecer plato [postre](menu_plato_categoria)
+      - establecer plato [bebida](menu_plato_categoria)
+      - establecer plato [entrantes](menu_plato_categoria)
+      - establecer plato [carnes](menu_plato_categoria)
+      - establecer plato [pescados](menu_plato_categoria)
+      - establecer plato [postres](menu_plato_categoria)
+      - establecer plato [bebidas](menu_plato_categoria)
+      - quiero establecer [entrante](menu_plato_categoria)
+      - quiero establecer [carne](menu_plato_categoria)
+      - quiero establecer [pescado](menu_plato_categoria)
+      - quiero establecer [postre](menu_plato_categoria)
+      - quiero establecer [bebida](menu_plato_categoria)
+      - quiero establecer [entrantes](menu_plato_categoria)
+      - quiero establecer [carnes](menu_plato_categoria)
+      - quiero establecer [pescados](menu_plato_categoria)
+      - quiero establecer [postres](menu_plato_categoria)
+      - quiero establecer [bebidas](menu_plato_categoria)
+      - quiero establecer el plato [entrante](menu_plato_categoria)
+      - quiero establecer el plato [carne](menu_plato_categoria)
+      - quiero establecer el plato [pescado](menu_plato_categoria)
+      - quiero establecer el plato [postre](menu_plato_categoria)
+      - quiero establecer el plato [bebida](menu_plato_categoria)
+      - quiero establecer el plato [entrantes](menu_plato_categoria)
+      - quiero establecer el plato [carnes](menu_plato_categoria)
+      - quiero establecer el plato [pescados](menu_plato_categoria)
+      - quiero establecer el plato [postres](menu_plato_categoria)
+      - quiero establecer el plato [bebidas](menu_plato_categoria)
+  - intent: dia
+    examples: |
+      - [lunes](reserva_dia)
+      - [lun](reserva_dia)
+      - [martes](reserva_dia)
+      - [miercoles](reserva_dia)
+      - [mier](reserva_dia)
+      - [jueves](reserva_dia)
+      - [jue](reserva_dia)
+      - [viernes](reserva_dia)
+      - [vier](reserva_dia)
+      - [sabado](reserva_dia)
+      - [saba](reserva_dia)
+      - [domingo](reserva_dia)
+      - [domi](reserva_dia)
+      - [hoy](reserva_dia)
+      - [mañana](reserva_dia)
+      - [pasado mañana](reserva_dia)
+  - intent: hora
+    examples: |
+      - [10:00](reserva_hora)
+      - [12:00](reserva_hora)
+      - [14:00](reserva_hora)
+      - [16:00](reserva_hora)
+      - [18:00](reserva_hora)
+      - [20:00](reserva_hora)
+  - intent: comensales
+    examples: |
+      - [1](reserva_comensales)
+      - [2](reserva_comensales)
+      - [3](reserva_comensales)
+      - [4](reserva_comensales)
+      - [5](reserva_comensales)
+      - [6](reserva_comensales)
+      - [7](reserva_comensales)
+      - [8](reserva_comensales)
+  - intent: menu_plato_id
+    examples: |
+      - [0E](menu_plato_id)
+      - [1E](menu_plato_id)
+      - [2E](menu_plato_id)
+      - [3E](menu_plato_id)
+      - [0B](menu_plato_id)
+      - [1B](menu_plato_id)
+      - [2B](menu_plato_id)
+      - [0D](menu_plato_id)
+      - [1D](menu_plato_id)
+      - [2D](menu_plato_id)
+      - [0P](menu_plato_id)
+      - [1P](menu_plato_id)
+      - [2P](menu_plato_id)
+      - [0E](menu_plato_id)
+  - intent: menu_borra_plato
+    examples: |
+      - borrar plato
+      - borrar plato entrantes
+      - borrar plato carne
+      - borrar plato de carne
+      - borrar plato pescado
+      - borrar plato de pescado
+      - borrar plato postre
+      - borrar postre
+      - borrar bebida
+      - eliminar plato
+      - restablecer plato
+  - intent: menu_borra_todo
+    examples: |
+      - borrar menu
+      - eliminar menu
+      - restablecer menu
+  - intent: menu_completo
+    examples: |
+      - muestrame todo el menu
+      - menu completo
+      - cual es vuestro menu
+      - dime el menu
+      - muestrame la carta
+      - muestra el menu
+      - menu
+  - intent: menu_usuario
+    examples: |
+      - muestrame mi menu
+      - que menu tengo
+      - mi menu
+      - menu establecido
   - intent: repetir_nombre
     examples: |
       - [aslan](first_name)
@@ -79,14 +232,19 @@ nlu:
       - cuando estais abiertos
   - intent: apertura
     examples: |
+      - apertura
       - a que hora abris
       - cuando abre el restaurante
   - intent: cierre
     examples: |
+      - cierre
       - a que hora cerrais
       - cuando cierra el restaurante
   - intent: horario_concreto
     examples: |
+      - a que hora abris el [hoy](dia)
+      - a que hora abris el [mañana](dia)
+      - a que hora abris el [pasado mañana](dia)
       - a que hora abris el [lunes](dia)
       - a que hora abris el [martes](dia)
       - a que hora abris el [miercoles](dia)
@@ -94,6 +252,9 @@ nlu:
       - a que hora abris el [viernes](dia)
       - a que hora abris el [sabado](dia)
       - a que hora abris el [domingo](dia)
+      - a que hora cerrais el [hoy](dia)
+      - a que hora cerrais el [mañana](dia)
+      - a que hora cerrais el [pasado mañana](dia)
       - a que hora cerrais el [lunes](dia)
       - a que hora cerrais el [martes](dia)
       - a que hora cerrais el [miercoles](dia)
@@ -101,88 +262,15 @@ nlu:
       - a que hora cerrais el [viernes](dia)
       - a que hora cerrais el [sabado](dia)
       - a que hora cerrais el [domingo](dia)
-  - intent: menu
+  - intent: reserva_usuario
     examples: |
-      - cual es vuestro menu
-      - dime el menu
-      - muestra el menu
-      - menu
-  - intent: establecer_menu
+      - mi reserva
+      - datos de la reserva
+      - que he reservado
+  - intent: identificar_borrar
     examples: |
-      - establecer menu
-      - quiero establecer el menu
-  - intent: establecer_plato_entrante
-    examples: |
-      - quiero establecer el plato [entrante](categoria)
-      - establecer plato [entrante](categoria)
-      - establecer [entrante](categoria)
-      - [entrante](categoria)
-  - intent: establecer_plato_carne
-    examples: |
-      - quiero establecer el plato de [carne](categoria)
-      - establecer plato [carne](categoria)
-      - establecer [carne](categoria)
-      - [carne](categoria)
-  - intent: establecer_plato_pescado
-    examples: |
-      - quiero establecer el plato de [pescado](categoria)
-      - establecer plato [pescado](categoria)
-      - establecer [pescado](categoria)
-      - [pescado](categoria)
-  - intent: establecer_plato_postre
-    examples: |
-      - quiero establecer el [postre](categoria)
-      - establecer plato [postre](categoria)
-      - establecer [postre](categoria)
-      - [postre](categoria)
-  - intent: establecer_plato_bebida
-    examples: |
-      - quiero establecer la [bebida](categoria)
-      - establecer plato [bebida](categoria)
-      - establecer [bebida](categoria)
-      - [bebida](categoria)
-  - intent: establecer_plato_id
-    examples: |
-      - [0](plato_id)
-      - [1](plato_id)
-      - [2](plato_id)
-      - [3](plato_id)
-      - [4](plato_id)
-      - [5](plato_id)
-      - [6](plato_id)
-      - [0](plato_id)
-  - intent: mi_menu
-    examples: |
-      - cual es mi menu
-      - muestrame mi menu
-      - que menu he elegido
-      - mi menu
-  - intent: borrar_menu
-    examples: |
-      - borrar menu
-      - resetear menu
-  - intent: borrar_entrante
-    examples: |
-      - borrar entrante
-      - borrar plato entrante
-      - restart entrante
-  - intent: borrar_carne
-    examples: |
-      - borrar carne
-      - borrar plato de carne
-      - restart carne
-  - intent: borrar_pescado
-    examples: |
-      - borrar pescado
-      - borrar plato de pescado
-      - restart pescado
-  - intent: borrar_postre
-    examples: |
-      - borrar postre
-      - borrar el postre
-      - restart postre
-  - intent: borrar_bebida
-    examples: |
-      - borrar bebida
-      - borrar la bebida
-      - restart bebida
+      - borrar identificacion
+      - eliminar identficiarcion
+      - borrar mi nombre
+      - eliminar mi nombre
+      - olvidame

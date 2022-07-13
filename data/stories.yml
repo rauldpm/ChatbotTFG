@@ -1,217 +1,540 @@
 version: "3.1"
 
 stories:
-  - story: Establecer menu
-    steps:
-      - intent: establecer_menu
-      - action: utter_show_menu
-      - action: utter_ask_categoria
+  # -------------------------------------
+  # Menu
+  # -------------------------------------
 
-  - story: Restablecer menu completo happy path
+  - story: Borrar plato entrante happy path
     steps:
-      - intent: borrar_menu
-      - action: utter_restablecer
+      - intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
       - intent: affirm
-      - action: ResetMenu
+      - action: utter_menu_borrar_plato_selecciona
+      - intent: menu_plato_id
+        entities:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - action: MenuBorrarPlato
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_entrante_id: null
+      - slot_was_set:
+          - menu_entrante_nombre: null
+      - slot_was_set:
+          - menu_entrante_precio: null
 
-  - story: Restablecer menu completo unhappy
+  - story: Borrar plato carne happy path
     steps:
-      - intent: borrar_menu
-      - action: utter_restablecer
+      - intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - intent: affirm
+      - action: utter_menu_borrar_plato_selecciona
+      - intent: menu_plato_id
+        entities:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - action: MenuBorrarPlato
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_carne_id: null
+      - slot_was_set:
+          - menu_carne_nombre: null
+      - slot_was_set:
+          - menu_carne_precio: null
+
+  - story: Borrar plato pescado happy path
+    steps:
+      - intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - intent: affirm
+      - action: utter_menu_borrar_plato_selecciona
+      - intent: menu_plato_id
+        entities:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - action: MenuBorrarPlato
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_pescado_id: null
+      - slot_was_set:
+          - menu_pescado_nombre: null
+      - slot_was_set:
+          - menu_pescado_precio: null
+
+  - story: Borrar plato postre happy path
+    steps:
+      - intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - intent: affirm
+      - action: utter_menu_borrar_plato_selecciona
+      - intent: menu_plato_id
+        entities:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - action: MenuBorrarPlato
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_postre_id: null
+      - slot_was_set:
+          - menu_postre_nombre: null
+      - slot_was_set:
+          - menu_postre_precio: null
+
+  - story: Borrar plato bebida happy path
+    steps:
+      - intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - intent: affirm
+      - action: utter_menu_borrar_plato_selecciona
+      - intent: menu_plato_id
+        entities:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - action: MenuBorrarPlato
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_bebida_id: null
+      - slot_was_set:
+          - menu_bebida_nombre: null
+      - slot_was_set:
+          - menu_bebida_precio: null
+
+  - story: Borrar plato unhappy path
+    steps:
+      - intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
       - intent: deny
-      - action: ResetMenu
+      - action: utter_menu_borrar_deny
 
-  - story: interactive_story_1
+  - story: Borrar menu happy path
     steps:
-      - intent: establecer_plato_entrante
+      - intent: menu_borra_todo
+      - action: utter_menu_borrar_todo
+      - intent: affirm
+      - action: MenuBorrarTodo
+      - slot_was_set:
+          - menu_entrante_id: null
+      - slot_was_set:
+          - menu_entrante_nombre: null
+      - slot_was_set:
+          - menu_entrante_precio: null
+      - slot_was_set:
+          - menu_carne_id: null
+      - slot_was_set:
+          - menu_carne_nombre: null
+      - slot_was_set:
+          - menu_carne_precio: null
+      - slot_was_set:
+          - menu_pescado_id: null
+      - slot_was_set:
+          - menu_pescado_nombre: null
+      - slot_was_set:
+          - menu_pescado_precio: null
+      - slot_was_set:
+          - menu_postre_id: null
+      - slot_was_set:
+          - menu_postre_nombre: null
+      - slot_was_set:
+          - menu_postre_precio: null
+      - slot_was_set:
+          - menu_bebida_id: null
+      - slot_was_set:
+          - menu_bebida_nombre: null
+      - slot_was_set:
+          - menu_bebida_precio: null
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_plato_categoria: null
+
+  - story: Borrar menu unhappy path
+    steps:
+      - intent: menu_borra_todo
+      - action: utter_menu_borrar_todo
+      - intent: deny
+      - action: utter_menu_borrar_deny
+
+  - story: Establecer plato entrante happy path
+    steps:
+      - intent: establecer_menu_plato
         entities:
-          - categoria: entrantes
+          - menu_plato_categoria: entrante
       - slot_was_set:
-          - categoria: entrantes
+          - menu_plato_categoria: entrante
+      - action: utter_menu_plato_set
+      - intent: affirm
+      - action: MenuGet
       - slot_was_set:
-          - plato_id: establecer plato entrante
-      - action: GetMenu
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
       - slot_was_set:
-          - plato_id: null
+          - requested_slot: menu_plato_id
       - slot_was_set:
-          - categoria: entrantes
-      - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+          - menu_plato_id: 0E
       - slot_was_set:
-          - plato_id: null
+          - menu_plato_id: 0E
       - slot_was_set:
-          - categoria: entrantes
+          - menu_entrante_id: 0E
       - slot_was_set:
-          - requested_slot: plato_id
+          - menu_entrante_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
       - slot_was_set:
-          - plato_id: "0"
+          - menu_entrante_precio: 4,5€ / unidad
       - slot_was_set:
-          - plato_id: "0"
-      - slot_was_set:
-          - categoria: null
-      - slot_was_set:
-          - entrante_id: "0"
-      - slot_was_set:
-          - entrante_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
-      - slot_was_set:
-          - entrante_precio: 4,5€ / unidad
+          - menu_establecido: true
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
 
-  - story: interactive_story_1
+  - story: Establecer plato carne happy path
     steps:
-      - intent: establecer_plato_carne
+      - intent: establecer_menu_plato
         entities:
-          - categoria: carnes
+          - menu_plato_categoria: carne
       - slot_was_set:
-          - categoria: carnes
+          - menu_plato_categoria: carne
+      - action: utter_menu_plato_set
+      - intent: affirm
+      - action: MenuGet
       - slot_was_set:
-          - plato_id: establecer plato carne
-      - action: GetMenu
+          - menu_plato_categoria: carnes
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
       - slot_was_set:
-          - plato_id: null
+          - requested_slot: menu_plato_id
       - slot_was_set:
-          - categoria: carnes
-      - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+          - menu_plato_id: 0E
       - slot_was_set:
-          - plato_id: null
+          - menu_plato_id: 0E
       - slot_was_set:
-          - categoria: carnes
+          - menu_carne_id: 0E
       - slot_was_set:
-          - requested_slot: plato_id
+          - menu_carne_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
       - slot_was_set:
-          - plato_id: "0"
+          - menu_carne_precio: 4,5€ / unidad
       - slot_was_set:
-          - plato_id: "0"
-      - slot_was_set:
-          - categoria: null
-      - slot_was_set:
-          - carne_id: "0"
-      - slot_was_set:
-          - carne_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
-      - slot_was_set:
-          - carne_precio: 4,5€ / unidad
+          - menu_establecido: true
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
 
-  - story: interactive_story_1
+  - story: Establecer plato pescado happy path
     steps:
-      - intent: establecer_plato_pescado
+      - intent: establecer_menu_plato
         entities:
-          - categoria: pescados
+          - menu_plato_categoria: pescado
       - slot_was_set:
-          - categoria: pescados
+          - menu_plato_categoria: pescado
+      - action: utter_menu_plato_set
+      - intent: affirm
+      - action: MenuGet
       - slot_was_set:
-          - plato_id: establecer plato pescado
-      - action: GetMenu
+          - menu_plato_categoria: pescados
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
       - slot_was_set:
-          - plato_id: null
+          - requested_slot: menu_plato_id
       - slot_was_set:
-          - categoria: pescados
-      - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+          - menu_plato_id: 0E
       - slot_was_set:
-          - plato_id: null
+          - menu_plato_id: 0E
       - slot_was_set:
-          - categoria: pescados
+          - menu_pescado_id: 0E
       - slot_was_set:
-          - requested_slot: plato_id
+          - menu_pescado_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
       - slot_was_set:
-          - plato_id: "0"
+          - menu_pescado_precio: 4,5€ / unidad
       - slot_was_set:
-          - plato_id: "0"
-      - slot_was_set:
-          - categoria: null
-      - slot_was_set:
-          - pescado_id: "0"
-      - slot_was_set:
-          - pescado_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
-      - slot_was_set:
-          - pescado_precio: 4,5€ / unidad
+          - menu_establecido: true
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
 
-  - story: interactive_story_1
+  - story: Establecer plato postre happy path
     steps:
-      - intent: establecer_plato_postre
+      - intent: establecer_menu_plato
         entities:
-          - categoria: postres
+          - menu_plato_categoria: postre
       - slot_was_set:
-          - categoria: postres
+          - menu_plato_categoria: postre
+      - action: utter_menu_plato_set
+      - intent: affirm
+      - action: MenuGet
       - slot_was_set:
-          - plato_id: establecer plato postre
-      - action: GetMenu
+          - menu_plato_categoria: postres
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
       - slot_was_set:
-          - plato_id: null
+          - requested_slot: menu_plato_id
       - slot_was_set:
-          - categoria: postres
-      - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+          - menu_plato_id: 0E
       - slot_was_set:
-          - plato_id: null
+          - menu_plato_id: 0E
       - slot_was_set:
-          - categoria: postres
+          - menu_postre_id: 0E
       - slot_was_set:
-          - requested_slot: plato_id
+          - menu_postre_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
       - slot_was_set:
-          - plato_id: "0"
+          - menu_postre_precio: 4,5€ / unidad
       - slot_was_set:
-          - plato_id: "0"
-      - slot_was_set:
-          - categoria: null
-      - slot_was_set:
-          - postre_id: "0"
-      - slot_was_set:
-          - postre_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
-      - slot_was_set:
-          - postre_precio: 4,5€ / unidad
+          - menu_establecido: true
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
 
-  - story: interactive_story_1
+  - story: Establecer plato bebida happy path
     steps:
-      - intent: establecer_plato_bebida
+      - intent: establecer_menu_plato
         entities:
-          - categoria: bebidas
+          - menu_plato_categoria: bebida
       - slot_was_set:
-          - categoria: bebidas
+          - menu_plato_categoria: bebida
+      - action: utter_menu_plato_set
+      - intent: affirm
+      - action: MenuGet
       - slot_was_set:
-          - plato_id: establecer plato bebida
-      - action: GetMenu
+          - menu_plato_categoria: bebidas
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
       - slot_was_set:
-          - plato_id: null
+          - requested_slot: menu_plato_id
       - slot_was_set:
-          - categoria: bebidas
-      - action: utter_ask_plato_ids
-      - action: plato_form
-      - active_loop: plato_form
+          - menu_plato_id: 0E
       - slot_was_set:
-          - plato_id: null
+          - menu_plato_id: 0E
       - slot_was_set:
-          - categoria: bebidas
+          - menu_bebida_id: 0E
       - slot_was_set:
-          - requested_slot: plato_id
+          - menu_bebida_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
       - slot_was_set:
-          - plato_id: "0"
+          - menu_bebida_precio: 4,5€ / unidad
       - slot_was_set:
-          - plato_id: "0"
-      - slot_was_set:
-          - categoria: null
-      - slot_was_set:
-          - bebida_id: "0"
-      - slot_was_set:
-          - bebida_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
-      - slot_was_set:
-          - bebida_precio: 4,5€ / unidad
+          - menu_establecido: true
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
+
+  - story: Establecer plato unhappy path
+    steps:
+      - intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_set
+      - intent: deny
+      - action: utter_menu_deny
+
+  # -------------------------------------
+  # Reserva
+  # -------------------------------------
+
+  - story: Borrar reserva happy path
+    steps:
+      - intent: reserva_borrar_mesa
+      - action: utter_reserva_borrar
+      - intent: affirm
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+
+  - story: Borrar reserva umhappy path
+    steps:
+      - intent: reserva_borrar_mesa
+      - action: utter_reserva_borrar
+      - intent: deny
+      - action: utter_reserva_borrar_deny
+
+  - story: Reserva mesa unhappy path 1
+    steps:
+      - intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - action: utter_reserva_hora
+      - intent: deny
+      - action: utter_reserva_deny
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+
+  - story: Reserva mesa unhappy path
+    steps:
+      - intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: deny
+      - action: utter_reserva_deny
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+
+  - story: Reserva mesa happy path
+    steps:
+      - intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - menu_establecido: False
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: affirm
+      - action: utter_reserva_comensales_especifica
+      - action: reserva_comensales_form
+      - active_loop: reserva_comensales_form
+      - slot_was_set:
+          - requested_slot: reserva_comensales
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_mesa_id: 1
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetUser
+      - action: utter_menu_aviso

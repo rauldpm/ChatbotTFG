@@ -1,29 +1,29 @@
 {
-    "postres": [
-        {
-            "id": 30,
-            "nombre": "Queso, tarta cremosa",
-            "precio": "6€"
-        },
-        {
-            "id": 31,
-            "nombre": "Frutos rojos, en infusión con helado de yogur",
-            "precio": "5,50€"
-        },
-        {
-            "id": 32,
-            "nombre": "Milhojas de hojaldre y crema pastelera caramelizada",
-            "precio": "6€"
-        },
-        {
-            "id": 33,
-            "nombre": "Mango, curry rojo, apio y lima",
-            "precio": "6,5€"
-        },
-        {
-            "id": 34,
-            "nombre": "Tiramisú, así lo vemos nosotros",
-            "precio": "6€"
-        }
-    ]
+  "postres": [
+    {
+      "id": "0D",
+      "nombre": "Queso, tarta cremosa",
+      "precio": "6€"
+    },
+    {
+      "id": "1D",
+      "nombre": "Frutos rojos, en infusión con helado de yogur",
+      "precio": "5,50€"
+    },
+    {
+      "id": "2D",
+      "nombre": "Milhojas de hojaldre y crema pastelera caramelizada",
+      "precio": "6€"
+    },
+    {
+      "id": "3D",
+      "nombre": "Mango, curry rojo, apio y lima",
+      "precio": "6,5€"
+    },
+    {
+      "id": "4D",
+      "nombre": "Tiramisú, así lo vemos nosotros",
+      "precio": "6€"
+    }
+  ]
 }

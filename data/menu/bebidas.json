@@ -1,29 +1,29 @@
 {
-    "bebidas": [
-        {
-            "id": 40,
-            "nombre": "Vino Dulce de Invierno Verdejo y Gorda de Moldavia",
-            "precio": "4,5€ / copa"
-        },
-        {
-            "id": 41,
-            "nombre": "Vino Jerez",
-            "precio": "3,70€ / copa"
-        },
-        {
-            "id": 42,
-            "nombre": "Palo Cortado Juan Piñero",
-            "precio": "3,70€ / copa"
-        },
-        {
-            "id": 43,
-            "nombre": "Px Emilio Hidalgo",
-            "precio": "4,90€ / copa"
-        },
-        {
-            "id": 44,
-            "nombre": "Maestro Sierra Oloroso",
-            "precio": "4,50€ / copa"
-        }
-    ]
+  "bebidas": [
+    {
+      "id": "0B",
+      "nombre": "Vino Dulce de Invierno Verdejo y Gorda de Moldavia",
+      "precio": "4,5€ / copa"
+    },
+    {
+      "id": "1B",
+      "nombre": "Vino Jerez",
+      "precio": "3,70€ / copa"
+    },
+    {
+      "id": "2B",
+      "nombre": "Palo Cortado Juan Piñero",
+      "precio": "3,70€ / copa"
+    },
+    {
+      "id": "3B",
+      "nombre": "Px Emilio Hidalgo",
+      "precio": "4,90€ / copa"
+    },
+    {
+      "id": "4B",
+      "nombre": "Maestro Sierra Oloroso",
+      "precio": "4,50€ / copa"
+    }
+  ]
 }

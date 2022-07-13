@@ -6,124 +6,65 @@ intents:
   - affirm
   - apertura
   - ask_nombre
-  - borrar_bebida
-  - borrar_carne
-  - borrar_entrante
-  - borrar_menu
-  - borrar_pescado
-  - borrar_postre
   - cierre
+  - comensales
   - cual_es_mi_nombre
   - deny
   - despedida
+  - dia
   - establecer_menu
-  - establecer_plato_bebida
-  - establecer_plato_bebida_id
-  - establecer_plato_carne
-  - establecer_plato_carne_id
-  - establecer_plato_entrante
-  - establecer_plato_entrante_id
-  - establecer_plato_id
-  - establecer_plato_pescado
-  - establecer_plato_pescado_id
-  - establecer_plato_postre
-  - establecer_plato_postre_id
+  - establecer_menu_plato
+  - hora
   - horario
   - horario_concreto
   - identificar
-  - menu
-  - mi_menu
+  - identificar_borrar
+  - menu_borra_todo
+  - menu_borra_plato
+  - menu_categoria
+  - menu_completo
+  - menu_plato_id
+  - menu_usuario
   - opciones
   - repetir_nombre
+  - reservar
+  - reserva_borrar_mesa
   - saludo
   - stop
+  - reserva_usuario
 entities:
-  - bebida_id
-  - bebida_nombre
-  - bebida_precio
-  - carne_id
-  - carne_nombre
-  - carne_precio
-  - categoria
   - dia
-  - entrante_id
-  - entrante_nombre
-  - entrante_precio
   - first_name
   - first_name_save
-  - pescado_id
-  - pescado_nombre
-  - pescado_precio
-  - plato_id
-  - postre_id
-  - postre_nombre
-  - postre_precio
+  - menu_bebida_id
+  - menu_bebida_nombre
+  - menu_bebida_precio
+  - menu_carne_id
+  - menu_carne_nombre
+  - menu_carne_precio
+  - menu_entrante_id
+  - menu_entrante_nombre
+  - menu_entrante_precio
+  - menu_establecido
+  - menu_pescado_id
+  - menu_pescado_nombre
+  - menu_pescado_precio
+  - menu_plato_categoria
+  - menu_plato_id
+  - menu_postre_id
+  - menu_postre_nombre
+  - menu_postre_precio
+  - reserva_hora
+  - reserva_comensales
+  - reserva_dia
+  - reserva_mesa_id
 slots:
-  bebida_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: bebida_id
-  bebida_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: bebida_nombre
-  bebida_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: bebida_precio
-  carne_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: carne_id
-  carne_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: carne_nombre
-  carne_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: carne_precio
-  categoria:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: categoria
   dia:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: dia
-  entrante_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: entrante_id
-  entrante_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: entrante_nombre
-  entrante_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: entrante_precio
   first_name:
     type: text
     influence_conversation: true
@@ -136,7 +77,8 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_text
+      - type: from_entity
+        entity: first_name_save
         conditions:
           - active_loop: name_form
             requested_slot: first_name
@@ -148,6 +90,113 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
+  menu_bebida_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_bebida_id
+  menu_bebida_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_bebida_nombre
+  menu_bebida_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_bebida_precio
+  menu_entrante_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_entrante_id
+  menu_entrante_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_entrante_nombre
+  menu_entrante_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_entrante_precio
+  menu_establecido:
+    type: bool
+    mappings:
+      - type: from_entity
+        entity: menu_establecido
+  menu_carne_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_carne_id
+  menu_carne_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_carne_nombre
+  menu_carne_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_carne_precio
+  menu_pescado_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_pescado_id
+  menu_pescado_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_pescado_nombre
+  menu_pescado_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_pescado_precio
+  menu_plato_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_id
+  menu_plato_categoria:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_categoria
+  menu_postre_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_postre_id
+  menu_postre_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_postre_nombre
+  menu_postre_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_postre_precio
   name_spelled_correctly:
     type: bool
     mappings:
@@ -163,82 +212,60 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
-  pescado_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: pescado_id
-  pescado_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: pescado_nombre
-  pescado_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: pescado_precio
-  plato_id:
+  reserva_comensales:
     type: text
     influence_conversation: true
     mappings:
       - type: from_text
-        condition:
-          - active_loop: plato_form
-            requested_slot: plato_id
-  postre_id:
+        intent: comensales
+        conditions:
+          - active_loop: reserva_comensales_form
+            requested_slot: reserva_comensales
+  reserva_dia:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        intent: dia
+        conditions:
+          - active_loop: reserva_dia_form
+            requested_slot: reserva_dia
+  reserva_hora:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: postre_id
-  postre_nombre:
+        entity: reserva_hora
+  reserva_mesa_id:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: postre_nombre
-  postre_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: postre_precio
+        entity: reserva_mesa_id
 forms:
-  bebida_form:
+  menu_plato_id_form:
     required_slots:
-      - bebida_id
-  carne_form:
+      - menu_plato_id
+  menu_plato_categoria_form:
     required_slots:
-      - carne_id
-  categoria_form:
-    required_slots:
-      - categoria
-  entrante_form:
-    required_slots:
-      - entrante_id
+      - menu_plato_categoria
   name_form:
     required_slots:
       - first_name
-  pescado_form:
+  reserva_comensales_form:
     required_slots:
-      - pescado_id
-  plato_form:
+      - reserva_comensales
+  reserva_dia_form:
     required_slots:
-      - plato_id
-  postre_form:
+      - reserva_dia
+  reserva_hora_form:
     required_slots:
-      - postre_id
+      - reserva_hora
 responses:
+  utter_ask_name:
+    - text: Introduce solo tu nombre, escribe "stop" para parar el formulario.
   utter_saludo:
-    - text: Hola.
-  utter_did_that_help:
-    - text: ¿Ha ayudado?
-  utter_despedida:
-    - text: Hasta otra.
+    - text: Hola
   utter_saludo_identificacion:
     - condition:
         - type: slot
@@ -246,6 +273,91 @@ responses:
           value: true
       text: Hola {first_name}!
     - text: ""
+  utter_despedida:
+    - text: Hasta otra.
+  utter_horario:
+    - text: "Nuestro horario es:"
+  utter_menu:
+    - text: ¿Quieres establecer el menu?
+  utter_menu_aviso:
+    - condition:
+        - type: slot
+          name: menu_establecido
+          value: false
+      text: "Aun falta por establecer el menu, si deseas establecerlo, escribe: Establecer menu."
+    - text: ""
+  utter_menu_plato_set:
+    - text: "¿Quieres establecer el plato de la categoria: {menu_plato_categoria}?"
+  utter_menu_categorias:
+    - text: Estas son las categorias disponibles, selecciona una para ver los platos de dicha categoria.
+  utter_menu_deny:
+    - text: Cancelando proceso de establecer menu.
+  utter_menu_borrar_deny:
+    - text: Cancelado proceso de eliminar menu.
+  utter_menu_borrar_plato:
+    - condition:
+        - type: slot
+          name: menu_establecido
+          value: true
+      text: "¿Estas seguro de querer borrar el plato que seleccionaras a continuacion?"
+    - text: ""
+  utter_menu_borrar_plato_selecciona:
+    - condition:
+        - type: slot
+          name: menu_establecido
+          value: true
+      text: "Introduce el identificador del plato a eliminar."
+    - text: "Antes tienes que establecer un menu."
+  utter_menu_borrar_todo:
+    - condition:
+        - type: slot
+          name: menu_establecido
+          value: true
+      text: ¿Estas seguro de querer eliminar todo?
+    - text: "Antes tienes que establecer un menu."
+  utter_menu_plato_selecciona:
+    - text: Selecciona el plato introduciendo el identificador.
+  utter_opciones:
+    - text: "Estas son las opciones de las que dispones:"
+      buttons:
+        - title: "Opciones"
+          payload: "/opciones"
+        - title: "Identificarme"
+          payload: "/identificar"
+        - title: "Horario"
+          payload: "/horario"
+        - title: "Apertura"
+          payload: "/apertura"
+        - title: "Cierre"
+          payload: "/cierre"
+        - title: "Establecer menu"
+          payload: "/establecer_menu"
+        - title: "Hacer reserva"
+          payload: "/reservar"
+        - title: "Borrar menu"
+          payload: "/menu_borra_todo"
+        - title: "Borrar plato"
+          payload: "/menu_borra_plato"
+        - title: "Consultar mi menu"
+          payload: "/menu_usuario"
+        - title: "Consultar mi reserva"
+          payload: "/reserva_usuario"
+  utter_reserva_borrar:
+    - text: ¿Estas seguro de querer eliminar la reserva de la mesa?
+  utter_reserva_borrar_deny:
+    - text: "Proceso de borrado de reserva cancelado."
+  utter_reserva_comensales:
+    - text: ¿Quieres establecer los comensales?
+  utter_reserva_comensales_especifica:
+    - text: ¿Cuantos comensales sereis?
+  utter_reserva_deny:
+    - text: Cancelado proceso de reserva.
+  utter_reserva_dia:
+    - text: ¿Que dia quieres reservar?
+  utter_reserva_hora:
+    - text: ¿Quieres establecer la hora?
+  utter_reserva_hora_especifica:
+    - text: Dime la hora a la que quieres reservar, en formato "14:00"
   utter_te_llamas:
     - condition:
         - type: slot
@@ -253,27 +365,6 @@ responses:
           value: true
       text: Te llamas {first_name}
     - text: Aun no me has dicho como te llamas, escribe "Identificarme" para establecer tu nombre.
-  utter_ask_name:
-    - text: Introduce solo tu nombre, escribe "stop" para parar el formulario.
-  utter_opciones:
-    - text: |
-        Estas son las opciones de las que dispones:
-        - Opciones
-        - Identificarme
-        - Horario
-        - Apertura
-        - Cierre
-        - Establecer plato entrante
-        - Establecer plato de carne
-        - Establecer plato de pescado
-        - Establecer plato de postre
-        - Establecer la bebida
-        - Borrar menu
-        - Borrar plato entrante
-        - Borrar plato de carne
-        - Borrar plato de pescado
-        - Borrar postre
-        - Borrar bebida
   utter_ya_identificado:
     - condition:
         - type: slot
@@ -281,59 +372,44 @@ responses:
           value: true
       text: Ya te has identificado.
     - text: ""
-  utter_horario:
-    - text: "Nuestro horario es:"
-  utter_show_menu:
-    - text: |
-        Estas son las categorias disponibles:
-        - Entrantes
-        - Carnes
-        - Pescados
-        - Postres
-        - Bebidas
-  utter_ask_categoria:
-    - text: Dime la categoria que deseas establecer.
-  utter_ask_plato_ids:
-    - text: Dime el ID del plato que deseas.
-  utter_entrante_seleccionado:
-    - text: Se ha establecido el plato "{entrante_nombre}" como entrante, con un precio de "{entrante_precio}".
-  utter_carne_seleccionado:
-    - text: Se ha establecido el plato "{carne_nombre}" como carne, con un precio de "{carne_precio}".
-  utter_pescado_seleccionado:
-    - text: Se ha establecido el plato "{pescado_nombre}" como pescado, con un precio de "{pescado_precio}".
-  utter_postre_seleccionado:
-    - text: Se ha establecido el plato "{postre_nombre}" como postre, con un precio de "{postre_precio}".
-  utter_bebida_seleccionado:
-    - text: Se ha establecido el plato "{bebida_nombre}" como bebida, con un precio de "{bebida_precio}".
-  utter_stop:
-    - text: Parando.
-  utter_restablecer:
-    - text: ¿Estas seguro de que quieres borrar todo el menu establecido?
-  utter_change_plato_info:
-    - text: Si en cualquier momento deseas cambiar el plato establecido, vuelve a repetir el proceso.
 actions:
-  - GetHorario
-  - GetMenu
-  - GetUserMenu
-  - opciones
-  - ResetMenu
-  - utter_ask_categoria
+  - HorarioGet
+  - IdentificarBorrarUsername
+  - MenuBorrarPlato
+  - MenuBorrarTodo
+  - MenuGet
+  - MenuGetCategoriasButtons
+  - MenuGetUser
+  - MenuResetPlatoID
+  - ReservaBorrar
+  - ReservaGetMesasLibres
+  - ReservaGetUser
   - utter_ask_name
-  - utter_ask_plato_ids
-  - utter_bebida_seleccionado
-  - utter_carne_seleccionado
-  - utter_change_plato_info
   - utter_despedida
-  - utter_entrante_seleccionado
-  - utter_opciones
-  - utter_pescado_seleccionado
-  - utter_postre_seleccionado
-  - utter_restablecer
+  - utter_horario
+  - utter_menu
+  - utter_menu_aviso
+  - utter_menu_borrar_deny
+  - utter_menu_borrar_plato
+  - utter_menu_categorias
+  - utter_menu_deny
+  - utter_menu_plato_selecciona
+  - utter_menu_plato_set
+  - utter_reserva_borrar
+  - utter_reserva_borrar_deny
+  - utter_reserva_comensales
+  - utter_reserva_comensales_especifica
+  - utter_reserva_deny
+  - utter_reserva_dia
+  - utter_reserva_hora
+  - utter_reserva_hora_especifica
   - utter_saludo
   - utter_saludo_identificacion
-  - utter_show_menu
-  - utter_stop
+  - utter_te_llamas
   - utter_ya_identificado
-  - validate_categoria_form
+  - validate_menu_plato_categoria_form
+  - validate_menu_plato_id_form
   - validate_name_form
-  - validate_plato_form
+  - validate_reserva_comensales_form
+  - validate_reserva_dia_form
+  - validate_reserva_hora_form

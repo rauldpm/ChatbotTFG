@@ -1,16 +1,17 @@
-from asyncore import dispatcher
-from code import interact
-from copyreg import dispatch_table
-import pathlib
-from sre_constants import CATEGORY_SPACE
 from typing import Text, List, Any, Dict, Optional
-import json
-
-from rasa_sdk import Tracker, FormValidationAction
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.types import DomainDict
-from rasa_sdk.interfaces import Action
 from rasa_sdk.events import SlotSet
+from rasa_sdk.interfaces import Action
+from rasa_sdk.types import DomainDict
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk import Tracker, FormValidationAction
+import unidecode  # acentos
+import datetime
+import pathlib
+import json
+import re
+import locale  # dias español
+locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
+
 
 names = pathlib.Path("data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path(
@@ -20,9 +21,39 @@ DIAS_SEMANA = ["lunes", "martes", "miercoles",
                "jueves", "viernes", "sabado", "domingo"]
 CATEGORIA_MENU = ["entrantes", "carnes", "pescados", "postres", "bebidas"]
 
-f = open(pathlib.Path("data/menu/horario.json"))
-horario = json.load(f)
-f.close()
+
+def get_data_plato(tipo):
+    f = open(pathlib.Path("data/menu/"+tipo+".json"))
+    data = json.load(f)
+    f.close()
+    return data
+
+
+def get_data_generic(path):
+    f = open(pathlib.Path(path))
+    data = json.load(f)
+    f.close()
+    return data
+
+
+horario = get_data_generic("data/menu/horario.json")
+mesas = get_data_generic("data/tables/mesas.json")
+horas = get_data_generic("data/tables/horas.json")
+
+
+# ---------------------------------------------------------------------
+# Identificacion Class
+# ---------------------------------------------------------------------
+
+class IdentificarBorrarUsername(Action):
+    def name(self):
+        return 'IdentificarBorrarUsername'
+
+    def run(self, dispatcher, tracker, domain):
+        print("IdentificarBorrarUsername")
+        dispatcher.utter_message(
+            text=f'He borrado tu nombre de usuario, recuerda que es necesario identificarte para terminar el proceso de reserva.')
+        return [SlotSet("first_name", None), SlotSet("first_name_save", None), SlotSet("first_name_set", None), SlotSet("name_spelled_correctly", None)]
 
 
 class ValidateNameForm(FormValidationAction):
@@ -37,7 +68,7 @@ class ValidateNameForm(FormValidationAction):
     ) -> Optional[List[Text]]:
         print("Required slots")
 
-        first_name = tracker.slots.get("first_name")
+        first_name = tracker.get_slot("first_name")
         if first_name is not None:
             if first_name.lower() not in names:
                 return ["name_spelled_correctly"] + slots_mapped_in_domain
@@ -47,8 +78,10 @@ class ValidateNameForm(FormValidationAction):
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         print("extract_name_spelled_correctly")
-
-        first_name = tracker.slots.get("first_name")
+        first_name = tracker.get_slot("first_name")
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "affirm":
+            first_name = tracker.get_slot("first_name_save")
         if first_name != "/repetir_nombre":
             if len(first_name) < 3 or len(first_name) > 11:
                 dispatcher.utter_message(
@@ -86,20 +119,20 @@ class ValidateNameForm(FormValidationAction):
             if (first_name_save is not None and latest_message is not None and latest_message != first_name):
                 return {"first_name": latest_message, "name_spelled_correctly": None, "first_name_save": None}
             if (first_name_save.lower() not in names and intent == "repetir_nombre" and first_name != "/repetir_nombre") or (intent == "deny"):
-                buttons = [{'title': 'Yes', 'payload': '/affirm'},
+                buttons = [{'title': 'Si', 'payload': '/affirm'},
                            {'title': 'No', 'payload': '/repetir_nombre'}]
                 dispatcher.utter_message(
                     "Mmm esta bien escrito tu nombre? Si no, escribe tu nombre de nuevo", buttons=buttons)
                 return {"first_name": None, "name_spelled_correctly": None, "first_name_save": latest_message}
             return {"first_name": None, "name_spelled_correctly": False, "first_name_save": latest_message}
-
         if tracker.get_intent_of_latest_message() != "repetir_nombre" or intent == "repetir_nombre":
             if latest_message is not None and latest_message != tracker.get_slot("first_name") and intent != "affirm":
                 return {"first_name": latest_message, "name_spelled_correctly": None}
-            buttons = [{'title': 'Yes', 'payload': '/affirm'},
+            buttons = [{'title': 'Si', 'payload': '/affirm'},
                        {'title': 'No', 'payload': '/repetir_nombre'}]
             dispatcher.utter_message(
                 "Mmm esta bien escrito tu nombre? Si no, escribe tu nombre de nuevo", buttons=buttons)
+
             return {"first_name": None, "name_spelled_correctly": None, "first_name_save": tracker.get_slot("first_name")}
         return {"first_name": tracker.get_slot("first_name"), "name_spelled_correctly": None}
 
@@ -114,7 +147,6 @@ class ValidateNameForm(FormValidationAction):
 
         if tracker.get_intent_of_latest_message() == "stop":
             return {"requested_slot": None, "first_name": None, "name_spelled_correctly": None, "first_name_set": None}
-
         if slot_value is not None:
             if (len(slot_value) < 3 or len(slot_value) > 11) and (slot_value != "/repetir_nombre"):
                 dispatcher.utter_message(
@@ -125,203 +157,295 @@ class ValidateNameForm(FormValidationAction):
         return {"first_name": None, "name_spelled_correctly": False}
 
 
-class GetHorario(Action):
+# ---------------------------------------------------------------------
+# Otros Class
+# ---------------------------------------------------------------------
+
+
+class HorarioGet(Action):
     def name(self):
-        return 'GetHorario'
+        return 'HorarioGet'
 
     def run(self, dispatcher, tracker, domain):
-
+        print("HorarioGet")
         intent = tracker.get_intent_of_latest_message()
         if intent == "horario" or intent == "apertura" or intent == "cierre":
             dispatcher.utter_message(response="utter_horario")
         message = ""
         if intent == "horario":
             for dia in DIAS_SEMANA:
-                message += dia.capitalize() + ": " + \
-                    horario["horario"][dia][0] + " - " + \
-                    horario["horario"][dia][1] + "." + "\n"
+                if horario["horario"][dia][0] == "cerrado" and horario["horario"][dia][1] == "cerrado":
+                    message += dia.capitalize() + ": " + \
+                        (horario["horario"][dia][0]).capitalize() + "." + "\n"
+                else:
+                    message += dia.capitalize() + ": " + \
+                        horario["horario"][dia][0] + " - " + \
+                        horario["horario"][dia][1] + "." + "\n"
         elif intent == "apertura" or intent == "cierre":
             value = 0 if intent == "apertura" else 1
             for dia in DIAS_SEMANA:
-                message += dia.capitalize() + ": " + \
-                    horario["horario"][dia][value] + "." + "\n"
+                if horario["horario"][dia][0] == "cerrado" and horario["horario"][dia][1] == "cerrado":
+                    message += dia.capitalize() + ": " + \
+                        (horario["horario"][dia][0]).capitalize() + "." + "\n"
+                else:
+                    message += dia.capitalize() + ": " + \
+                        horario["horario"][dia][value] + "." + "\n"
         elif intent == "horario_concreto":
-            dia = tracker.get_slot("dia").lower()
+            dia = tracker.get_slot("dia")
+            if dia is not None:
+              dia = dia.lower()
+
+              if dia == "hoy":
+                  now = datetime.datetime.now()
+                  dia = now.strftime("%A")
+              elif dia == "mañana":
+                  now = (datetime.datetime.now() +
+                        datetime.timedelta(1)).strftime("%A")
+                  dia = now
+              elif dia == "pasado mañana":
+                  now = (datetime.datetime.now() +
+                        datetime.timedelta(2)).strftime("%A")
+                  dia = now
+              dia = unidecode.unidecode(dia)
+
             if dia not in DIAS_SEMANA:
                 message = "Ese dia de la semana es incorrecto."
                 dispatcher.utter_message(message)
-                return [SlotSet("dia", None)]
-            elif horario["horario"][dia][0] == "Cerrado":
+            elif horario["horario"][dia][0] == "cerrado":
                 message = "El " + dia + " estamos cerrados por descanso del personal."
             else:
                 message = "El " + dia + " abrimos a las " + \
                     horario["horario"][dia][0] + " y cerramos a las " + \
                     horario["horario"][dia][1] + "."
         dispatcher.utter_message(message)
-        return ''
+        return [SlotSet("dia", None)]
 
 
-class GetMenu(Action):
+# ---------------------------------------------------------------------
+# Menu Class
+# ---------------------------------------------------------------------
+
+
+class MenuBorrarPlato(Action):
     def name(self):
-        return 'GetMenu'
+        return 'MenuBorrarPlato'
 
-    def getSubmenu(Action, tipo):
-        f = open(pathlib.Path("data/menu/"+tipo+".json"))
-        data = json.load(f)
-        f.close()
+    def run(self, dispatcher, tracker, domain):
+        print("MenuBorrarPlato")
+
+        menu_plato_id = tracker.get_slot("menu_plato_id")
+        menu_entrante_id = tracker.get_slot("menu_entrante_id")
+        menu_carne_id = tracker.get_slot("menu_carne_id")
+        menu_pescado_id = tracker.get_slot("menu_pescado_id")
+        menu_postre_id = tracker.get_slot("menu_postre_id")
+        menu_bebida_id = tracker.get_slot("menu_bebida_id")
+
+        if menu_entrante_id is None and menu_carne_id is None and menu_pescado_id is None and menu_postre_id is None and menu_bebida_id is None:
+            dispatcher.utter_message(text=f'')
+            return ""
+
+        if menu_plato_id is not None:
+            menu_plato_id = menu_plato_id.upper()
+            if menu_plato_id == menu_entrante_id:
+                dispatcher.utter_message(
+                    text=f'Se ha eliminado el plato entrante.')
+                if menu_carne_id is None and menu_pescado_id is None and menu_postre_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_entrante_id", None), SlotSet("menu_entrante_nombre", None), SlotSet("menu_entrante_precio", None)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_entrante_id", None), SlotSet("menu_entrante_nombre", None), SlotSet("menu_entrante_precio", None)]
+            elif menu_plato_id == menu_carne_id:
+                dispatcher.utter_message(
+                    text=f'Se ha eliminado el plato de carne.')
+                if menu_entrante_id is None and menu_pescado_id is None and menu_postre_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_carne_id", None), SlotSet("menu_carne_nombre", None), SlotSet("menu_carne_precio", None)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_carne_id", None), SlotSet("menu_carne_nombre", None), SlotSet("menu_carne_precio", None)]
+            elif menu_plato_id == menu_pescado_id:
+                dispatcher.utter_message(
+                    text=f'Se ha eliminado el plato de pescado.')
+                if menu_carne_id is None and menu_entrante_id is None and menu_postre_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_pescado_id", None), SlotSet("menu_pescado_nombre", None), SlotSet("menu_pescado_precio", None)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_pescado_id", None), SlotSet("menu_pescado_nombre", None), SlotSet("menu_pescado_precio", None)]
+            elif menu_plato_id == menu_postre_id:
+                dispatcher.utter_message(text=f'Se ha eliminado el postre.')
+                if menu_carne_id is None and menu_pescado_id is None and menu_entrante_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_postre_id", None), SlotSet("menu_postre_nombre", None), SlotSet("menu_postre_precio", None)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_postre_id", None), SlotSet("menu_postre_nombre", None), SlotSet("menu_postre_precio", None)]
+            elif menu_plato_id == menu_bebida_id:
+                dispatcher.utter_message(text=f'Se ha eliminado la bebida.')
+                if menu_carne_id is None and menu_pescado_id is None and menu_postre_id is None and menu_entrante_id is None:
+                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_bebida_id", None), SlotSet("menu_bebida_nombre", None), SlotSet("menu_bebida_precio", None)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_bebida_id", None), SlotSet("menu_bebida_nombre", None), SlotSet("menu_bebida_precio", None)]
+            else:
+                dispatcher.utter_message(
+                    text=f'Ese plato no esta establecido no esta guardado, comprueba el ID.')
+                return [SlotSet("menu_plato_id", None)]
+        else:
+            dispatcher.utter_message(
+                text=f'No se ha establecido un ID de plato.')
+            return [SlotSet("menu_plato_id", None)]
+
+
+class MenuBorrarTodo(Action):
+    def name(self):
+        return 'MenuBorrarTodo'
+
+    def run(self, dispatcher, tracker, domain):
+        print("MenuBorrarTodo")
+
+        dispatcher.utter_message(text=f'Menu restablecido.')
+        return [SlotSet("menu_entrante_id", None),
+                SlotSet("menu_entrante_nombre", None),
+                SlotSet("menu_entrante_precio", None),
+                SlotSet("menu_carne_id", None),
+                SlotSet("menu_carne_nombre", None),
+                SlotSet("menu_carne_precio", None),
+                SlotSet("menu_pescado_id", None),
+                SlotSet("menu_pescado_nombre", None),
+                SlotSet("menu_pescado_precio", None),
+                SlotSet("menu_postre_id", None),
+                SlotSet("menu_postre_nombre", None),
+                SlotSet("menu_postre_precio", None),
+                SlotSet("menu_bebida_id", None),
+                SlotSet("menu_bebida_nombre", None),
+                SlotSet("menu_bebida_precio", None),
+                SlotSet("menu_establecido", False),
+                SlotSet("menu_plato_id", None),
+                SlotSet("menu_plato_categoria", None)]
+
+
+class MenuGet(Action):
+    def name(self):
+        return 'MenuGet'
+
+    def get_menu_plato(Action, tipo):
+        data = get_data_plato(tipo)
         message = tipo.capitalize() + ":" + "\n"
         for it in data[tipo]:
             message += str(it['id']) + ": " + it['nombre'] + \
                 " - (" + it['precio'] + ")\n"
         return message
 
-    def run(self, dispatcher, tracker, domain):
-        print("GetMenu")
-        intent = tracker.get_intent_of_latest_message()
-        categoria = tracker.get_slot("categoria")
-        if categoria is not None:
-            categoria = categoria.lower()
+    def get_submenu_botones(Action, tipo):
+        data = get_data_plato(tipo)
+        buttons = []
+        for it in data[tipo]:
+            buttons.append({"title": "{}".format(
+                it['nombre'] + " (" + it['id'] + ")"), "payload": "{}".format(it['id'])})
+        return buttons
 
-        if categoria is not None:
+    def run(self, dispatcher, tracker, domain):
+        print("MenuGet")
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+        intent = tracker.get_intent_of_latest_message()
+
+        if intent == "menu_completo":
+            message = ""
             for it in CATEGORIA_MENU:
-                if categoria in it:
-                    categoria = it
+                data = get_data_plato(it)
+                message += it.capitalize() + ":\n"
+                for d in data[it]:
+                    message += "- " + d['nombre'] + \
+                        " - (" + d['precio'] + ")\n"
+            dispatcher.utter_message(text=message)
+            return ""
+
+        if menu_plato_categoria is not None:
+
+            menu_plato_categoria = menu_plato_categoria.lower()
+            for it in CATEGORIA_MENU:
+                if menu_plato_categoria in it:
+                    menu_plato_categoria = it
                     break
-
-        if intent == "menu" or intent == "establecer_menu":
-            for item in CATEGORIA_MENU:
-                dispatcher.utter_message(self.getSubmenu(item))
-            return [SlotSet("plato_id", None), SlotSet("categoria", categoria)]
-        elif categoria in CATEGORIA_MENU:
-            dispatcher.utter_message(self.getSubmenu(categoria))
-            return [SlotSet("plato_id", None), SlotSet("categoria", categoria)]
-
-        dispatcher.utter_message(text=f'No se ha validado la la categoria.')
-        return [SlotSet("plato_id", None), SlotSet("categoria", None)]
-
-
-class ResetMenu(Action):
-    def name(self):
-        return 'ResetMenu'
-
-    def run(self, dispatcher, tracker, domain):
-        print("ResetMenu")
-        intent = tracker.get_intent_of_latest_message()
-        if intent == "affirm":
-            dispatcher.utter_message(text=f'Menu restablecido.')
-            return [SlotSet("entrante_id", None), SlotSet("entrante_nombre", None), SlotSet("entrante_precio", None),
-                    SlotSet("carne_id", None), SlotSet(
-                        "carne_nombre", None), SlotSet("carne_precio", None),
-                    SlotSet("pescado_id", None), SlotSet(
-                        "pescado_nombre", None), SlotSet("pescado_precio", None),
-                    SlotSet("postre_id", None), SlotSet(
-                        "postre_nombre", None), SlotSet("postre_precio", None),
-                    SlotSet("bebida_id", None), SlotSet("entrante_nombre", None), SlotSet("entrante_precio", None)]
-        elif intent == "deny":
-            dispatcher.utter_message(
-                text=f'El menu que tienes establecido es el siguiente:')
-            GetUserMenu.run(self, dispatcher, tracker, domain)
-            return ''
-        elif intent in ["borrar_entrante", "borrar_carne", "borrar_pescado", "borrar_postre", "borrar_bebida"]:
-            tipo = intent.split("_", 1)[1]
-            dispatcher.utter_message(text=f'Se ha eliminado el plato seleccionado.')
-            return [SlotSet(tipo+"_id", None), SlotSet(tipo+"_nombre", None), SlotSet(tipo+"_precio", None)]
+            if menu_plato_categoria in CATEGORIA_MENU:
+                message = self.get_menu_plato(menu_plato_categoria)
+                dispatcher.utter_message(text=message)
+                return [SlotSet("menu_plato_categoria", menu_plato_categoria)]
+            else:
+                dispatcher.utter_message(text=f'Esa categoria no existe.')
+                return [SlotSet("menu_plato_categoria", None)]
         else:
-            return ''
-
-
-class ValidateCategoriaForm(FormValidationAction):
-    def name(self) -> Text:
-        return 'validate_categoria_form'
-
-    async def required_slots(
-        self, slots_mapped_in_domain: List[Text],
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker, domain: DomainDict,
-    ) -> Optional[List[Text]]:
-        return slots_mapped_in_domain
-
-    def validate_categoria(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        print("validate_categoria")
-
-        categoria = tracker.get_slot("categoria")
-        if categoria is not None:
-            categoria = categoria.lower()
-
-        if categoria is not None:
-            for it in CATEGORIA_MENU:
-                if categoria in it:
-                    categoria = it
-                    break
-
-            if categoria not in CATEGORIA_MENU:
-                dispatcher.utter_message(
-                    text=f'No he podido validar esa categoria, por favor selecciona una categoria valida.')
-                dispatcher.utter_message(response="utter_show_menu")
-                return {"categoria": None}
-
             dispatcher.utter_message(
-                text=f'Categoria establecida: ' + categoria.capitalize() + '.')
-            return {"categoria": categoria}
-
-        dispatcher.utter_message(
-            text=f'No se ha intentado establecer una categoria. Parando el formulario.')
-        return {"requested_slot": None, "categoria": None}
+                text=f'No se ha establecido una categoria')
 
 
-class GetUserMenu(Action):
+class MenuGetCategoriasButtons(Action):
     def name(self):
-        return 'GetUserMenu'
+        return 'MenuGetCategoriasButtons'
+
+    def get_categorias_botones(Action):
+        buttons = []
+        for it in CATEGORIA_MENU:
+            buttons.append({"title": "{}".format(
+                it.capitalize()), "payload": "{}".format(it)})
+        return buttons
 
     def run(self, dispatcher, tracker, domain):
-        print("GetUserMenu")
+        print("MenuGetCategoriasButtons")
 
-        entrante_id = tracker.get_slot("entrante_id")
-        carne_id = tracker.get_slot("carne_id")
-        pescado_id = tracker.get_slot("pescado_id")
-        postre_id = tracker.get_slot("postre_id")
-        bebida_id = tracker.get_slot("bebida_id")
+        buttons = self.get_categorias_botones()
+        dispatcher.utter_message("Selecciona una categoria:", buttons=buttons)
+        return ""
+
+
+class MenuGetUser(Action):
+    def name(self):
+        return 'MenuGetUser'
+
+    def run(self, dispatcher, tracker, domain):
+        print("MenuGetUser")
+
+        menu_entrante_id = tracker.get_slot("menu_entrante_id")
+        menu_carne_id = tracker.get_slot("menu_carne_id")
+        menu_pescado_id = tracker.get_slot("menu_pescado_id")
+        menu_postre_id = tracker.get_slot("menu_postre_id")
+        menu_bebida_id = tracker.get_slot("menu_bebida_id")
 
         message = ''
-        if entrante_id is not None:
+        if menu_entrante_id is not None:
             message += "Entrante:\n- " + \
-                tracker.get_slot("entrante_nombre") + " - (" + \
-                tracker.get_slot("entrante_precio") + ")\n"
-        if carne_id is not None:
+                tracker.get_slot("menu_entrante_id") + ": " + \
+                tracker.get_slot("menu_entrante_nombre") + " - (" + \
+                tracker.get_slot("menu_entrante_precio") + ")\n"
+        if menu_carne_id is not None:
             message += "Carne:\n- " + \
-                tracker.get_slot("carne_nombre") + " - (" + \
-                tracker.get_slot("carne_precio") + ")\n"
-        if pescado_id is not None:
+                tracker.get_slot("menu_carne_id") + ": " + \
+                tracker.get_slot("menu_carne_nombre") + " - (" + \
+                tracker.get_slot("menu_carne_precio") + ")\n"
+        if menu_pescado_id is not None:
             message += "Pescado:\n- " + \
-                tracker.get_slot("pescado_nombre") + " - (" + \
-                tracker.get_slot("pescado_precio") + ")\n"
-        if postre_id is not None:
+                tracker.get_slot("menu_pescado_id") + ": " + \
+                tracker.get_slot("menu_pescado_nombre") + " - (" + \
+                tracker.get_slot("menu_pescado_precio") + ")\n"
+        if menu_postre_id is not None:
             message += "Postre:\n- " + \
-                tracker.get_slot("postre_nombre") + " - (" + \
-                tracker.get_slot("postre_precio") + ")\n"
-        if bebida_id is not None:
+                tracker.get_slot("menu_postre_id") + ": " + \
+                tracker.get_slot("menu_postre_nombre") + " - (" + \
+                tracker.get_slot("menu_postre_precio") + ")\n"
+        if menu_bebida_id is not None:
             message += "Bebida:\n- " + \
-                tracker.get_slot("bebida_nombre") + " - (" + \
-                tracker.get_slot("bebida_precio") + ")\n"
+                tracker.get_slot("menu_bebida_id") + ": " + \
+                tracker.get_slot("menu_bebida_nombre") + " - (" + \
+                tracker.get_slot("menu_bebida_precio") + ")\n"
 
         if message == '':
             dispatcher.utter_message(
-                text=f"No se ha establecido ningun plato aun. Introduce \"Establecer plato <categoria>\" para añadir un plato.")
-            dispatcher.utter_message(response="utter_show_menu")
+                text=f"No se ha establecido ningun plato aun. Introduce \"Establecer menu\" para añadir un plato.")
         else:
             dispatcher.utter_message(text=message)
         return ''
 
 
-class ValidatePlatoForm(FormValidationAction):
+class MenuResetPlatoID(Action):
+    def name(self):
+        return 'MenuResetPlatoID'
+
+    def run(self, dispatcher, tracker, domain):
+        print("MenuResetPlatoID")
+        return [SlotSet("menu_plato_id", None)]
+
+
+class ValidateMenuPlatoCategoriaForm(FormValidationAction):
     def name(self) -> Text:
-        return 'validate_plato_form'
+        return 'validate_menu_plato_categoria_form'
 
     async def required_slots(
         self, slots_mapped_in_domain: List[Text],
@@ -330,69 +454,386 @@ class ValidatePlatoForm(FormValidationAction):
     ) -> Optional[List[Text]]:
         return slots_mapped_in_domain
 
-    def validate_plato_id(
+    async def extract_menu_plato_categoria(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        print("extract_menu_plato_categoria")
+
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+        if menu_plato_categoria is not None:
+            menu_plato_categoria = menu_plato_categoria.lower()
+            if menu_plato_categoria in CATEGORIA_MENU:
+                return {"menu_plato_categoria": menu_plato_categoria}
+        return {"menu_plato_categoria": None}
+
+    def validate_menu_plato_categoria(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        print("validate_plato_id")
+        print("validate_menu_plato_categoria")
 
-        categoria = tracker.get_slot("categoria")
-        categoria = categoria.lower()
-        plato_id = tracker.get_slot("plato_id")
-        intent = tracker.get_intent_of_latest_message()
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+        if menu_plato_categoria is not None:
+            menu_plato_categoria = menu_plato_categoria.lower()
+        else:
+            return {"menu_plato_categoria": None}
 
-        if intent == "stop":
-            return {"requested_slot": None, "first_name": None}
-
-        if categoria is not None:
+        if menu_plato_categoria not in CATEGORIA_MENU:
+            buttons = []
             for it in CATEGORIA_MENU:
-                if categoria in it:
-                    categoria = it
+                buttons.append({"title": "{}".format(
+                    it.capitalize()), "payload": "{}".format(it)})
+            dispatcher.utter_message(
+                "No reconozco esa categoria, elige una de las siguientes:", buttons=buttons)
+            return {"menu_plato_categoria": None}
+        else:
+            return {"menu_plato_categoria": menu_plato_categoria}
+
+
+class ValidateMenuPlatoIDForm(FormValidationAction):
+    def name(self) -> Text:
+        return 'validate_menu_plato_id_form'
+
+    async def required_slots(
+        self, slots_mapped_in_domain: List[Text],
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Optional[List[Text]]:
+        print("Required slots menu_plato_id")
+        return slots_mapped_in_domain
+
+    async def extract_menu_plato_id(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        print("extract_menu_plato_id")
+
+        menu_plato_id = tracker.get_slot("menu_plato_id")
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+
+        if menu_plato_categoria is None:
+            dispatcher.utter_message(
+                text=f'No se ha introducido una categoria, parando el proceso.')
+            return {"requested_slot": None, "menu_plato_id": None}
+
+        if menu_plato_id is not None:
+            for it in CATEGORIA_MENU:
+                if menu_plato_categoria in it:
+                    menu_plato_categoria = it
                     break
 
-            if intent in ["establecer_plato_entrante", "establecer_plato_carne", "establecer_plato_pescado", "establecer_plato_postre", "establecer_plato_bebida"]:
-                return {"categoria": categoria, "plato_id": None}
+            data = get_data_plato(menu_plato_categoria)
+            for it in data[menu_plato_categoria]:
+                if it['id'] == str(menu_plato_id):
+                    return {"menu_plato_id": menu_plato_id}
+            buttons = MenuGet.get_submenu_botones(self, menu_plato_categoria)
+            dispatcher.utter_message(
+                text=f'No se ha encontrado ese identificador, selecciona uno de los siguientes:', buttons=buttons)
+            return {"menu_plato_categoria": menu_plato_categoria, "menu_plato_id": None}
+        else:
+            return {"menu_plato_id": None}
 
-            f = open(pathlib.Path("data/menu/"+str(categoria)+".json"))
-            data = json.load(f)
-            f.close()
+    def validate_menu_plato_id(
+        self, slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print("validate_menu_plato_id")
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "stop":
+            return {"requested_slot": None, "menu_pato_id": None, "menu_plato_categoria": None}
+        menu_plato_id = tracker.get_slot("menu_plato_id")
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+        if menu_plato_id is not None:
+            for it in CATEGORIA_MENU:
+                if menu_plato_categoria in it:
+                    menu_plato_categoria = it
+                    break
 
-            for it in data[categoria]:
-                if str(it['id']) == plato_id:
-                    if categoria == "entrantes":
-                        dispatcher.utter_message(
-                            response="utter_entrante_seleccionado", entrante_nombre=it['nombre'], entrante_precio=it['precio'])
-                        dispatcher.utter_message(
-                            response="utter_change_plato_info")
-                        return {"categoria": None, "plato_id": plato_id, "entrante_id": plato_id, "entrante_nombre": it['nombre'], "entrante_precio": it['precio']}
-                    elif categoria == "carnes":
-                        dispatcher.utter_message(
-                            response="utter_carne_seleccionado", carne_nombre=it['nombre'], carne_precio=it['precio'])
-                        dispatcher.utter_message(
-                            response="utter_change_plato_info")
-                        return {"categoria": None, "plato_id": plato_id, "carne_id": plato_id, "carne_nombre": it['nombre'], "carne_precio": it['precio']}
-                    elif categoria == "pescados":
-                        dispatcher.utter_message(
-                            response="utter_pescado_seleccionado", pescado_nombre=it['nombre'], pescado_precio=it['precio'])
-                        dispatcher.utter_message(
-                            response="utter_change_plato_info")
-                        return {"categoria": None, "plato_id": plato_id, "pescado_id": plato_id, "pescado_nombre": it['nombre'], "pescado_precio": it['precio']}
-                    elif categoria == "postres":
-                        dispatcher.utter_message(
-                            response="utter_postre_seleccionado", postre_nombre=it['nombre'], postre_precio=it['precio'])
-                        dispatcher.utter_message(
-                            response="utter_change_plato_info")
-                        return {"categoria": None, "plato_id": plato_id, "postre_id": plato_id, "postre_nombre": it['nombre'], "postre_precio": it['precio']}
-                    elif categoria == "bebidas":
-                        dispatcher.utter_message(
-                            response="utter_bebida_seleccionado", bebida_nombre=it['nombre'], bebida_precio=it['precio'])
-                        dispatcher.utter_message(
-                            response="utter_change_plato_info")
-                        return {"categoria": None, "plato_id": plato_id, "bebida_id": plato_id, "bebida_nombre": it['nombre'], "bebida_precio": it['precio']}
+            data = get_data_plato(menu_plato_categoria)
+            for it in data[menu_plato_categoria]:
+                if it['id'] == str(menu_plato_id):
+                    message = "Guardado plato " + menu_plato_categoria + \
+                        ":\n- " + it['nombre'] + " (" + it['precio'] + ")"
+                    dispatcher.utter_message(text=message)
+                    if menu_plato_categoria == "entrantes":
+                        return {"menu_plato_id": menu_plato_id, "menu_entrante_id": menu_plato_id, "menu_entrante_nombre": it['nombre'], "menu_entrante_precio": it['precio'], "menu_establecido": True}
+                    elif menu_plato_categoria == "carnes":
+                        return {"menu_plato_id": menu_plato_id, "menu_carne_id": menu_plato_id, "menu_carne_nombre": it['nombre'], "menu_carne_precio": it['precio'], "menu_establecido": True}
+                    elif menu_plato_categoria == "pescados":
+                        return {"menu_plato_id": menu_plato_id, "menu_pescado_id": menu_plato_id, "menu_pescado_nombre": it['nombre'], "menu_pescado_precio": it['precio'], "menu_establecido": True}
+                    elif menu_plato_categoria == "postres":
+                        return {"menu_plato_id": menu_plato_id, "menu_postre_id": menu_plato_id, "menu_postre_nombre": it['nombre'], "menu_postre_precio": it['precio'], "menu_establecido": True}
+                    elif menu_plato_categoria == "bebidas":
+                        return {"menu_plato_id": menu_plato_id, "menu_bebida_id": menu_plato_id, "menu_bebida_nombre": it['nombre'], "menu_bebida_precio": it['precio'], "menu_establecido": True}
+        return {"menu_plato_id": None}
 
+
+# ---------------------------------------------------------------------
+# Reserva Class
+# ---------------------------------------------------------------------
+
+
+class ReservaBorrar(Action):
+    def name(self):
+        return 'ReservaBorrar'
+
+    def run(self, dispatcher, tracker, domain):
+        print("ReservaBorrar")
         dispatcher.utter_message(
-            text=f'El plato elegido no esta en la lista de la categoria, selecciona otro o escribe "stop" para parar el proceso.')
-        return {"plato_id": None}
+            text=f'Se ha eliminado los datos de reserva introducidos.')
+        return [SlotSet("reserva_dia", None), SlotSet("reserva_hora", None), SlotSet("reserva_comensales", None), SlotSet("reserva_mesa_id", None)]
+
+
+class ReservaGetMesasLibres(Action):
+    def name(self):
+        return 'ReservaGetMesasLibres'
+
+    def check_mesas_libres_dia(Action, dia):
+        hay_mesa = False
+        for it in horas['horas'][dia]:
+            if it['ocupada'] == "False":
+                hay_mesa = True
+                break
+        return hay_mesa
+
+    def run(self, dispatcher, tracker, domain):
+        print("ReservaGetMesasLibres")
+        reserva_dia = tracker.get_slot("reserva_dia")
+        if reserva_dia is not None:
+            if horario['horario'][reserva_dia][0] == "cerrado":
+                dispatcher.utter_message(
+                    text=f'El ' + reserva_dia + ' estamos cerrados.')
+                return [SlotSet("reserva_dia", None)]
+        else:
+            dispatcher.utter_message(
+                text=f'No se ha establecido un dia para la reserva.')
+            return []
+
+        if self.check_mesas_libres_dia(reserva_dia):
+            dispatcher.utter_message(
+                text=f'Anotado el ' + reserva_dia + ' para reserva.')
+            return [SlotSet("reserva_dia", reserva_dia)]
+        else:
+            dispatcher.utter_message(
+                text=f'El ' + reserva_dia + ' no tenemos mesas disponibles.')
+            return [SlotSet("reserva_dia", None)]
+
+
+class ReservaGetUser(Action):
+    def name(self):
+        return "ReservaGetUser"
+
+    def run(self, dispatcher, tracker, domain):
+        print("ReservaGetUser")
+
+        reserva_dia = tracker.get_slot("reserva_dia")
+        reserva_hora = tracker.get_slot("reserva_hora")
+        reserva_comensales = tracker.get_slot("reserva_comensales")
+        reserva_mesa_id = tracker.get_slot("reserva_mesa_id")
+
+        message = "No se ha establecido una reserva aun."
+        if reserva_dia is not None or reserva_hora is not None or reserva_comensales is not None or reserva_mesa_id is not None:
+            message = "Tu reserva tiene los siguientes datos:\n"
+
+        if reserva_dia is not None:
+            message += "- Dia: " + reserva_dia + ".\n"
+        if reserva_hora is not None:
+            message += "- Hora: " + reserva_hora + ".\n"
+        if reserva_mesa_id is not None:
+            message += "- Mesa: " + str(reserva_mesa_id) + ".\n"
+        if reserva_comensales is not None:
+            message += "- Comensales: " + reserva_comensales + ".\n"
+
+        dispatcher.utter_message(text=message)
+
+        if tracker.get_slot("menu_establecido"):
+          dispatcher.utter_message(text=f'Tu menu esta compuesto por:')
+          MenuGetUser.run(self, dispatcher, tracker, domain)
+
+        return ""
+
+
+class ValidateReservaComensalesForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_reserva_comensales_form"
+
+    def get_mesa_libre(Action, dia, hora):
+        for it in horas['horas'][dia]:
+            if it['time'][hora] == "False":
+                return it['id']
+        return False
+
+    async def required_slots(
+        self, slots_mapped_in_domain: List[Text],
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Optional[List[Text]]:
+        print("Required slots comensales")
+        return slots_mapped_in_domain
+
+    async def extract_reserva_comensales(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        print("extract_reserva_comensales")
+
+        reserva_comensales = tracker.get_slot("reserva_comensales")
+        if reserva_comensales is not None:
+            return {"reserva_comensales": reserva_comensales}
+        else:
+            dispatcher.utter_message(
+                text=f'No se han establecido los comensales.')
+            return {"reserva_comensales": None}
+
+    def validate_reserva_comensales(
+        self, slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print("validate_reserva_comensales")
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_hora": None, "reserva_dia": None, "reserva_comensales": None}
+        reserva_comensales = tracker.get_slot("reserva_comensales")
+        if not reserva_comensales.isnumeric():
+            dispatcher.utter_message(
+                text=f'Por favor, indica los comensales con formato numerico.')
+            return {"reserva_comensales": None}
+        reserva_dia = tracker.get_slot("reserva_dia")
+        reserva_hora = tracker.get_slot("reserva_hora")
+        reserva_mesa_id = self.get_mesa_libre(reserva_dia, reserva_hora)
+        if reserva_mesa_id is not None:
+            dispatcher.utter_message(
+                text=f'Anotado ' + reserva_comensales + ' comensales.')
+            return {"reserva_comensales": reserva_comensales, "reserva_mesa_id": reserva_mesa_id}
+        dispatcher.utter_message(text=f'No hay mesa disponible en esa hora.')
+        return {}
+
+
+class ValidateReservaDiaForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_reserva_dia_form"
+
+    async def required_slots(
+        self, slots_mapped_in_domain: List[Text],
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Optional[List[Text]]:
+        print("Required slots reserva_dia")
+        return slots_mapped_in_domain
+
+    async def extract_reserva_dia(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        print("extract_reserva_dia")
+        reserva_dia = tracker.get_slot("reserva_dia")
+        if reserva_dia is not None:
+            reserva_dia = reserva_dia.lower()
+            if reserva_dia == "hoy":
+                now = datetime.datetime.now()
+                reserva_dia = now.strftime("%A")
+            elif reserva_dia == "mañana":
+                now = (datetime.datetime.now() +
+                       datetime.timedelta(1)).strftime("%A")
+                reserva_dia = now
+            elif reserva_dia == "pasado mañana":
+                now = (datetime.datetime.now() +
+                       datetime.timedelta(2)).strftime("%A")
+                reserva_dia = now
+            reserva_dia = unidecode.unidecode(reserva_dia)
+
+            if reserva_dia not in DIAS_SEMANA:
+                buttons = [
+                    {'title': 'Lunes',     'payload': 'lunes'},
+                    {'title': 'Martes',    'payload': 'martes'},
+                    {'title': 'Miercoles', 'payload': 'miercoles'},
+                    {'title': 'Jueves',    'payload': 'jueves'},
+                    {'title': 'Viernes',   'payload': 'viernes'},
+                    {'title': 'Sabado',    'payload': 'sabado'},
+                    {'title': 'Domingo',   'payload': 'domingo'}]
+                dispatcher.utter_message(
+                    "No se ha reconocido el dia, pulsa sobre el dia que quieras", buttons=buttons)
+                return {"reserva_dia": None}
+            return {"reserva_dia": reserva_dia}
+        return {"reserva_dia": None}
+
+    def validate_reserva_dia(
+        self, slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print("validate_reserva_dia")
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_dia": None}
+        reserva_dia = tracker.get_slot("reserva_dia")
+        if reserva_dia is not None and reserva_dia not in DIAS_SEMANA:
+            dispatcher.utter_message(
+                text=f'No reconozco ese dia.')
+            return {"reserva_dia": None}
+        if tracker.get_slot("menu_establecido") is None:
+            return {"reserva_dia": reserva_dia, "menu_establecido": False}
+        return {"reserva_dia": reserva_dia}
+
+
+class ValidateReservaHoraForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_reserva_hora_form"
+
+    def get_horas_mesas(Action, dia):
+        horas_mesas = []
+        for it in horas['horas'][dia][0]['time']:
+            horas_mesas.append(it)
+        return horas_mesas
+
+    def validate_regex(Action, hora):
+        return bool(re.search('[0-9][0-9]:[0-9][0-9]', hora))
+
+    async def required_slots(
+        self, slots_mapped_in_domain: List[Text],
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Optional[List[Text]]:
+        print("Required slots reserva_hora")
+        return slots_mapped_in_domain
+
+    async def extract_reserva_hora(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        print("extract_reserva_hora")
+        reserva_dia = tracker.get_slot("reserva_dia")
+        reserva_hora = tracker.get_slot("reserva_hora")
+        horas_mesas = self.get_horas_mesas(reserva_dia)
+        if reserva_hora in horas_mesas:
+            return {"reserva_hora": reserva_hora}
+        if reserva_dia is not None:
+            reserva_dia = reserva_dia.lower()
+            if self.validate_regex(reserva_dia):
+                return {"reserva_hora": tracker.get_slot("reserva_hora")}
+        if reserva_dia is not None:
+            buttons = []
+            for it in horas_mesas:
+                buttons.append({"title": "{}".format(
+                    it), "payload": "{}".format(it)})
+            dispatcher.utter_message(
+                "Estas son las horas disponibles el " + reserva_dia + ":", buttons=buttons)
+            return {"reserva_hora": None}
+        return {"reserva_hora": None}
+
+    def validate_reserva_hora(
+        self, slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker, domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print("validate_reserva_hora")
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_hora": None, "reserva_dia": None}
+        reserva_hora = tracker.get_slot("reserva_hora")
+        reserva_dia = tracker.get_slot("reserva_dia")
+        horas_mesas = self.get_horas_mesas(reserva_dia)
+        if reserva_hora in horas_mesas:
+            dispatcher.utter_message(
+                text=f'Anotada la hora de reserva: ' + reserva_hora)
+            return {"reserva_hora": reserva_hora}
+        else:
+            return {"reserva_hora": None}
