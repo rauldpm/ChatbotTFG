@@ -14,7 +14,7 @@ pipeline:
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 1
-    max_ngram: 4
+    max_ngram: 6
   - name: DIETClassifier
     epochs: 200
     constrain_similarities: true
@@ -31,6 +31,8 @@ pipeline:
 policies:
   - name: RulePolicy
   - name: AugmentedMemoizationPolicy
+    max_history: 3
   - name: TEDPolicy
     epochs: 200
+    max_history: 8
     constrain_similarities: true

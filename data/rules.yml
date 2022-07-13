@@ -2,6 +2,13 @@ version: "3.1"
 
 rules:
   # -------------------------------------
+  # Generic
+  # -------------------------------------
+
+  - rule: Saludo
+    steps:
+      - intent: saludo
+      - action: utter_saludo
 
   - rule: Despedida
     steps:
@@ -13,45 +20,43 @@ rules:
       - intent: opciones
       - action: utter_opciones
 
-  - rule: Saludo
-    steps:
-      - intent: saludo
-      - action: utter_saludo
-      - action: utter_opciones
-
+  # -------------------------------------
+  # Horario
   # -------------------------------------
 
   - rule: El usuario pregunta por horario
     steps:
       - intent: horario
-      - action: GetHorario
-      - active_loop: GetHorario
+      - action: HorarioGet
+      - active_loop: HorarioGet
 
   - rule: El usuario pregunta por la apertura de un dia concreto
     steps:
       - intent: horario_concreto
-      - action: GetHorario
-      - active_loop: GetHorario
+      - action: HorarioGet
+      - active_loop: HorarioGet
 
   - rule: El usuario pregunta por apertura
     steps:
       - intent: apertura
-      - action: GetHorario
-      - active_loop: GetHorario
+      - action: HorarioGet
+      - active_loop: HorarioGet
 
   - rule: El usuario pregunta por cierre
     steps:
       - intent: cierre
-      - action: GetHorario
-      - active_loop: GetHorario
+      - action: HorarioGet
+      - active_loop: HorarioGet
 
   - rule: Submit horario
     condition:
-      - active_loop: GetHorario
+      - active_loop: HorarioGet
     steps:
-      - action: GetHorario
+      - action: HorarioGet
       - active_loop: null
 
+  # -------------------------------------
+  # Identificacion
   # -------------------------------------
 
   - rule: El usuario pregunta quien es
@@ -87,62 +92,35 @@ rules:
           - requested_slot: null
       - action: utter_saludo_identificacion
 
-  # -------------------------------------
-
-  - rule: Menu selecionado
+  - rule: Olvidar nombre de usuario
     steps:
-      - intent: mi_menu
-      - action: GetUserMenu
-
-  - rule: Mostrar menu completo
-    steps:
-      - intent: menu
-      - action: GetMenu
-
-  - rule: Borrar plato generico
-    steps:
-      - intent: borrar_plato
-      - action: utter_ask_borrar_plato
-      - action: GetUserMenu
-
-  - rule: Borrar entrante
-    steps:
-      - intent: borrar_entrante
-      - action: ResetMenu
-
-  - rule: Borrar carne
-    steps:
-      - intent: borrar_carne
-      - action: ResetMenu
-
-  - rule: Borrar pescado
-    steps:
-      - intent: borrar_pescado
-      - action: ResetMenu
-
-  - rule: Borrar postre
-    steps:
-      - intent: borrar_postre
-      - action: ResetMenu
-
-  - rule: Borrar bebida
-    steps:
-      - intent: borrar_bebida
-      - action: ResetMenu
+      - intent: identificar_borrar
+      - action: IdentificarBorrarUsername
 
   # -------------------------------------
+  # Menu
+  # -------------------------------------
 
-  - rule: Mostrar mesas disponibles
+  - rule: Establecer menu generico
     steps:
-      - intent: mostrar_cantidad_mesas_libres
-      - action: GetMesasLibres
+      - intent: establecer_menu
+      - action: MenuGetCategoriasButtons
 
-  - rule: Reservar mesa general
+  - rule: Obtener menu de usuario
     steps:
-      - intent: reservar_mesa
-      - action: utter_ask_reservar_mesa_general
+      - intent: menu_usuario
+      - action: MenuGetUser
+
+  - rule: Obtener menu completo
+    steps:
+      - intent: menu_completo
+      - action: MenuGet
+
+  # -------------------------------------
+  # Reserva
+  # -------------------------------------
 
   - rule: Mostrar reserva de usuario
     steps:
-      - intent: mostrar_reserva_user
-      - action: MostrarReserva
+      - intent: reserva_usuario
+      - action: ReservaGetUser
