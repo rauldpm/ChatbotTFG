@@ -16,8 +16,7 @@ locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 
 data_path = "/app/actions"
 if not path.exists(data_path):
-    data_path = "."
-
+    data_path = "./actions"
 names = pathlib.Path(
     data_path+"/data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path(

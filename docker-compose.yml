@@ -7,16 +7,18 @@ services:
     ports:
       - 5005:5005
     volumes:
-      - ./:/app
-    command:
-      - run
+      - "./logs:/app/logs"
     depends_on:
       - action_server
   action_server:
     container_name: rasa-actions
     build:
       context: actions
-    volumes:
-      - ./actions:/app/actions
     ports:
       - 5055:5055
+    volumes:
+      - "./actions:/app/actions"
+
+volumes:
+  logs:
+  actions:
