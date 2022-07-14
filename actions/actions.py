@@ -4,6 +4,7 @@ from rasa_sdk.interfaces import Action
 from rasa_sdk.types import DomainDict
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk import Tracker, FormValidationAction
+from os import path
 import unidecode  # acentos
 import datetime
 import pathlib
@@ -13,20 +14,17 @@ import locale  # dias español
 locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 
 
-names = pathlib.Path("data/diccionarios/nombres.txt").read_text().split("\n")
+data_path = "/app/actions"
+if not path.exists(data_path):
+    data_path = "./actions"
+names = pathlib.Path(
+    data_path+"/data/diccionarios/nombres.txt").read_text().split("\n")
 malsonantes = pathlib.Path(
-    "data/diccionarios/malsonante.txt").read_text().split("\n")
+    data_path+"/data/diccionarios/malsonante.txt").read_text().split("\n")
 
 DIAS_SEMANA = ["lunes", "martes", "miercoles",
                "jueves", "viernes", "sabado", "domingo"]
 CATEGORIA_MENU = ["entrantes", "carnes", "pescados", "postres", "bebidas"]
-
-
-def get_data_plato(tipo):
-    f = open(pathlib.Path("data/menu/"+tipo+".json"))
-    data = json.load(f)
-    f.close()
-    return data
 
 
 def get_data_generic(path):
@@ -36,9 +34,9 @@ def get_data_generic(path):
     return data
 
 
-horario = get_data_generic("data/menu/horario.json")
-mesas = get_data_generic("data/tables/mesas.json")
-horas = get_data_generic("data/tables/horas.json")
+horario = get_data_generic(data_path+"/data/menu/horario.json")
+mesas = get_data_generic(data_path+"/data/tables/mesas.json")
+horas = get_data_generic(data_path+"/data/tables/horas.json")
 
 
 # ---------------------------------------------------------------------
@@ -193,20 +191,20 @@ class HorarioGet(Action):
         elif intent == "horario_concreto":
             dia = tracker.get_slot("dia")
             if dia is not None:
-              dia = dia.lower()
+                dia = dia.lower()
 
-              if dia == "hoy":
-                  now = datetime.datetime.now()
-                  dia = now.strftime("%A")
-              elif dia == "mañana":
-                  now = (datetime.datetime.now() +
-                        datetime.timedelta(1)).strftime("%A")
-                  dia = now
-              elif dia == "pasado mañana":
-                  now = (datetime.datetime.now() +
-                        datetime.timedelta(2)).strftime("%A")
-                  dia = now
-              dia = unidecode.unidecode(dia)
+                if dia == "hoy":
+                    now = datetime.datetime.now()
+                    dia = now.strftime("%A")
+                elif dia == "mañana":
+                    now = (datetime.datetime.now() +
+                           datetime.timedelta(1)).strftime("%A")
+                    dia = now
+                elif dia == "pasado mañana":
+                    now = (datetime.datetime.now() +
+                           datetime.timedelta(2)).strftime("%A")
+                    dia = now
+                dia = unidecode.unidecode(dia)
 
             if dia not in DIAS_SEMANA:
                 message = "Ese dia de la semana es incorrecto."
@@ -317,7 +315,7 @@ class MenuGet(Action):
         return 'MenuGet'
 
     def get_menu_plato(Action, tipo):
-        data = get_data_plato(tipo)
+        data = get_data_generic(data_path+"/data/menu/"+tipo+".json")
         message = tipo.capitalize() + ":" + "\n"
         for it in data[tipo]:
             message += str(it['id']) + ": " + it['nombre'] + \
@@ -325,7 +323,7 @@ class MenuGet(Action):
         return message
 
     def get_submenu_botones(Action, tipo):
-        data = get_data_plato(tipo)
+        data = get_data_generic(data_path+"/data/menu/"+tipo+".json")
         buttons = []
         for it in data[tipo]:
             buttons.append({"title": "{}".format(
@@ -340,7 +338,7 @@ class MenuGet(Action):
         if intent == "menu_completo":
             message = ""
             for it in CATEGORIA_MENU:
-                data = get_data_plato(it)
+                data = get_data_generic(data_path+"/data/menu/"+it+".json")
                 message += it.capitalize() + ":\n"
                 for d in data[it]:
                     message += "- " + d['nombre'] + \
@@ -524,7 +522,8 @@ class ValidateMenuPlatoIDForm(FormValidationAction):
                     menu_plato_categoria = it
                     break
 
-            data = get_data_plato(menu_plato_categoria)
+            data = get_data_generic(
+                data_path+"/data/menu/"+menu_plato_categoria+".json")
             for it in data[menu_plato_categoria]:
                 if it['id'] == str(menu_plato_id):
                     return {"menu_plato_id": menu_plato_id}
@@ -552,7 +551,8 @@ class ValidateMenuPlatoIDForm(FormValidationAction):
                     menu_plato_categoria = it
                     break
 
-            data = get_data_plato(menu_plato_categoria)
+            data = get_data_generic(
+                data_path+"/data/menu/"+menu_plato_categoria+".json")
             for it in data[menu_plato_categoria]:
                 if it['id'] == str(menu_plato_id):
                     message = "Guardado plato " + menu_plato_categoria + \
@@ -650,8 +650,8 @@ class ReservaGetUser(Action):
         dispatcher.utter_message(text=message)
 
         if tracker.get_slot("menu_establecido"):
-          dispatcher.utter_message(text=f'Tu menu esta compuesto por:')
-          MenuGetUser.run(self, dispatcher, tracker, domain)
+            dispatcher.utter_message(text=f'Tu menu esta compuesto por:')
+            MenuGetUser.run(self, dispatcher, tracker, domain)
 
         return ""
 
