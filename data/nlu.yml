@@ -233,6 +233,7 @@ nlu:
       - opciones
   - intent: horario
     examples: |
+      - horario
       - que horario tienes
       - cuando estais abiertos
   - intent: apertura
