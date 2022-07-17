@@ -1,0 +1,153 @@
+version: "3.1"
+
+stories:
+  - story: Borrar reserva happy path
+    steps:
+      - intent: reserva_borrar_mesa
+      - action: utter_reserva_borrar
+      - intent: affirm
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+
+  - story: Borrar reserva umhappy path
+    steps:
+      - intent: reserva_borrar_mesa
+      - action: utter_reserva_borrar
+      - intent: deny
+      - action: utter_reserva_borrar_deny
+
+  - story: Reserva mesa unhappy path 1
+    steps:
+      - intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - action: utter_reserva_hora
+      - intent: deny
+      - action: utter_reserva_deny
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+
+  - story: Reserva mesa unhappy path
+    steps:
+      - intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: deny
+      - action: utter_reserva_deny
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+
+  - story: Reserva mesa happy path
+    steps:
+      - intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - menu_establecido: False
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: affirm
+      - action: utter_reserva_comensales_especifica
+      - action: reserva_comensales_form
+      - active_loop: reserva_comensales_form
+      - slot_was_set:
+          - requested_slot: reserva_comensales
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_mesa_id: 1
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetUser
+      - action: utter_menu_aviso
