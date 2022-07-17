@@ -7,8 +7,8 @@ from rasa_sdk import Tracker, FormValidationAction
 import unidecode  # acentos
 import datetime
 import re
-from actions.Clases.auxiliar import *
-from actions.Clases.menu import MenuGetUser
+from actions.clases.auxiliar import *
+from actions.clases.menu import MenuGetUser
 
 # -----------------------------------------
 auxiliar = Auxiliar()

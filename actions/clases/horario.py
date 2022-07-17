@@ -3,7 +3,7 @@ from rasa_sdk.events import SlotSet
 from rasa_sdk.interfaces import Action
 import unidecode  # acentos
 import datetime
-from actions.Clases.auxiliar import *
+from actions.clases.auxiliar import *
 
 # -----------------------------------------
 auxiliar = Auxiliar()
