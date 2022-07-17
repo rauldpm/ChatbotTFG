@@ -6,7 +6,7 @@ USER root
 COPY actions/* /app/actions/
 COPY data/* /app/data/
 COPY config.yml credentials.yml domain.yml endpoints.yml values.env /app/
-COPY entrypoint.sh /usr/bin/
+COPY Docker/server/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 WORKDIR '/app'
 
