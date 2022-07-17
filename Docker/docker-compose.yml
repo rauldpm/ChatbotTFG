@@ -3,21 +3,23 @@ services:
   rasa:
     container_name: rasa-server
     build:
-      context: .
+      context: ./../
+      dockerfile: ./Docker/server/Dockerfile
     ports:
       - 5005:5005
     volumes:
-      - "./logs:/app/logs"
+      - "./../logs:/app/logs"
     depends_on:
       - action_server
   action_server:
     container_name: rasa-actions
     build:
-      context: actions
+      context: ./../
+      dockerfile: ./Docker/actions/Dockerfile
     ports:
       - 5055:5055
     volumes:
-      - "./actions:/app/actions"
+      - "./../actions:/app/actions"
 
 volumes:
   logs:

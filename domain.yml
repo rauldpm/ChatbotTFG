@@ -30,6 +30,7 @@ intents:
   - reservar
   - reserva_borrar_mesa
   - saludo
+  - start
   - stop
   - reserva_usuario
 entities:
@@ -319,6 +320,7 @@ responses:
     - text: Selecciona el plato introduciendo el identificador.
   utter_opciones:
     - text: "Estas son las opciones de las que dispones:"
+      button_type: vertical
       buttons:
         - title: "Opciones"
           payload: "/opciones"
@@ -372,6 +374,8 @@ responses:
           value: true
       text: Ya te has identificado.
     - text: ""
+  utter_start:
+    - text: "¡Bienvenid@ al asistente de reservas del restaurante!"
 actions:
   - HorarioGet
   - IdentificarBorrarUsername
@@ -405,6 +409,7 @@ actions:
   - utter_reserva_hora_especifica
   - utter_saludo
   - utter_saludo_identificacion
+  - utter_start
   - utter_te_llamas
   - utter_ya_identificado
   - validate_menu_plato_categoria_form

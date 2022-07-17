@@ -9,7 +9,7 @@ RUN apt-get install -y locales
 RUN locale-gen es_ES
 RUN locale-gen es_ES.utf8
 
-COPY requirements.txt requirements.txt
+COPY Docker/actions/requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --verbose -r requirements.txt
 
