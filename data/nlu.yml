@@ -1,5 +1,9 @@
 version: "3.1"
 nlu:
+  - intent: start
+    examples: |
+      - start
+      - /start
   - intent: saludo
     examples: |
       - hey
@@ -208,6 +212,7 @@ nlu:
       - [satsuki](first_name)
       - [manuelote](first_name)
       - [foxy](first_name)
+      - [nuri](first_name)
       - /repetir_nombre
   - intent: identificar
     examples: |

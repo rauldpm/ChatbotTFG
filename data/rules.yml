@@ -5,6 +5,13 @@ rules:
   # Generic
   # -------------------------------------
 
+  - rule: Start
+    conversation_start: true
+    steps:
+      - intent: start
+      - action: utter_start
+      - action: utter_opciones
+
   - rule: Saludo
     steps:
       - intent: saludo

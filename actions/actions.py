@@ -120,7 +120,7 @@ class ValidateNameForm(FormValidationAction):
                 buttons = [{'title': 'Si', 'payload': '/affirm'},
                            {'title': 'No', 'payload': '/repetir_nombre'}]
                 dispatcher.utter_message(
-                    "Mmm esta bien escrito tu nombre? Si no, escribe tu nombre de nuevo", buttons=buttons)
+                    "Mmm esta bien escrito tu nombre? Si no, escribe tu nombre de nuevo", buttons=buttons, button_type="vertical")
                 return {"first_name": None, "name_spelled_correctly": None, "first_name_save": latest_message}
             return {"first_name": None, "name_spelled_correctly": False, "first_name_save": latest_message}
         if tracker.get_intent_of_latest_message() != "repetir_nombre" or intent == "repetir_nombre":
@@ -129,7 +129,7 @@ class ValidateNameForm(FormValidationAction):
             buttons = [{'title': 'Si', 'payload': '/affirm'},
                        {'title': 'No', 'payload': '/repetir_nombre'}]
             dispatcher.utter_message(
-                "Mmm esta bien escrito tu nombre? Si no, escribe tu nombre de nuevo", buttons=buttons)
+                "Mmm esta bien escrito tu nombre? Si no, escribe tu nombre de nuevo", buttons=buttons, button_type="vertical")
 
             return {"first_name": None, "name_spelled_correctly": None, "first_name_save": tracker.get_slot("first_name")}
         return {"first_name": tracker.get_slot("first_name"), "name_spelled_correctly": None}
@@ -380,7 +380,8 @@ class MenuGetCategoriasButtons(Action):
         print("MenuGetCategoriasButtons")
 
         buttons = self.get_categorias_botones()
-        dispatcher.utter_message("Selecciona una categoria:", buttons=buttons)
+        dispatcher.utter_message(
+            "Selecciona una categoria:", buttons=buttons, button_type="vertical")
         return ""
 
 
@@ -485,7 +486,7 @@ class ValidateMenuPlatoCategoriaForm(FormValidationAction):
                 buttons.append({"title": "{}".format(
                     it.capitalize()), "payload": "{}".format(it)})
             dispatcher.utter_message(
-                "No reconozco esa categoria, elige una de las siguientes:", buttons=buttons)
+                "No reconozco esa categoria, elige una de las siguientes:", buttons=buttons, button_type="vertical")
             return {"menu_plato_categoria": None}
         else:
             return {"menu_plato_categoria": menu_plato_categoria}
@@ -508,6 +509,10 @@ class ValidateMenuPlatoIDForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("extract_menu_plato_id")
 
+        intent = tracker.get_intent_of_latest_message()
+        if intent == "stop":
+            return {"requested_slot": None, "menu_plato_id": None, "menu_plato_categoria": None}
+
         menu_plato_id = tracker.get_slot("menu_plato_id")
         menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
 
@@ -529,7 +534,7 @@ class ValidateMenuPlatoIDForm(FormValidationAction):
                     return {"menu_plato_id": menu_plato_id}
             buttons = MenuGet.get_submenu_botones(self, menu_plato_categoria)
             dispatcher.utter_message(
-                text=f'No se ha encontrado ese identificador, selecciona uno de los siguientes:', buttons=buttons)
+                text=f'No se ha encontrado ese identificador, selecciona uno de los siguientes:', buttons=buttons, button_type="vertical")
             return {"menu_plato_categoria": menu_plato_categoria, "menu_plato_id": None}
         else:
             return {"menu_plato_id": None}
@@ -542,7 +547,7 @@ class ValidateMenuPlatoIDForm(FormValidationAction):
         print("validate_menu_plato_id")
         intent = tracker.get_intent_of_latest_message()
         if intent == "stop":
-            return {"requested_slot": None, "menu_pato_id": None, "menu_plato_categoria": None}
+            return {"requested_slot": None, "menu_plato_id": None, "menu_plato_categoria": None}
         menu_plato_id = tracker.get_slot("menu_plato_id")
         menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
         if menu_plato_id is not None:
@@ -753,7 +758,7 @@ class ValidateReservaDiaForm(FormValidationAction):
                     {'title': 'Sabado',    'payload': 'sabado'},
                     {'title': 'Domingo',   'payload': 'domingo'}]
                 dispatcher.utter_message(
-                    "No se ha reconocido el dia, pulsa sobre el dia que quieras", buttons=buttons)
+                    "No se ha reconocido el dia, pulsa sobre el dia que quieras", buttons=buttons, button_type="vertical")
                 return {"reserva_dia": None}
             return {"reserva_dia": reserva_dia}
         return {"reserva_dia": None}
@@ -816,7 +821,7 @@ class ValidateReservaHoraForm(FormValidationAction):
                 buttons.append({"title": "{}".format(
                     it), "payload": "{}".format(it)})
             dispatcher.utter_message(
-                "Estas son las horas disponibles el " + reserva_dia + ":", buttons=buttons)
+                "Estas son las horas disponibles el " + reserva_dia + ":", buttons=buttons, button_type="vertical")
             return {"reserva_hora": None}
         return {"reserva_hora": None}
 
