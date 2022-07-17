@@ -247,6 +247,9 @@ nlu:
       - cuando cierra el restaurante
   - intent: horario_concreto
     examples: |
+      - horario [hoy](dia)
+      - horario [mañana](dia)
+      - horario [pasado mañana](dia)
       - a que hora abris el [hoy](dia)
       - a que hora abris el [mañana](dia)
       - a que hora abris el [pasado mañana](dia)
