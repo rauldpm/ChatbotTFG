@@ -1,0 +1,41 @@
+#### This file contains tests to evaluate that your bot behaves as expected.
+#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+version: "3.1"
+stories:
+  - story: Borrar plato unhappy path
+    steps:
+      - user: |
+          borrar plato
+        intent: menu_borra_plato
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - user: |
+          no
+        intent: deny
+      - action: utter_menu_borrar_deny
+
+  - story: Borrar menu unhappy path
+    steps:
+      - user: |
+          borrar menu
+        intent: menu_borra_todo
+      - action: utter_menu_borrar_todo
+      - user: |
+          no
+        intent: deny
+      - action: utter_menu_borrar_deny
+
+  - story: Establecer plato unhappy path
+    steps:
+      - user: |
+          [entrantes](menu_plato_categoria)
+        intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_set
+      - user: |
+          no
+        intent: deny
+      - action: utter_menu_deny

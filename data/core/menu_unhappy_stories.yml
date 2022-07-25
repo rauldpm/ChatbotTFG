@@ -1,0 +1,34 @@
+version: "3.1"
+
+stories:
+  - story: Borrar plato unhappy path
+    steps:
+      - intent: menu_borra_plato
+      - or:
+        - slot_was_set:
+            - menu_establecido: true
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - intent: deny
+      - action: utter_menu_borrar_deny
+
+  - story: Borrar menu unhappy path
+    steps:
+      - intent: menu_borra_todo
+      - or:
+        - slot_was_set:
+            - menu_establecido: true
+      - action: utter_menu_borrar_todo
+      - intent: deny
+      - action: utter_menu_borrar_deny
+
+  - story: Establecer plato unhappy path
+    steps:
+      - intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_set
+      - intent: deny
+      - action: utter_menu_deny

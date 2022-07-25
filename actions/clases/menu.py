@@ -153,6 +153,63 @@ class MenuGet(Action):
                 text=f'No se ha establecido una categoria')
 
 
+class MenuGetBotones(Action):
+    def name(self):
+        return 'MenuGetBotones'
+
+    def get_submenu_botones(Action, tipo):
+        data = auxiliar.get_data_generic(DATA_PATH+"/data/menu/"+tipo+".json")
+        buttons = []
+        for it in data[tipo]:
+            buttons.append({"title": "{}".format(
+                it['nombre']), "payload": "{}".format(it['id'])})
+        return buttons
+
+    def run(self, dispatcher, tracker, domain):
+        print("MenuGetBotones")
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+
+
+        if menu_plato_categoria is not None:
+
+            menu_plato_categoria = menu_plato_categoria.lower()
+            for it in CATEGORIA_MENU:
+                if menu_plato_categoria in it:
+                    menu_plato_categoria = it
+                    break
+            if menu_plato_categoria in CATEGORIA_MENU:
+                buttons = self.get_submenu_botones(menu_plato_categoria)
+                dispatcher.utter_message(text=f'Selecciona el plato que desees', buttons=buttons)
+                return ""
+            else:
+                dispatcher.utter_message(text=f'Esa categoria no existe.')
+                return [SlotSet("menu_plato_categoria", None)]
+        else:
+            dispatcher.utter_message(
+                text=f'No se ha establecido una categoria')
+
+
+class MenuCheckCategoria(Action):
+    def name(self):
+        return 'MenuCheckCategoria'
+
+    def run(self, dispatcher, tracker, domain):
+        print("MenuCheckCategoria")
+        menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
+        if menu_plato_categoria is not None:
+          for it in CATEGORIA_MENU:
+            if menu_plato_categoria in it:
+              menu_plato_categoria = it
+              break
+          if menu_plato_categoria in CATEGORIA_MENU:
+            return [SlotSet("menu_plato_categoria", menu_plato_categoria)]
+          else:
+            return [SlotSet("menu_plato_categoria", None)]
+
+        else:
+          return ""
+
+
 class MenuGetCategoriasButtons(Action):
     def name(self):
         return 'MenuGetCategoriasButtons'

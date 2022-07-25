@@ -1,0 +1,138 @@
+version: "3.1"
+
+stories:
+  - story: Reserva happy path
+    steps:
+      - intent: reservar
+      - or:
+          - slot_was_set:
+              - reserva_completa: false
+          - slot_was_set:
+              - reserva_completa: null
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: affirm
+      - action: utter_reserva_comensales_especifica
+      - action: reserva_comensales_form
+      - active_loop: reserva_comensales_form
+      - slot_was_set:
+          - requested_slot: reserva_comensales
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_mesa_id: 0
+      - slot_was_set:
+          - reserva_completa: true
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - or:
+          - slot_was_set:
+              - first_name_set: true
+      - action: ReservaGetUser
+      - action: utter_reserva_need_name
+      - action: utter_menu_aviso
+      - action: utter_reserva_aviso_finalizar
+
+  - story: Borrar reserva happy path
+    steps:
+      - intent: reserva_borrar_mesa
+      - or:
+          - slot_was_set:
+              - reserva_completa: true
+      - action: utter_reserva_borrar
+      - intent: affirm
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+      - slot_was_set:
+          - reserva_completa: false
+
+  - story: Finalizar reserva happy path
+    steps:
+      - intent: finalizar_reserva
+      - or:
+          - slot_was_set:
+              - reserva_realizada: false
+          - slot_was_set:
+              - reserva_realizada: null
+      - action: utter_reserva_finalizar
+      - action: utter_reserva_need_name
+      - intent: affirm
+      - action: utter_reserva_ask_email
+      - action: reserva_email_form
+      - active_loop: reserva_email_form
+      - slot_was_set:
+          - requested_slot: reserva_email
+      - slot_was_set:
+          - reserva_email: user@gmail.com
+      - slot_was_set:
+          - reserva_email: user@gmail.com
+      - slot_was_set:
+          - reserva_email_set: true
+      - slot_was_set:
+          - reserva_realizada: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: SendCodeEmail
+      - slot_was_set:
+          - reserva_codigo_tmp: "436818"
+      - action: utter_reserva_ask_code
+      - action: reserva_codigo_form
+      - active_loop: reserva_codigo_form
+      - slot_was_set:
+          - requested_slot: reserva_codigo
+      - slot_was_set:
+          - reserva_codigo: "436818"
+      - slot_was_set:
+          - reserva_codigo: "436818"
+      - slot_was_set:
+          - reserva_realizada: true
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null

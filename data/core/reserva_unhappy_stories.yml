@@ -1,0 +1,278 @@
+version: "3.1"
+
+stories:
+  - story: Reserva unhappy path 1 - comensales
+    steps:
+      - intent: reservar
+      - or:
+        - slot_was_set:
+            - reserva_completa: false
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: deny
+      - action: utter_reserva_deny
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+      - slot_was_set:
+          - reserva_completa: false
+
+  - story: Reserva unhappy path 2 - hora
+    steps:
+      - intent: reservar
+      - or:
+        - slot_was_set:
+            - reserva_completa: false
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - action: utter_reserva_hora
+      - intent: deny
+      - action: utter_reserva_deny
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+      - slot_was_set:
+          - reserva_completa: false
+
+  - story: Reserva unhappy path 3 (ya realizada)
+    steps:
+      - intent: reservar
+      - or:
+        - slot_was_set:
+            - reserva_completa: true
+      - action: utter_reserva_completa
+
+  - story: Reserva unhappy path 4 - no name provided
+    steps:
+      - intent: reservar
+      - or:
+          - slot_was_set:
+              - reserva_completa: false
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - action: utter_reserva_hora
+      - intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - intent: affirm
+      - action: utter_reserva_comensales_especifica
+      - action: reserva_comensales_form
+      - active_loop: reserva_comensales_form
+      - slot_was_set:
+          - requested_slot: reserva_comensales
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_mesa_id: 0
+      - slot_was_set:
+          - reserva_completa: true
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - or:
+          - slot_was_set:
+              - first_name_set: false
+      - action: ReservaGetUser
+      - action: utter_reserva_need_name
+
+
+  - story: Borrar reserva unhappy path (deny)
+    steps:
+      - intent: reserva_borrar_mesa
+      - or:
+        - slot_was_set:
+            - reserva_completa: true
+      - action: utter_reserva_borrar
+      - intent: deny
+      - action: utter_reserva_borrar_deny
+
+  - story: Finalizar reserva unhappy path 1 (no finalizar)
+    steps:
+      - intent: finalizar_reserva
+      - or:
+          - slot_was_set:
+              - reserva_realizada: false
+      - action: utter_reserva_finalizar
+      - intent: deny
+      - action: ReservaFinalizarBorrar
+      - slot_was_set:
+          - reserva_email: null
+      - slot_was_set:
+          - reserva_codigo: null
+      - slot_was_set:
+          - reserva_codigo_tmp: null
+      - slot_was_set:
+          - reserva_email_set: null
+
+  - story: Finalizar reserva unhappy path 2 (parar codigo)
+    steps:
+      - intent: finalizar_reserva
+      - or:
+          - slot_was_set:
+              - reserva_realizada: false
+      - action: utter_reserva_finalizar
+      - intent: affirm
+      - action: utter_reserva_ask_email
+      - action: reserva_email_form
+      - active_loop: reserva_email_form
+      - slot_was_set:
+          - requested_slot: reserva_email
+      - slot_was_set:
+          - reserva_email: user@gmail.com
+      - slot_was_set:
+          - reserva_email: user@gmail.com
+      - slot_was_set:
+          - reserva_email_set: true
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: SendCodeEmail
+      - slot_was_set:
+          - reserva_codigo_tmp: "917912"
+      - action: utter_reserva_ask_code
+      - action: reserva_codigo_form
+      - active_loop: reserva_codigo_form
+      - slot_was_set:
+          - requested_slot: reserva_codigo
+      - slot_was_set:
+          - reserva_codigo: null
+      - slot_was_set:
+          - requested_slot: null
+      - slot_was_set:
+          - reserva_email: null
+      - slot_was_set:
+          - reserva_email_set: false
+      - slot_was_set:
+          - reserva_codigo_tmp: null
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+
+  - story: Finalizar reserva unhappy path 3 (parar email)
+    steps:
+      - intent: finalizar_reserva
+      - or:
+          - slot_was_set:
+              - reserva_realizada: false
+      - action: utter_reserva_finalizar
+      - intent: affirm
+      - action: utter_reserva_ask_email
+      - action: reserva_email_form
+      - active_loop: reserva_email_form
+      - slot_was_set:
+          - requested_slot: reserva_email
+      - slot_was_set:
+          - reserva_email: null
+      - slot_was_set:
+          - requested_slot: null
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+
+  - story: Finalizar reserva unhappy path 4 (ya realizada)
+    steps:
+      - intent: finalizar_reserva
+      - or:
+          - slot_was_set:
+              - reserva_realizada: true
+      - action: utter_reserva_ya_realizada
+
+
+

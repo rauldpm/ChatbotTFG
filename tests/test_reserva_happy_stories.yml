@@ -1,0 +1,153 @@
+#### This file contains tests to evaluate that your bot behaves as expected.
+#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+version: "3.1"
+stories:
+  - story: Reserva happy path
+    steps:
+      - user: |
+          quiero reservar mesa
+        intent: reservar
+      - action: utter_reserva_dia
+      - action: reserva_dia_form
+      - active_loop: reserva_dia_form
+      - user: |
+          [lunes](reserva_dia)
+        intent: dia
+      - slot_was_set:
+          - requested_slot: reserva_dia
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: ReservaGetMesasLibres
+      - slot_was_set:
+          - reserva_dia: lunes
+      - slot_was_set:
+          - reserva_completa: false
+      - action: utter_reserva_hora
+      - user: |
+          si
+        intent: affirm
+      - action: utter_reserva_hora_especifica
+      - action: reserva_hora_form
+      - active_loop: reserva_hora_form
+      - user: |
+          [14:00](reserva_hora)
+        intent: hora
+      - slot_was_set:
+          - requested_slot: reserva_hora
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_hora: 14:00
+      - slot_was_set:
+          - reserva_completa: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_reserva_comensales
+      - user: |
+          si
+        intent: affirm
+      - action: utter_reserva_comensales_especifica
+      - action: reserva_comensales_form
+      - active_loop: reserva_comensales_form
+      - user: |
+          [3](reserva_comensales)
+        intent: give_cantidad
+      - slot_was_set:
+          - requested_slot: reserva_comensales
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_comensales: "3"
+      - slot_was_set:
+          - reserva_mesa_id: 0
+      - slot_was_set:
+          - reserva_completa: true
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - or:
+          - slot_was_set:
+              - first_name_set: true
+      - action: ReservaGetUser
+      - action: utter_reserva_need_name
+      - action: utter_menu_aviso
+      - action: utter_reserva_aviso_finalizar
+
+  - story: Borrar reserva happy path
+    steps:
+      - user: |
+          borrar reserva
+        intent: reserva_borrar_mesa
+      - action: utter_reserva_borrar
+      - user: |
+          si
+        intent: affirm
+      - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_dia: null
+      - slot_was_set:
+          - reserva_hora: null
+      - slot_was_set:
+          - reserva_comensales: null
+      - slot_was_set:
+          - reserva_mesa_id: null
+      - slot_was_set:
+          - reserva_completa: false
+
+  - story: Finalizar reserva happy path
+    steps:
+      - intent: finalizar_reserva
+      - action: utter_reserva_finalizar
+      - action: utter_reserva_need_name
+      - user: |
+          si
+        intent: affirm
+      - action: utter_reserva_ask_email
+      - action: reserva_email_form
+      - active_loop: reserva_email_form
+      - user: |
+          [user@gmail.com](reserva_email)
+        intent: give_email
+      - slot_was_set:
+          - requested_slot: reserva_email
+      - slot_was_set:
+          - reserva_email: user@gmail.com
+      - slot_was_set:
+          - reserva_email: user@gmail.com
+      - slot_was_set:
+          - reserva_email_set: true
+      - slot_was_set:
+          - reserva_realizada: false
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: SendCodeEmail
+      - slot_was_set:
+          - reserva_codigo_tmp: "436818"
+      - action: utter_reserva_ask_code
+      - action: reserva_codigo_form
+      - active_loop: reserva_codigo_form
+      - user: |
+          [123456](reserva_codigo)
+        intent: give_cantidad
+      - slot_was_set:
+          - requested_slot: reserva_codigo
+      - slot_was_set:
+          - reserva_codigo: "436818"
+      - slot_was_set:
+          - reserva_codigo: "436818"
+      - slot_was_set:
+          - reserva_realizada: true
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
