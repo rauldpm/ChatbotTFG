@@ -50,11 +50,16 @@ class Email():
         message += "- Diners: " + str(reserva_array[3]) + "\n\n"
         if len(menu_array) > 0:
           message += "Your menu is composed of:\n\n"
-          message += "- Starter: " + menu_array[0] + "\n"
-          message += "- Meat: " + menu_array[1] + "\n"
-          message += "- Fish: " + menu_array[2] + "\n"
-          message += "- Dessert: " + menu_array[3] + "\n"
-          message += "- Drink: " + menu_array[4] + "\n"
+          if menu_array[0] is not None:
+            message += "- Starter: " + menu_array[0] + "\n"
+          if menu_array[1] is not None:
+            message += "- Meat: " + menu_array[1] + "\n"
+          if menu_array[2] is not None:
+            message += "- Fish: " + menu_array[2] + "\n"
+          if menu_array[3] is not None:
+            message += "- Dessert: " + menu_array[3] + "\n"
+          if menu_array[4] is not None:
+            message += "- Drink: " + menu_array[4] + "\n"
 
 
         subject = "Restaurant reservation resume"
