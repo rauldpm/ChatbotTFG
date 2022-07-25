@@ -10,7 +10,7 @@ rules:
     steps:
       - intent: start
       - action: utter_start
-      - action: utter_opciones
+      - action: Opciones
 
   - rule: Saludo
     steps:
@@ -25,7 +25,7 @@ rules:
   - rule: Opciones
     steps:
       - intent: opciones
-      - action: utter_opciones
+      - action: Opciones
 
   # -------------------------------------
   # Horario
