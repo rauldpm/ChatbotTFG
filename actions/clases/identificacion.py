@@ -20,7 +20,7 @@ class IdentificarBorrarUsername(Action):
         print("IdentificarBorrarUsername")
         dispatcher.utter_message(
             text=f'He borrado tu nombre de usuario, recuerda que es necesario identificarte para terminar el proceso de reserva.')
-        return [SlotSet("first_name", None), SlotSet("first_name_save", None), SlotSet("first_name_set", None), SlotSet("name_spelled_correctly", None)]
+        return [SlotSet("first_name", None), SlotSet("first_name_save", None), SlotSet("first_name_set", None), SlotSet("name_spelled_correctly", None), SlotSet("reserva_completa", False)]
 
 
 class ValidateNameForm(FormValidationAction):
@@ -47,6 +47,9 @@ class ValidateNameForm(FormValidationAction):
         print("extract_name_spelled_correctly")
         first_name = tracker.get_slot("first_name")
         intent = tracker.get_intent_of_latest_message()
+        first_name_set = tracker.get_slot("first_name_set")
+        if first_name_set:
+          return {}
         if intent == "affirm":
             first_name = tracker.get_slot("first_name_save")
         if first_name != "/repetir_nombre":
@@ -62,6 +65,10 @@ class ValidateNameForm(FormValidationAction):
         tracker: Tracker, domain: DomainDict,
     ) -> Dict[Text, Any]:
         print("validate_name_spelled_correctly")
+
+        first_name_set = tracker.get_slot("first_name_set")
+        if first_name_set:
+          return {}
 
         if tracker.get_intent_of_latest_message() == "stop":
             return {"requested_slot": None, "first_name": None, "name_spelled_correctly": None, "first_name_set": None}
@@ -120,5 +127,11 @@ class ValidateNameForm(FormValidationAction):
                     text=f"El nombre no cumple con los requisitos (minimo 3 letras y maximo 11)")
                 return {"first_name": None, "name_spelled_correctly": False}
             else:
-                return {"first_name": slot_value, "first_name_set": True}
+                reserva_dia = tracker.get_slot("reserva_dia")
+                reserva_hora = tracker.get_slot("reserva_hora")
+                reserva_comensales = tracker.get_slot("reserva_comensales")
+                if reserva_dia is not None and reserva_hora is not None and reserva_comensales is not None:
+                  return {"first_name": slot_value, "first_name_set": True, "reserva_completa": True}
+
+                return {"first_name": slot_value, "first_name_set": True, "reserva_completa": False}
         return {"first_name": None, "name_spelled_correctly": False}
