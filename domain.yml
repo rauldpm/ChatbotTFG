@@ -7,13 +7,15 @@ intents:
   - apertura
   - ask_nombre
   - cierre
-  - comensales
   - cual_es_mi_nombre
   - deny
   - despedida
   - dia
   - establecer_menu
   - establecer_menu_plato
+  - finalizar_reserva
+  - give_email
+  - give_cantidad
   - hora
   - horario
   - horario_concreto
@@ -21,6 +23,7 @@ intents:
   - identificar_borrar
   - menu_borra_todo
   - menu_borra_plato
+  - menu_borra_plato_especifico
   - menu_categoria
   - menu_completo
   - menu_plato_id
@@ -58,7 +61,13 @@ entities:
   - reserva_hora
   - reserva_comensales
   - reserva_dia
+  - reserva_codigo
+  - reserva_codigo_tmp
+  - reserva_completa
+  - reserva_email
+  - reserva_email_set
   - reserva_mesa_id
+  - reserva_realizada
 slots:
   dia:
     type: text
@@ -217,11 +226,8 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_text
-        intent: comensales
-        conditions:
-          - active_loop: reserva_comensales_form
-            requested_slot: reserva_comensales
+      - type: from_entity
+        entity: reserva_comensales
   reserva_dia:
     type: text
     influence_conversation: true
@@ -243,6 +249,42 @@ slots:
     mappings:
       - type: from_entity
         entity: reserva_mesa_id
+  reserva_email:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reserva_email
+  reserva_email_set:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reserva_email_set
+  reserva_codigo:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reserva_codigo
+  reserva_codigo_tmp:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reserva_codigo_tmp
+  reserva_completa:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reserva_completa
+  reserva_realizada:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reserva_realizada
 forms:
   menu_plato_id_form:
     required_slots:
@@ -259,12 +301,18 @@ forms:
   reserva_dia_form:
     required_slots:
       - reserva_dia
+  reserva_email_form:
+    required_slots:
+      - reserva_email
   reserva_hora_form:
     required_slots:
       - reserva_hora
+  reserva_codigo_form:
+    required_slots:
+      - reserva_codigo
 responses:
   utter_ask_name:
-    - text: Introduce solo tu nombre, escribe "stop" para parar el formulario.
+    - text: Introduce solo tu nombre.
   utter_saludo:
     - text: Hola
   utter_saludo_identificacion:
@@ -280,6 +328,12 @@ responses:
     - text: "Nuestro horario es:"
   utter_menu:
     - text: ¿Quieres establecer el menu?
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
   utter_menu_aviso:
     - condition:
         - type: slot
@@ -289,6 +343,12 @@ responses:
     - text: ""
   utter_menu_plato_set:
     - text: "¿Quieres establecer el plato de la categoria: {menu_plato_categoria}?"
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
   utter_menu_categorias:
     - text: Estas son las categorias disponibles, selecciona una para ver los platos de dicha categoria.
   utter_menu_deny:
@@ -301,6 +361,12 @@ responses:
           name: menu_establecido
           value: true
       text: "¿Estas seguro de querer borrar el plato que seleccionaras a continuacion?"
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
     - text: ""
   utter_menu_borrar_plato_selecciona:
     - condition:
@@ -315,41 +381,33 @@ responses:
           name: menu_establecido
           value: true
       text: ¿Estas seguro de querer eliminar todo?
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
     - text: "Antes tienes que establecer un menu."
   utter_menu_plato_selecciona:
     - text: Selecciona el plato introduciendo el identificador.
-  utter_opciones:
-    - text: "Estas son las opciones de las que dispones:"
-      button_type: vertical
-      buttons:
-        - title: "Opciones"
-          payload: "/opciones"
-        - title: "Identificarme"
-          payload: "/identificar"
-        - title: "Horario"
-          payload: "/horario"
-        - title: "Apertura"
-          payload: "/apertura"
-        - title: "Cierre"
-          payload: "/cierre"
-        - title: "Establecer menu"
-          payload: "/establecer_menu"
-        - title: "Hacer reserva"
-          payload: "/reservar"
-        - title: "Borrar menu"
-          payload: "/menu_borra_todo"
-        - title: "Borrar plato"
-          payload: "/menu_borra_plato"
-        - title: "Consultar mi menu"
-          payload: "/menu_usuario"
-        - title: "Consultar mi reserva"
-          payload: "/reserva_usuario"
   utter_reserva_borrar:
     - text: ¿Estas seguro de querer eliminar la reserva de la mesa?
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
   utter_reserva_borrar_deny:
     - text: "Proceso de borrado de reserva cancelado."
   utter_reserva_comensales:
     - text: ¿Quieres establecer los comensales?
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
   utter_reserva_comensales_especifica:
     - text: ¿Cuantos comensales sereis?
   utter_reserva_deny:
@@ -358,6 +416,12 @@ responses:
     - text: ¿Que dia quieres reservar?
   utter_reserva_hora:
     - text: ¿Quieres establecer la hora?
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
   utter_reserva_hora_especifica:
     - text: Dime la hora a la que quieres reservar, en formato "14:00"
   utter_te_llamas:
@@ -376,20 +440,72 @@ responses:
     - text: ""
   utter_start:
     - text: "¡Bienvenid@ al asistente de reservas del restaurante!"
+  utter_reserva_finalizar:
+    - condition:
+        - type: slot
+          name: reserva_completa
+          value: true
+        - type: slot
+          name: first_name_set
+          value: true
+      text: "¿Quieres hacer efectiva tu reserva?"
+      button_type: vertical
+      buttons:
+        - title: "Si"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"
+    - text: Aun no se ha completado la reserva de la mesa al completo.
+  utter_reserva_ask_email:
+    - text: Necesito tu email para enviar un codigo de confirmacion.
+  utter_reserva_ask_code:
+    - condition:
+        - type: slot
+          name: reserva_email_set
+          value: true
+      text: Introduce el codigo de 6 digitos enviado a {reserva_email}
+    - text: No se ha validado un email.
+  utter_reserva_ya_realizada:
+    - text: "Ya has realizado una reserva. Para cancelar la reserva, llama al numero: xxxxxxxxx."
+  utter_reserva_borrar_incompleta:
+    - text: "Aun no me has dicho que reserva quieres hacer."
+  utter_reserva_completa:
+    - text: "Ya me has dicho la reserva. Si quieres cambiarla, borrala primero."
+  utter_reserva_aviso_finalizar:
+    - condition:
+        - type: slot
+          name: reserva_completa
+          value: true
+      text: "Para finalizar la reserva introduce: Finalizar reserva."
+    - text: ""
+  utter_reserva_need_name:
+    - condition:
+        - type: slot
+          name: first_name_set
+          value: true
+      text: ""
+    - text: "Para finalizar la reserva es necesario saber quien eres, identificate introduciendo: Indentificarme."
 actions:
   - HorarioGet
   - IdentificarBorrarUsername
   - MenuBorrarPlato
   - MenuBorrarTodo
   - MenuGet
+  - MenuCheckCategoria
+  - MenuGetBotones
   - MenuGetCategoriasButtons
   - MenuGetUser
   - MenuResetPlatoID
   - ReservaBorrar
+  - ReservaFinalizarBorrar
   - ReservaGetMesasLibres
   - ReservaGetUser
+  - SendCodeEmail
+  - Opciones
   - utter_ask_name
+  - utter_reserva_need_name
   - utter_despedida
+  - utter_reserva_finalizar
   - utter_horario
   - utter_menu
   - utter_menu_aviso
@@ -399,14 +515,20 @@ actions:
   - utter_menu_deny
   - utter_menu_plato_selecciona
   - utter_menu_plato_set
+  - utter_reserva_ask_code
+  - utter_reserva_ask_email
+  - utter_reserva_aviso_finalizar
   - utter_reserva_borrar
   - utter_reserva_borrar_deny
   - utter_reserva_comensales
   - utter_reserva_comensales_especifica
+  - utter_reserva_completa
   - utter_reserva_deny
+  - utter_reserva_borrar_incompleta
   - utter_reserva_dia
   - utter_reserva_hora
   - utter_reserva_hora_especifica
+  - utter_reserva_ya_realizada
   - utter_saludo
   - utter_saludo_identificacion
   - utter_start
@@ -415,6 +537,8 @@ actions:
   - validate_menu_plato_categoria_form
   - validate_menu_plato_id_form
   - validate_name_form
+  - validate_reserva_codigo_form
   - validate_reserva_comensales_form
   - validate_reserva_dia_form
+  - validate_reserva_email_form
   - validate_reserva_hora_form

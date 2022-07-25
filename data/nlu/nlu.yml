@@ -45,21 +45,18 @@ nlu:
       - para el formulario
       - parar
       - stop
-  - intent: reservar
+  - intent: opciones
     examples: |
-      - quiero reservar mesa
-      - reservar mesa
-      - hacer reserva
-  - intent: reserva_borrar_mesa
-    examples: |
-      - eliminar reserva
-      - eliminar mesa
-      - borrar reserva
-      - borrar mesa
+      - que puedo hacer
+      - dime que puedo hacer
+      - muestrame las opciones
+      - opciones
+
   - intent: establecer_menu
     examples: |
       - quiero establecer el menu
       - establecer menu
+      - establecer plato
   - intent: establecer_menu_plato
     examples: |
       - [entrante](menu_plato_categoria)
@@ -112,42 +109,6 @@ nlu:
       - quiero establecer el plato [pescados](menu_plato_categoria)
       - quiero establecer el plato [postres](menu_plato_categoria)
       - quiero establecer el plato [bebidas](menu_plato_categoria)
-  - intent: dia
-    examples: |
-      - [lunes](reserva_dia)
-      - [lun](reserva_dia)
-      - [martes](reserva_dia)
-      - [miercoles](reserva_dia)
-      - [mier](reserva_dia)
-      - [jueves](reserva_dia)
-      - [jue](reserva_dia)
-      - [viernes](reserva_dia)
-      - [vier](reserva_dia)
-      - [sabado](reserva_dia)
-      - [saba](reserva_dia)
-      - [domingo](reserva_dia)
-      - [domi](reserva_dia)
-      - [hoy](reserva_dia)
-      - [mañana](reserva_dia)
-      - [pasado mañana](reserva_dia)
-  - intent: hora
-    examples: |
-      - [10:00](reserva_hora)
-      - [12:00](reserva_hora)
-      - [14:00](reserva_hora)
-      - [16:00](reserva_hora)
-      - [18:00](reserva_hora)
-      - [20:00](reserva_hora)
-  - intent: comensales
-    examples: |
-      - [1](reserva_comensales)
-      - [2](reserva_comensales)
-      - [3](reserva_comensales)
-      - [4](reserva_comensales)
-      - [5](reserva_comensales)
-      - [6](reserva_comensales)
-      - [7](reserva_comensales)
-      - [8](reserva_comensales)
   - intent: menu_plato_id
     examples: |
       - [0E](menu_plato_id)
@@ -164,10 +125,9 @@ nlu:
       - [1P](menu_plato_id)
       - [2P](menu_plato_id)
       - [0E](menu_plato_id)
-  - intent: menu_borra_plato
+  - intent: menu_borra_plato_especifico
     examples: |
-      - borrar plato
-      - borrar plato entrantes
+      - borrar plato entrante
       - borrar plato carne
       - borrar plato de carne
       - borrar plato pescado
@@ -175,8 +135,12 @@ nlu:
       - borrar plato postre
       - borrar postre
       - borrar bebida
+  - intent: menu_borra_plato
+    examples: |
+      - borrar plato
       - eliminar plato
       - restablecer plato
+      - cambiar plato
   - intent: menu_borra_todo
     examples: |
       - borrar menu
@@ -197,9 +161,11 @@ nlu:
       - que menu tengo
       - mi menu
       - menu establecido
+
   - intent: repetir_nombre
     examples: |
       - [aslan](first_name)
+      - [raul](first_name)
       - [roxan](first_name)
       - [tayana](first_name)
       - [jyl](first_name)
@@ -225,12 +191,7 @@ nlu:
       - cual es mi nombre
       - quien soy
       - sabes quien soy
-  - intent: opciones
-    examples: |
-      - que puedo hacer
-      - dime que puedo hacer
-      - muestrame las opciones
-      - opciones
+
   - intent: horario
     examples: |
       - horario
@@ -271,6 +232,56 @@ nlu:
       - a que hora cerrais el [viernes](dia)
       - a que hora cerrais el [sabado](dia)
       - a que hora cerrais el [domingo](dia)
+
+  - intent: reservar
+    examples: |
+      - quiero reservar mesa
+      - reservar mesa
+      - hacer reserva
+  - intent: reserva_borrar_mesa
+    examples: |
+      - eliminar reserva
+      - eliminar mesa
+      - borrar reserva
+      - borrar mesa
+  - intent: dia
+    examples: |
+      - [lunes](reserva_dia)
+      - [lun](reserva_dia)
+      - [martes](reserva_dia)
+      - [miercoles](reserva_dia)
+      - [mier](reserva_dia)
+      - [jueves](reserva_dia)
+      - [jue](reserva_dia)
+      - [viernes](reserva_dia)
+      - [vier](reserva_dia)
+      - [sabado](reserva_dia)
+      - [saba](reserva_dia)
+      - [domingo](reserva_dia)
+      - [domi](reserva_dia)
+      - [hoy](reserva_dia)
+      - [mañana](reserva_dia)
+      - [pasado mañana](reserva_dia)
+  - intent: hora
+    examples: |
+      - a las [10:00](reserva_hora) horas
+      - a las [12:00](reserva_hora) horas
+      - a las [14:00](reserva_hora) horas
+      - a las [16:00](reserva_hora) horas
+      - a las [18:00](reserva_hora) horas
+      - a las [20:00](reserva_hora) horas
+      - a las [10:00](reserva_hora)
+      - a las [12:00](reserva_hora)
+      - a las [14:00](reserva_hora)
+      - a las [16:00](reserva_hora)
+      - a las [18:00](reserva_hora)
+      - a las [20:00](reserva_hora)
+      - [10:00](reserva_hora)
+      - [12:00](reserva_hora)
+      - [14:00](reserva_hora)
+      - [16:00](reserva_hora)
+      - [18:00](reserva_hora)
+      - [20:00](reserva_hora)
   - intent: reserva_usuario
     examples: |
       - mi reserva
@@ -283,3 +294,107 @@ nlu:
       - borrar mi nombre
       - eliminar mi nombre
       - olvidame
+  - intent: finalizar_reserva
+    examples: |
+      - quiero guardar la reserva
+      - quiero finalizar la reserva
+      - finalizar reserva
+      - guardar reserva
+  - regex: reserva_email
+    examples: |
+      - [\w]+@[\w]+\.(com|net|org)
+  - intent: give_email
+    examples: |
+      - mi email es [raul@gmail.com](reserva_email)
+      - mi email es [juan123@gmail.com](reserva_email)
+      - mi email es [jose123sdas@aloha.net](reserva_email)
+      - mi email es [peter@zylker.com](reserva_email)
+      - mi email es [rauldpm@hotmail.es](reserva_email)
+      - este es mi email [raul@gmail.com](reserva_email)
+      - este es mi email [juan123@gmail.com](reserva_email)
+      - este es mi email [jose123sdas@aloha.net](reserva_email)
+      - este es mi email [peter@zylker.com](reserva_email)
+      - es [raul@gmail.com](reserva_email)
+      - es [juan123@gmail.com](reserva_email)
+      - es [jose123sdas@aloha.net](reserva_email)
+      - es [peter@zylker.com](reserva_email)
+      - [raul@gmail.com](reserva_email)
+      - [juan123@gmail.com](reserva_email)
+      - [jose123sdas@aloha.net](reserva_email)
+      - [peter@zylker.com](reserva_email)
+  - intent: give_cantidad
+    examples: |
+      - solo [1](reserva_comensales)
+      - seremos [2](reserva_comensales)
+      - seremos [3](reserva_comensales)
+      - seremos [4](reserva_comensales)
+      - seremos [5](reserva_comensales)
+      - seremos [6](reserva_comensales)
+      - seremos [7](reserva_comensales)
+      - seremos [8](reserva_comensales)
+      - solo [1](reserva_comensales) comensal
+      - seremos [2](reserva_comensales) comensales
+      - seremos [3](reserva_comensales) comensales
+      - seremos [4](reserva_comensales) comensales
+      - seremos [5](reserva_comensales) comensales
+      - seremos [6](reserva_comensales) comensales
+      - seremos [7](reserva_comensales) comensales
+      - seremos [8](reserva_comensales) comensales
+      - [1](reserva_comensales)
+      - [2](reserva_comensales)
+      - [3](reserva_comensales)
+      - [4](reserva_comensales)
+      - [5](reserva_comensales)
+      - [6](reserva_comensales)
+      - [7](reserva_comensales)
+      - [8](reserva_comensales)
+      - [012345](reserva_codigo)
+      - [212345](reserva_codigo)
+      - [312312](reserva_codigo)
+      - [441234](reserva_codigo)
+      - [512345](reserva_codigo)
+      - [612311](reserva_codigo)
+      - [731255](reserva_codigo)
+      - [841231](reserva_codigo)
+      - [543758](reserva_codigo)
+      - [234164](reserva_codigo)
+      - [326435](reserva_codigo)
+      - [332655](reserva_codigo)
+      - [278932](reserva_codigo)
+      - [385423](reserva_codigo)
+      - [743254](reserva_codigo)
+      - [234562](reserva_codigo)
+      - mi codigo es [347326](reserva_codigo)
+      - mi codigo es [346376](reserva_codigo)
+      - mi codigo es [346732](reserva_codigo)
+      - mi codigo es [346573](reserva_codigo)
+      - este es mi codigo [345672](reserva_codigo)
+      - este es mi codigo [734561](reserva_codigo)
+      - este es mi codigo [346724](reserva_codigo)
+      - este es mi codigo [345672](reserva_codigo)
+      - es [012345](reserva_codigo)
+      - es [643252](reserva_codigo)
+      - es [326123](reserva_codigo)
+      - es [623868](reserva_codigo)
+      - el codigo es [347223](reserva_codigo)
+      - el codigo es [275727](reserva_codigo)
+      - el codigo es [252366](reserva_codigo)
+      - el codigo es [455272](reserva_codigo)
+      - 11
+      - 23
+      - 3333
+      - 4422
+      - 5521
+      - 6644
+      - 1241
+      - 25321
+      - 331231233
+      - 44123443234
+      - 55098421
+      - 66123145
+  - regex: reserva_codigo
+    examples: |
+      - \b[0-9]{6}\b
+  - regex: reserva_comensales
+    examples: |
+      - \b[0-9]{1}\b
