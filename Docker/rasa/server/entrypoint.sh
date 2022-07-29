@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Set secrets
+# set secrets
 source /app/secrets/telegram_secrets.env
 
-# Run rasa
+# run rasa
 rasa run -m /app/models --enable-api --cors * --debug --endpoints endpoints.yml --log-file logs/rasa.log --debug
