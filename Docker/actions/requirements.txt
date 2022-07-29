@@ -1,2 +1,0 @@
-Unidecode
-python-decouple
