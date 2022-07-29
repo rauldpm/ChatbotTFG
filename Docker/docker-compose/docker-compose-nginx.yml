@@ -1,0 +1,9 @@
+version: '3.0'
+services:
+  nginx:
+    build:
+      context: ./../../
+      dockerfile: ./Docker/nginx/Dockerfile
+    ports:
+      - 80:80
+      - 443:443

@@ -10,4 +10,6 @@ results
 .keras
 .config
 logs
-secrets/*
+secrets/
+ngrok
+Docker/nginx/certs/*.pem
