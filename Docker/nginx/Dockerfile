@@ -1,7 +1,7 @@
 FROM nginx:1.18.0
 
 # copy over static assets for https connections
-COPY Docker/nginx/certs/* /etc/letsencrypt/live/tfgrasa.ddns.net/
+COPY Docker/nginx/certs/* /etc/letsencrypt/live/your-ld-domain/
 
 # copy custom entrypoint
 COPY Docker/nginx/conf/nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
