@@ -3,7 +3,6 @@ name: Build Rasa model
 jobs:
   build:
 
-    runs-on: rasa
     if: github.event_name = 'push'
 
     steps:
