@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build:
-
+    name: Test
     runs-on: ubuntu-latest
     if: github.event_name = 'push'
 
@@ -13,10 +13,7 @@ jobs:
         id: action
         uses: RasaHQ/rasa-train-test-gha@main
         with:
-          # List of available tags: https://hub.docker.com/r/rasa/rasa/tags
           rasa_version: '3.1.1'
-          # In order to add a PR comment with summary
-          # a GH Token has to be pass to the GH action
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check output
