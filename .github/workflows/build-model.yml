@@ -7,8 +7,18 @@ jobs:
     if: github.event_name = 'push'
 
     steps:
-      - name: Train model
+      - name: Train and Test Rasa Demo
+        id: action
         uses: RasaHQ/rasa-train-test-gha@main
         with:
-          rasa_version: "3.1.1"
-        test_type: all
+          # List of available tags: https://hub.docker.com/r/rasa/rasa/tags
+          rasa_version: '3.1.1'
+          # In order to add a PR comment with summary
+          # a GH Token has to be pass to the GH action
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check output
+        if: fromJSON(steps.action.outputs.report).default['config.yml'].intent_classification.accuracy >= 0.8
+        run: |
+          echo "I'm doing extra work..."
+          echo ${{ fromJSON(steps.action.outputs.report).default['config.yml'].intent_classification.accuracy }}
