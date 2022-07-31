@@ -1,0 +1,21 @@
+name: Build Rasa model
+
+on:
+  push:
+    paths:
+      - data
+
+jobs:
+  build:
+
+    runs-on: rasa
+    if: github.event_name = 'push'
+
+    steps:
+
+      - name: Train model
+        uses: RasaHQ/rasa-train-test-gha@main
+        with:
+          rasa_version: '3.1.1'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        test_type: all
