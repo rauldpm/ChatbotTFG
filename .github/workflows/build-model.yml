@@ -5,6 +5,9 @@ on: push
 jobs:
   build:
 
+    runs-on: ubuntu-latest
+    if: github.event_name = 'push'
+
     steps:
       - name: Train and Test Rasa Demo
         id: action
