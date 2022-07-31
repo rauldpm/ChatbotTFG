@@ -4,7 +4,6 @@ on: push
 
 jobs:
   build:
-    if: github.event_name = 'push'
 
     steps:
       - name: Train and Test Rasa Demo
