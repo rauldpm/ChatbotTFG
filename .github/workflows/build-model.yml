@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: LOGIN
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ghcr.io -u ${{ secrets.DOCKER_USER }} --password-stdin
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.DOCKER_USER }} --password-stdin
 
     - name: Run container (train)
       run: docker run -v "$(pwd)/models:/app/models" tfg-rasa:build
