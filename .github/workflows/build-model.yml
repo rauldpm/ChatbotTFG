@@ -12,8 +12,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Train model
-      run: rasa train
+    - name: Change location
+      run: cd Docker/build
 
     - name: list
-      run: ls models/
+      run: ls .
