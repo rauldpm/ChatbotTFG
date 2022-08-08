@@ -1,0 +1,1 @@
+*/30 * * * * bash /home/YOUR-USER/RuleChatbotTFG/scripts/check_active_users.sh
