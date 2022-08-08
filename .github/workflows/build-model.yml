@@ -1,6 +1,13 @@
 name: Build Rasa model
 
-on: push
+on:
+  push:
+    paths:
+      - "data/**"
+      - "config.yml"
+      - "domain.yml"
+      - "endpoints.yml"
+      - "credentials.yml"
 
 jobs:
   build:
@@ -12,26 +19,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set docker
-      uses: docker/setup-buildx-action@v2
-      id: buildx
-      with:
-        install: true
-
-    - name: Copy dockerfile
-      run: cp Docker/build/Dockerfile .
-
-    - name: Build container
-      run: docker build -t train .
-
-    - name: asd
-      run: docker images
-
     - name: Run container (train)
-      run: docker run --rm -v $(pwd)/models:/app/models train
+      run: docker run -v "$(pwd)/models:/app/models" tfg-rasa:build
 
     - name: Change model name
       run: mv models/*.tar.gz models/model.tar.gz
-
-    - name: list
-      run: ls models/

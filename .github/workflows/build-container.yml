@@ -1,0 +1,35 @@
+name: Build Rasa model
+
+on:
+  push:
+    paths:
+      - "Docker/build/**"
+
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
+jobs:
+  build:
+    name: Build model container
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Docker buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Copy dockerfile
+      run: cp Docker/build/Dockerfile .
+
+    - name: Docker login
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/tfg-rasa:build
+
+    - name: Docker Push
+      run: docker push $DOCKER_USER/tfg-rasa:build
