@@ -1,4 +1,4 @@
-name: Build Rasa model
+name: Build container builder
 
 on:
   push:
