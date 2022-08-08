@@ -9,8 +9,11 @@ jobs:
 
     steps:
 
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Train model
+      run: rasa train
+
     - name: list
-      run: ls .
+      run: ls models/
