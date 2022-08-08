@@ -24,6 +24,9 @@ jobs:
     - name: Build container
       run: docker build -t train .
 
+    - name: asd
+      run: docker images
+
     - name: Run container (train)
       run: docker run --rm -v $(pwd)/models:/app/models train
 
