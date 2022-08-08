@@ -18,5 +18,17 @@ jobs:
       with:
         install: true
 
-    - name: Build
-      run: docker build -t train Docker/build/
+    - name: Copy dockerfile
+      run: cp Docker/build/Dockerfile .
+
+    - name: Build container
+      run: docker build -t train .
+
+    - name: Run container (train)
+      run: docker run --rm -v $(pwd)/models:/app/models train:latest
+
+    - name: Change model name
+      run: mv models/*.tar.gz models/model.tar.gz
+
+    - name: list
+      run: ls models/
