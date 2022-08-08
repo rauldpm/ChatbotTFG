@@ -23,7 +23,7 @@ jobs:
     - name: Login to GitHub Package Registry
       run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ secrets.DOCKER_USER }} --password-stdin
 
-    - uses: docker://rauldpm/tfg-rasa:testing
+    - uses: docker://rauldpm/tfg-rasa:build
 
     - name: Run container (train)
       run: docker run -v "$(pwd)/models:/app/models" tfg-rasa:build
