@@ -30,7 +30,7 @@ jobs:
       uses: docker/login-action@v2
       with:
         username: $DOCKER_USER
-        password: $DOCKER_PASSWORD
+        password: $DOCKERHUB_TOKEN
 
     - name: Run container (train)
       run: docker run -v "$(pwd)/models:/app/models" tfg-rasa:build
