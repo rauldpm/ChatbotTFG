@@ -3,6 +3,7 @@ name: Build Rasa model
 on:
   push:
     paths:
+      - ".github/workflows/build-model.yml"
       - "data/**"
       - "config.yml"
       - "domain.yml"
