@@ -8,17 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Train and Test Rasa Demo
-        id: action
-        uses: RasaHQ/rasa-train-test-gha@main
-        with:
-          rasa_version: '3.1.1'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          train_type: all
-          test_type: all
 
-      - name: Check output
-        if: fromJSON(steps.action.outputs.report).default['config.yml'].intent_classification.accuracy >= 0.8
-        run: |
-          echo "I'm doing extra work..."
-          echo ${{ fromJSON(steps.action.outputs.report).default['config.yml'].intent_classification.accuracy }}
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: list
+      run: ls .
