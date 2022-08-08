@@ -5,6 +5,7 @@ USER root
 # copy proyect files
 # the dockerfile needs to be copied to the root path
 COPY . /app/
+RUN ls /app
 WORKDIR '/app'
 
 # train model

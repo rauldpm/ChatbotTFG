@@ -25,7 +25,7 @@ jobs:
       run: docker build -t train .
 
     - name: Run container (train)
-      run: docker run --rm -v $(pwd)/models:/app/models train:latest
+      run: docker run --rm -v $(pwd)/models:/app/models train
 
     - name: Change model name
       run: mv models/*.tar.gz models/model.tar.gz
