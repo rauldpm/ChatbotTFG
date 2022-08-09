@@ -31,7 +31,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t ${{ secrets.DOCKER_USER }}/tfg-rasa:build .
+        run: docker build -t rauldpm/tfg-rasa:build .
 
       - name: Docker Push
-        run: docker push ${{ secrets.DOCKER_USER }}/tfg-rasa:build
+        run: docker push rauldpm/tfg-rasa:build
