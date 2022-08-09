@@ -35,4 +35,4 @@ jobs:
       run: docker build -t ${{ secrets.DOCKER_USER }}/tfg-rasa:build .
 
     - name: Docker Push
-      run: docker push $DOCKER_USER/tfg-rasa:build
+      run: docker push ${{ secrets.DOCKER_USER }}/tfg-rasa:build
