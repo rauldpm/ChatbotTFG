@@ -9,3 +9,4 @@ WORKDIR '/app'
 
 # train model
 ENTRYPOINT  ["rasa", "train"]
+#
