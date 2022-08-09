@@ -48,4 +48,4 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v0'
 
     - name: Deploy
-      run: gsutil rsync -x 'model.tar.gz' models gs://${{ secrets.GCP_BUCKET }}
+      run: gsutil cp models/model.tar.gz gs://${{ secrets.GCP_BUCKET }}
