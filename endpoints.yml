@@ -19,7 +19,7 @@ action_endpoint:
 
 tracker_store:
     type: redis
-    url: load-balancer-ip
+    url: redis-db-ip
     port: 6379
     db: 1
     password:
@@ -27,7 +27,7 @@ tracker_store:
 
 lock_store:
     type: redis
-    url: load-balancer-ip
+    url: redis-db-ip
     port: 6379
     db: 0
     password:
