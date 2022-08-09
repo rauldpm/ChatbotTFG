@@ -3,6 +3,9 @@ name: Tests
 # Build and push to DockerHub the builder container
 # This container will reduce the train process (build-model.yml)
 on:
+  pull_request:
+    branches:
+      - "*"
   push:
     paths:
       - "data/**"
@@ -39,15 +42,5 @@ jobs:
       - name: Run data validate test
         run: docker run -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" rauldpm/tfg-rasa:testing data-validate 2>&1 | tee -a results/output_data_validate.txt
 
-      - name: Check output
-        if: grep -q "completed with errors" results/output_data_validate.txt
-        uses: actions/github-script@v3
-        with:
-          script: |
-            core.setFailed("Found errores validating nlu data")
-
       - name: Run stories test
         run: docker run -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" rauldpm/tfg-rasa:testing test 2>&1 | tee -a results/output_stories_tests.txt
-
-      - name: Check output
-        run: bash Docker/testing/check_stories_test.sh results/output_stories_tests.txt
