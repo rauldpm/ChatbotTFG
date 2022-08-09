@@ -36,6 +36,9 @@ jobs:
 
       #- name: Run container (train)
       #  run: docker run -v "$(pwd)/models:/app/models" rauldpm/tfg-rasa:build
+      - name: asdd
+        run: mkdir models
+
       - name: asd
         run: curl https://storage.googleapis.com/tfg-rasa-models/model.tar.gz --output models/model.tar.gz
       # Run tests
