@@ -3,6 +3,9 @@ name: Tests
 # Build and push to DockerHub the builder container
 # This container will reduce the train process (build-model.yml)
 on:
+  pull_request:
+    branches:
+      - "*"
   push:
     paths:
       - "data/**"
