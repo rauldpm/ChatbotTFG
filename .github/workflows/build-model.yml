@@ -39,12 +39,13 @@ jobs:
 
     # Upload file
 
-    - name: Setup - gcloud / gsutil
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
       with:
-        service_account_key: ${{ secrets.GCP_JSON_KEY }}
-        project_id: ${{ secrets.GCP_PROJECT }}
-        export_default_credentials: true
+        credentials_json: '${{ secrets.GCP_JSON_KEY }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
 
     - name: as
       run: touch models/asd
