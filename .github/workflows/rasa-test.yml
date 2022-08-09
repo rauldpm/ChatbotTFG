@@ -34,20 +34,14 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Run container (train)
-        run: docker run -v "$(pwd)/models:/app/models" rauldpm/tfg-rasa:build
-
+      #- name: Run container (train)
+      #  run: docker run -v "$(pwd)/models:/app/models" rauldpm/tfg-rasa:build
+      - name: asd
+        run: curl https://storage.googleapis.com/tfg-rasa-models/model.tar.gz --output models/model.tar.gz
       # Run tests
 
-      - name: Run data validate test
-        run: docker run -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" rauldpm/tfg-rasa:testing data-validate 2>&1 | tee -a results/output_data_validate.txt
-
-      - name: Check output
-        run: |
-          if $(grep -q "completed with errdors" results/output_data_validate.txt); then
-            echo "Errors found in nlu data validation."
-            exit 1
-          fi
+      #- name: Run data validate test
+      #  run: docker run -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" rauldpm/tfg-rasa:testing data-validate 2>&1 | tee -a results/output_data_validate.txt
 
       - name: Run stories test
         run: docker run -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" rauldpm/tfg-rasa:testing test 2>&1 | tee -a results/output_stories_tests.txt
