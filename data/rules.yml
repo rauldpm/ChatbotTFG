@@ -27,11 +27,6 @@ rules:
       - intent: opciones
       - action: Opciones
 
-  - rule: Estado
-    steps:
-      - intent: estado
-      - action: utter_estado
-
   # -------------------------------------
   # Horario
   # -------------------------------------

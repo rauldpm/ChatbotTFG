@@ -4,10 +4,6 @@ nlu:
     examples: |
       - start
       - /start
-  - intent: estado
-    examples: |
-      - como estas
-      - como te sientes
   - intent: saludo
     examples: |
       - hey

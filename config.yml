@@ -5,7 +5,7 @@ recipe: default.v1
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
 language: en
-# aa dd
+
 pipeline:
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer

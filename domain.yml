@@ -5,7 +5,6 @@ session_config:
 intents:
   - affirm
   - apertura
-  - estado
   - ask_nombre
   - cierre
   - cual_es_mi_nombre
@@ -486,8 +485,6 @@ responses:
           value: true
       text: ""
     - text: "Para finalizar la reserva es necesario saber quien eres, identificate introduciendo: Indentificarme."
-  utter_estado:
-    - text: Estoy bien.
 actions:
   - HorarioGet
   - IdentificarBorrarUsername
@@ -505,7 +502,6 @@ actions:
   - ReservaGetUser
   - SendCodeEmail
   - Opciones
-  - utter_estado
   - utter_ask_name
   - utter_reserva_need_name
   - utter_despedida
