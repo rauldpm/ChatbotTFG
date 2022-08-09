@@ -1,9 +1,12 @@
 name: Build Rasa model
 
+# Run only when the branch is merged into main branch and
+# the changes affects the model data
 on:
   push:
+    branches:
+      - "main"
     paths:
-      - ".github/workflows/build-model.yml"
       - "data/**"
       - "config.yml"
       - "domain.yml"
@@ -12,6 +15,7 @@ on:
 
 jobs:
   build:
+
     name: Train model
     runs-on: ubuntu-latest
 
