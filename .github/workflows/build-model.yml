@@ -51,4 +51,4 @@ jobs:
       run: touch models/asd
 
     - name: Deploy
-      run: gsutil rsync -r models gs://${{ secrets.GCP_BUCKET }}
+      run: gsutil rsync -x 'asd' models gs://${{ secrets.GCP_BUCKET }}
