@@ -39,6 +39,9 @@ jobs:
 
       # Run tests
 
+      - name: Create test results directory
+        run: mkdir results
+
       - name: Run data validate test
         run: docker run -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" rauldpm/tfg-rasa:testing data-validate 2>&1 | tee -a results/output_data_validate.txt
 
