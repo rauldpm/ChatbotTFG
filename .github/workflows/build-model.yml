@@ -5,7 +5,7 @@ name: Build Rasa model
 on:
   push:
     branches:
-      - "main"
+      - "main-test"
     paths:
       - "data/**"
       - "config.yml"
