@@ -4,8 +4,8 @@ name: Build container builder
 # This container will reduce the train process (build-model.yml)
 on:
   push:
-    branches:
-      - "main-test"
+    #branches:
+    #  - "main-test"
     paths:
       - "Docker/build/**"
 
