@@ -31,11 +31,11 @@ jobs:
 
     # Train
 
-    #- name: Run container (train)
-    #  run: docker run -v "$(pwd)/models:/app/models" rauldpm/tfg-rasa:build
+    - name: Run container (train)
+      run: docker run -v "$(pwd)/models:/app/models" rauldpm/tfg-rasa:build
 
-    #- name: Change model name
-    #  run: mv models/*.tar.gz models/model.tar.gz
+    - name: Change model name
+      run: mv models/*.tar.gz models/model.tar.gz
 
     # Upload file
 
@@ -47,11 +47,5 @@ jobs:
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
 
-    - name: as
-      run: touch models/asd
-
-    - name: asdf
-      run: ls models
-
     - name: Deploy
-      run: gsutil rsync -x 'asd' models gs://${{ secrets.GCP_BUCKET }}
+      run: gsutil rsync -x 'model.tar.gz' models gs://${{ secrets.GCP_BUCKET }}
