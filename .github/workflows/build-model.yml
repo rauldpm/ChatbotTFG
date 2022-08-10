@@ -37,7 +37,7 @@ jobs:
         run: docker run -v "$(pwd)/models:/app/models" rauldpm/tfg-rasa:build
 
       - name: Change model name
-        run: mv models/*.tar.gz models/model.tar.gz
+        run: sudo mv models/*.tar.gz models/model.tar.gz
 
       # Upload file
 
