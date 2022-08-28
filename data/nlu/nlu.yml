@@ -51,7 +51,6 @@ nlu:
       - dime que puedo hacer
       - muestrame las opciones
       - opciones
-
   - intent: establecer_menu
     examples: |
       - quiero establecer el menu
@@ -125,8 +124,12 @@ nlu:
       - [1P](menu_plato_id)
       - [2P](menu_plato_id)
       - [0E](menu_plato_id)
-  - intent: menu_borra_plato_especifico
+  - intent: menu_borra_plato
     examples: |
+      - borrar plato
+      - eliminar plato
+      - restablecer plato
+      - cambiar plato
       - borrar plato entrante
       - borrar plato carne
       - borrar plato de carne
@@ -135,12 +138,6 @@ nlu:
       - borrar plato postre
       - borrar postre
       - borrar bebida
-  - intent: menu_borra_plato
-    examples: |
-      - borrar plato
-      - eliminar plato
-      - restablecer plato
-      - cambiar plato
   - intent: menu_borra_todo
     examples: |
       - borrar menu
@@ -161,6 +158,13 @@ nlu:
       - que menu tengo
       - mi menu
       - menu establecido
+  - intent: menu_finalizar
+    examples: |
+      - guardar menu
+      - eso es todo
+      - no quiero establecer mas platos
+      - terminar menu
+      - finalizar menu
 
   - intent: repetir_nombre
     examples: |
@@ -232,11 +236,11 @@ nlu:
       - a que hora cerrais el [viernes](dia)
       - a que hora cerrais el [sabado](dia)
       - a que hora cerrais el [domingo](dia)
-
   - intent: reservar
     examples: |
       - quiero reservar mesa
       - reservar mesa
+      - establecer reserva
       - hacer reserva
   - intent: reserva_borrar_mesa
     examples: |
@@ -294,7 +298,7 @@ nlu:
       - borrar mi nombre
       - eliminar mi nombre
       - olvidame
-  - intent: finalizar_reserva
+  - intent: reserva_finalizar
     examples: |
       - quiero guardar la reserva
       - quiero finalizar la reserva

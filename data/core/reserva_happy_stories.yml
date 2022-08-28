@@ -58,29 +58,34 @@ stories:
       - slot_was_set:
           - reserva_mesa_id: 0
       - slot_was_set:
-          - reserva_completa: true
+          - reserva_completa: false
       - slot_was_set:
           - menu_establecido: false
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
+      - action: ReservaGetUser
       - or:
           - slot_was_set:
               - first_name_set: true
-      - action: ReservaGetUser
-      - action: utter_reserva_need_name
-      - action: utter_menu_aviso
       - action: utter_reserva_aviso_finalizar
 
   - story: Borrar reserva happy path
     steps:
       - intent: reserva_borrar_mesa
-      - or:
-          - slot_was_set:
-              - reserva_completa: true
       - action: utter_reserva_borrar
       - intent: affirm
       - action: ReservaBorrar
+      - slot_was_set:
+          - reserva_realizada: false
+      - slot_was_set:
+          - reserva_email: null
+      - slot_was_set:
+          - reserva_codigo: null
+      - slot_was_set:
+          - reserva_codigo_tmp: null
+      - slot_was_set:
+          - reserva_email_set: null
       - slot_was_set:
           - reserva_dia: null
       - slot_was_set:
@@ -94,14 +99,15 @@ stories:
 
   - story: Finalizar reserva happy path
     steps:
-      - intent: finalizar_reserva
+      - intent: reserva_finalizar
       - or:
           - slot_was_set:
               - reserva_realizada: false
           - slot_was_set:
               - reserva_realizada: null
-      - action: utter_reserva_finalizar
       - action: utter_reserva_need_name
+      - action: utter_menu_aviso
+      - action: utter_reserva_finalizar
       - intent: affirm
       - action: utter_reserva_ask_email
       - action: reserva_email_form

@@ -57,6 +57,7 @@ class Auxiliar():
     def get_data_path(self):
         return self.data_path
 
+
 class Opciones(Action):
     def name(self):
         return "Opciones"
@@ -72,23 +73,39 @@ class Opciones(Action):
         ]
 
         if tracker.get_slot("first_name_set"):
-            buttons.append({"title": "Olvidame", "payload": "/identificar_borrar"})
+            buttons.append(
+                {"title": "Olvida mi nombre", "payload": "/identificar_borrar"})
         else:
-            buttons.append({"title": "Identificarme", "payload": "/identificar"})
+            buttons.append({"title": "Identificarme",
+                           "payload": "/identificar"})
 
-        if tracker.get_slot("menu_establecido"):
-            buttons.append({"title": "Borrar menu", "payload": "/menu_borra_todo"})
-            buttons.append({"title": "Borrar plato", "payload": "/menu_borra_plato"})
-            buttons.append({"title": "Consultar mi menu", "payload": "/menu_usuario"})
+        if tracker.get_slot("menu_establecido") or tracker.get_slot("menu_hay_plato"):
+            if tracker.get_slot("menu_plato_1_id") is None or tracker.get_slot("menu_plato_2_id") is None or tracker.get_slot("menu_plato_3_id") is None or tracker.get_slot("menu_bebida_id") is None:
+                buttons.append(
+                    {"title": "Elegir plato", "payload": "/establecer_menu"})
+            buttons.append(
+                {"title": "Borrar todo el menu", "payload": "/menu_borra_todo"})
+            buttons.append(
+                {"title": "Borrar plato", "payload": "/menu_borra_plato"})
+            buttons.append({"title": "Consultar mi menu",
+                           "payload": "/menu_usuario"})
+            buttons.append({"title": "Guardar mi menu",
+                           "payload": "/menu_finalizar"})
         else:
-            buttons.append({"title": "Establecer menu", "payload": "/establecer_menu"})
+            buttons.append({"title": "Establecer menu",
+                           "payload": "/establecer_menu"})
 
-        if tracker.get_slot("reserva_dia") or tracker.get_slot("reserva_hora") or tracker.get_slot("reserva_comensales") or tracker.get_slot("reserva_completa"):
-            buttons.append({"title": "Borrar reserva", "payload": "/reserva_borrar_mesa"})
-            buttons.append({"title": "Finalizar reserva", "payload": "/finalizar_reserva"})
-            buttons.append({"title": "Consultar mi reserva", "payload": "/reserva_usuario"})
+        if tracker.get_slot("reserva_dia") or tracker.get_slot("reserva_hora") or tracker.get_slot("reserva_comensales") or tracker.get_slot("reserva_completa") or tracker.get_slot("reserva_realizada"):
+            buttons.append({"title": "Borrar reserva",
+                           "payload": "/reserva_borrar_mesa"})
+            buttons.append({"title": "Guardar mi reserva",
+                           "payload": "/reserva_finalizar"})
+            buttons.append({"title": "Consultar mi reserva",
+                           "payload": "/reserva_usuario"})
         else:
-            buttons.append({"title": "Realizar reserva de mesa", "payload": "/reservar"})
+            buttons.append(
+                {"title": "Realizar reserva de mesa", "payload": "/reservar"})
 
-        dispatcher.utter_message(text=f'Estas son las opciones que puedes realizar ahora', buttons=buttons, button_type="vertical")
+        dispatcher.utter_message(
+            text=f'Estas son las opciones que puedes realizar ahora', buttons=buttons, button_type="vertical")
         return ""

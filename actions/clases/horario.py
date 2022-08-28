@@ -11,6 +11,7 @@ DIAS_SEMANA = auxiliar.get_dias_semana()
 HORARIO = auxiliar.get_horario()
 # -----------------------------------------
 
+
 class HorarioGet(Action):
     def name(self):
         return 'HorarioGet'
@@ -68,4 +69,3 @@ class HorarioGet(Action):
                     HORARIO["horario"][dia][1] + "."
         dispatcher.utter_message(message)
         return [SlotSet("dia", None)]
-
