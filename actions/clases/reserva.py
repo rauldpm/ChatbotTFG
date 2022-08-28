@@ -1,9 +1,11 @@
+from dis import dis
 from typing import Text, List, Any, Dict, Optional
 from rasa_sdk.events import SlotSet
 from rasa_sdk.interfaces import Action
 from rasa_sdk.types import DomainDict
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk import Tracker, FormValidationAction
+from sqlalchemy import null
 from actions.clases.auxiliar import *
 from actions.clases.email import *
 from actions.clases.menu import MenuGetUser
@@ -27,9 +29,16 @@ class ReservaBorrar(Action):
 
     def run(self, dispatcher, tracker, domain):
         print("ReservaBorrar")
+
+        reserva_realizada = tracker.get_slot("reserva_realizada")
+        if reserva_realizada is not None:
+            if reserva_realizada == "True":
+                email.send_email_message(tracker.get_slot(
+                    "reserva_email"), null, null, "borrar")
+
         dispatcher.utter_message(
             text=f'Se ha eliminado los datos de reserva introducidos.')
-        return [SlotSet("reserva_dia", None), SlotSet("reserva_hora", None), SlotSet("reserva_comensales", None), SlotSet("reserva_mesa_id", None), SlotSet("reserva_completa", False)]
+        return [SlotSet("reserva_realizada", False), SlotSet("reserva_email", None), SlotSet("reserva_codigo", None), SlotSet("reserva_codigo_tmp", None), SlotSet("reserva_email_set", None), SlotSet("reserva_dia", None), SlotSet("reserva_hora", None), SlotSet("reserva_comensales", None), SlotSet("reserva_mesa_id", None), SlotSet("reserva_completa", False)]
 
 
 class ReservaFinalizarBorrar(Action):
@@ -98,8 +107,7 @@ class ReservaGetUser(Action):
         reserva_comensales = tracker.get_slot("reserva_comensales")
         reserva_mesa_id = tracker.get_slot("reserva_mesa_id")
         name = tracker.get_slot("first_name")
-
-        message = "No se ha establecido una reserva aun."
+        message = "No se ha establecido una reserva aun.\n"
         if reserva_dia is not None or reserva_hora is not None or reserva_comensales is not None or reserva_mesa_id is not None:
             message = "Tu reserva tiene los siguientes datos:\n"
 
@@ -116,9 +124,12 @@ class ReservaGetUser(Action):
 
         dispatcher.utter_message(text=message)
 
-        if tracker.get_slot("menu_establecido"):
+        if tracker.get_slot("menu_establecido") or tracker.get_slot("menu_hay_plato"):
             dispatcher.utter_message(text=f'Tu menu esta compuesto por:')
             MenuGetUser.run(self, dispatcher, tracker, domain)
+            dispatcher.utter_message(response="utter_menu_no_guardado")
+        else:
+            dispatcher.utter_message(response="utter_menu_aviso")
 
         return ""
 
@@ -149,9 +160,15 @@ class ValidateReservaComensalesForm(FormValidationAction):
 
     def get_mesa_libre(Action, dia, hora):
         for it in HORAS['horas'][dia]:
-            if it['time'][hora] == "False":
+            if len(it['time']) == 0:
                 return it['id']
-        return False
+            else:
+                h = int(hora[:2])
+                for it2 in it['time']:
+                    h2 = int(it2[:2])
+                    if (h == h2) or (h > h2 and h < int(h2+2)) or (int(h+2) > h2 and int(h+2) < int(h2+2)):
+                        return False
+                return it['id']
 
     async def required_slots(
         self, slots_mapped_in_domain: List[Text],
@@ -165,7 +182,8 @@ class ValidateReservaComensalesForm(FormValidationAction):
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         print("extract_reserva_comensales")
-
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_comensales": None}
         reserva_comensales = tracker.get_slot("reserva_comensales")
         if reserva_comensales is not None:
             return {"reserva_comensales": reserva_comensales}
@@ -181,7 +199,7 @@ class ValidateReservaComensalesForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("validate_reserva_comensales")
         if tracker.get_intent_of_latest_message() == "stop":
-            return {"requested_slot": None, "reserva_hora": None, "reserva_dia": None, "reserva_comensales": None, "reserva_completa": False}
+            return {"requested_slot": None, "reserva_comensales": None}
         reserva_comensales = tracker.get_slot("reserva_comensales")
         if not reserva_comensales.isnumeric():
             dispatcher.utter_message(
@@ -221,6 +239,8 @@ class ValidateReservaDiaForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("extract_reserva_dia")
         reserva_dia = tracker.get_slot("reserva_dia")
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_dia": None}
         if reserva_dia is not None:
             reserva_dia = reserva_dia.lower()
             if reserva_dia == "hoy":
@@ -258,7 +278,7 @@ class ValidateReservaDiaForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("validate_reserva_dia")
         if tracker.get_intent_of_latest_message() == "stop":
-            return {"requested_slot": None, "reserva_dia": None, "reserva_completa": False}
+            return {"requested_slot": None, "reserva_dia": None}
         reserva_dia = tracker.get_slot("reserva_dia")
         reserva_hora = tracker.get_slot("reserva_hora")
         reserva_comensales = tracker.get_slot("reserva_comensales")
@@ -303,22 +323,44 @@ class ValidateReservaHoraForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("extract_reserva_hora")
         reserva_dia = tracker.get_slot("reserva_dia")
+        reserva_dia = reserva_dia.lower()
         reserva_hora = tracker.get_slot("reserva_hora")
         horas_mesas = self.get_horas_mesas(reserva_dia)
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_hora": None}
         if reserva_hora in horas_mesas:
-            return {"reserva_hora": reserva_hora}
-        if reserva_dia is not None:
-            reserva_dia = reserva_dia.lower()
-            if self.validate_regex(reserva_dia):
-                return {"reserva_hora": tracker.get_slot("reserva_hora")}
-        if reserva_dia is not None:
-            buttons = []
-            for it in horas_mesas:
-                buttons.append({"title": "{}".format(
-                    it), "payload": "{}".format(it)})
             dispatcher.utter_message(
-                "Estas son las horas disponibles el " + reserva_dia + ":", buttons=buttons, button_type="vertical")
+                "La hora elegida no esta disponible o terminaria dentro del periodo de una reserva ya realizada.")
+            dispatcher.utter_message(
+                "Las reservas tienen una duracion de 2 horas.")
+            message = "Las horas ocupadas son: \n"
+            for h in horas_mesas:
+                message += "- {} hasta {}{}\n".format(
+                    str(h), str(int(h[:2])+2), str(h[2:]))
+            dispatcher.utter_message(message)
+            dispatcher.utter_message("Selecciona otra hora.")
             return {"reserva_hora": None}
+
+        for t in HORAS['horas'][reserva_dia][0]['time']:
+            h = int(reserva_hora[:2])
+            h2 = int(t[:2])
+            if (h == h2) or (h > h2 and h < (h2+2)) or ((h+2) > h2 and (h+2) < (h2+2)):
+                dispatcher.utter_message(
+                    "La hora elegida no esta disponible o terminaria dentro del periodo de una reserva ya realizada.")
+                dispatcher.utter_message(
+                    "Las reservas tienen una duracion de 2 horas.")
+                message = "Las horas ocupadas son: \n"
+                for h in horas_mesas:
+                    message += "- {} hasta {}{}\n".format(
+                        str(h), str(int(h[:2])+2), str(h[2:]))
+                dispatcher.utter_message(message)
+                dispatcher.utter_message("Selecciona otra hora.")
+                return {"reserva_hora": None}
+
+        if reserva_hora is not None:
+            if self.validate_regex(reserva_hora):
+                return {"reserva_hora": tracker.get_slot("reserva_hora")}
+        dispatcher.utter_message("Selecciona otra hora")
         return {"reserva_hora": None}
 
     def validate_reserva_hora(
@@ -328,14 +370,14 @@ class ValidateReservaHoraForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("validate_reserva_hora")
         if tracker.get_intent_of_latest_message() == "stop":
-            return {"requested_slot": None, "reserva_hora": None, "reserva_dia": None, "reserva_completa": False}
+            return {"requested_slot": None, "reserva_hora": None}
         reserva_hora = tracker.get_slot("reserva_hora")
         reserva_dia = tracker.get_slot("reserva_dia")
         reserva_comensales = tracker.get_slot("reserva_comensales")
         reserva_mesa_id = tracker.get_slot("reserva_mesa_id")
         horas_mesas = self.get_horas_mesas(reserva_dia)
         name = tracker.get_slot("first_name_set")
-        if reserva_hora in horas_mesas:
+        if reserva_hora is not None and self.validate_regex(reserva_hora):
             dispatcher.utter_message(
                 text=f'Anotada la hora de reserva: ' + reserva_hora)
             if name is not None and name == True and reserva_dia is not None and reserva_hora is not None and reserva_comensales is not None and reserva_mesa_id is not None and tracker.get_slot("menu_establecido") is None:
@@ -364,6 +406,8 @@ class ValidateReservaEmailForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         print("extract_reserva_email")
         reserva_email = tracker.get_slot("reserva_email")
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_email": None}
         if reserva_email is not None:
             return {"reserva_email": reserva_email}
         dispatcher.utter_message(text=f'No se ha establecido un email.')
@@ -378,7 +422,7 @@ class ValidateReservaEmailForm(FormValidationAction):
 
         if tracker.get_intent_of_latest_message() == "stop":
             dispatcher.utter_message(text=f'Parando el proceso.')
-            return {"requested_slot": None, "reserva_email": None, "reserva_email_set": False, "reserva_realizada": False}
+            return {"requested_slot": None, "reserva_email": None}
 
         reserva_email = tracker.get_slot("reserva_email")
         reserva_completa = tracker.get_slot("reserva_completa")
@@ -425,6 +469,8 @@ class ValidateReservaCodigoForm(FormValidationAction):
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         print("extract_reserva_codigo")
+        if tracker.get_intent_of_latest_message() == "stop":
+            return {"requested_slot": None, "reserva_codigo": None}
         reserva_codigo = tracker.get_slot("reserva_codigo")
         if reserva_codigo is not None:
             return {"reserva_codigo": reserva_codigo}
@@ -439,7 +485,7 @@ class ValidateReservaCodigoForm(FormValidationAction):
         print("validate_reserva_codigo")
         if tracker.get_intent_of_latest_message() == "stop":
             dispatcher.utter_message(text=f'Parando el proceso.')
-            return {"requested_slot": None, "reserva_email": None, "reserva_email_set": False, "reserva_codigo": None, "reserva_codigo_tmp": None, "reserva_realizada": False}
+            return {"requested_slot": None, "reserva_codigo": None}
         reserva_codigo = tracker.get_slot("reserva_codigo")
         if reserva_codigo is not None:
             if len(reserva_codigo) == 6:
@@ -458,11 +504,14 @@ class ValidateReservaCodigoForm(FormValidationAction):
                                          reserva_mesa_id, reserva_comensales, name]
                         menu_array = []
                         if tracker.get_slot("menu_establecido"):
-                          menu_array.append(tracker.get_slot("menu_entrante_nombre"))
-                          menu_array.append(tracker.get_slot("menu_carne_nombre"))
-                          menu_array.append(tracker.get_slot("menu_pescado_nombre"))
-                          menu_array.append(tracker.get_slot("menu_postre_nombre"))
-                          menu_array.append(tracker.get_slot("menu_bebida_nombre"))
+                            menu_array.append(
+                                tracker.get_slot("menu_plato_1_nombre"))
+                            menu_array.append(
+                                tracker.get_slot("menu_plato_2_nombre"))
+                            menu_array.append(
+                                tracker.get_slot("menu_plato_3_nombre"))
+                            menu_array.append(
+                                tracker.get_slot("menu_bebida_nombre"))
                         email.send_email_message(tracker.get_slot(
                             "reserva_email"), reserva_array, menu_array)
                         return {"reserva_codigo": reserva_codigo, "reserva_realizada": True}

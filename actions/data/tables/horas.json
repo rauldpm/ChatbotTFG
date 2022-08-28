@@ -6,150 +6,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ],
     "martes": [
@@ -158,150 +78,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ],
     "miercoles": [
@@ -310,150 +150,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ],
     "jueves": [
@@ -462,150 +222,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ],
     "viernes": [
@@ -614,150 +294,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ],
     "sabado": [
@@ -766,150 +366,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ],
     "domingo": [
@@ -918,150 +438,70 @@
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 1,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 2,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 3,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 4,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 5,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 6,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 7,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 8,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       },
       {
         "id": 9,
         "max_comensales": "4",
         "comensales": "0",
         "ocupada": "False",
-        "time": {
-          "08:00": "False",
-          "10:00": "False",
-          "12:00": "False",
-          "14:00": "False",
-          "16:00": "False",
-          "18:00": "False",
-          "20:00": "False"
-        }
+        "time": []
       }
     ]
   }

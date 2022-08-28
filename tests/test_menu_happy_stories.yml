@@ -2,126 +2,15 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 version: "3.1"
 stories:
-  - story: Borrar plato entrante happy path
+  - story: Menu establecer plato 1
     steps:
       - user: |
-          borrar plato entrante
-        intent: menu_borra_plato_especifico
-      - action: MenuGetUser
-      - action: utter_menu_borrar_plato
-      - user: |
-          si
-        intent: affirm
-      - action: utter_menu_borrar_plato_selecciona
-      - user: |
-          [0E](menu_plato_id)
-        intent: menu_plato_id
-        entities:
-          - menu_plato_id: 0E
-      - slot_was_set:
-          - menu_plato_id: 0E
-      - action: MenuBorrarPlato
-      - slot_was_set:
-          - menu_establecido: false
-      - slot_was_set:
-          - menu_plato_categoria: null
-      - slot_was_set:
-          - menu_plato_id: null
-      - slot_was_set:
-          - menu_entrante_id: null
-      - slot_was_set:
-          - menu_entrante_nombre: null
-      - slot_was_set:
-          - menu_entrante_precio: null
-
-  - story: Borrar plato generico happy path
-    steps:
-      - user: |
-          borrar plato
-        intent: menu_borra_plato
-      - action: MenuGetUser
-      - action: utter_menu_borrar_plato
-      - user: |
-          si
-        intent: affirm
-      - action: utter_menu_borrar_plato_selecciona
-      - user: |
-          [0E](menu_plato_id)
-        intent: menu_plato_id
-        entities:
-          - menu_plato_id: 0E
-      - slot_was_set:
-          - menu_plato_id: 0E
-      - action: MenuBorrarPlato
-      - slot_was_set:
-          - menu_establecido: false
-      - slot_was_set:
-          - menu_plato_categoria: null
-      - slot_was_set:
-          - menu_plato_id: null
-      - slot_was_set:
-          - menu_bebida_id: null
-      - slot_was_set:
-          - menu_bebida_nombre: null
-      - slot_was_set:
-          - menu_bebida_precio: null
-
-  - story: Borrar menu happy path
-    steps:
-      - user: |
-          borrar menu
-        intent: menu_borra_todo
-      - action: utter_menu_borrar_todo
-      - user: |
-          si
-        intent: affirm
-      - action: MenuBorrarTodo
-      - slot_was_set:
-          - menu_entrante_id: null
-      - slot_was_set:
-          - menu_entrante_nombre: null
-      - slot_was_set:
-          - menu_entrante_precio: null
-      - slot_was_set:
-          - menu_carne_id: null
-      - slot_was_set:
-          - menu_carne_nombre: null
-      - slot_was_set:
-          - menu_carne_precio: null
-      - slot_was_set:
-          - menu_pescado_id: null
-      - slot_was_set:
-          - menu_pescado_nombre: null
-      - slot_was_set:
-          - menu_pescado_precio: null
-      - slot_was_set:
-          - menu_postre_id: null
-      - slot_was_set:
-          - menu_postre_nombre: null
-      - slot_was_set:
-          - menu_postre_precio: null
-      - slot_was_set:
-          - menu_bebida_id: null
-      - slot_was_set:
-          - menu_bebida_nombre: null
-      - slot_was_set:
-          - menu_bebida_precio: null
-      - slot_was_set:
-          - menu_establecido: false
-      - slot_was_set:
-          - menu_plato_id: null
-      - slot_was_set:
-          - menu_plato_categoria: null
-
-  - story: Establecer plato happy path
-    steps:
-      - user: |
-          [entrante](menu_plato_categoria)
+          [entrantes](menu_plato_categoria)
         intent: establecer_menu_plato
         entities:
-          - menu_plato_categoria: entrante
+          - menu_plato_categoria: entrantes
       - slot_was_set:
-          - menu_plato_categoria: entrante
+          - menu_plato_categoria: entrantes
       - action: utter_menu_plato_set
       - user: |
           si
@@ -142,16 +31,224 @@ stories:
       - slot_was_set:
           - menu_plato_id: 0E
       - slot_was_set:
-          - menu_entrante_id: 0E
+          - menu_hay_plato: true
       - slot_was_set:
-          - menu_entrante_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+          - menu_plato_1_id: 0E
       - slot_was_set:
-          - menu_entrante_precio: 4,5€ / unidad
+          - menu_plato_1_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
       - slot_was_set:
-          - menu_establecido: true
+          - menu_plato_1_precio: 4,5€ / unidad
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
       - action: MenuResetPlatoID
       - slot_was_set:
           - menu_plato_id: null
+
+  - story: Menu establecer plato 2
+    steps:
+      - user: |
+          [entrantes](menu_plato_categoria)
+        intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_set
+      - user: |
+          si
+        intent: affirm
+      - action: MenuGet
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
+      - user: |
+          [0E](menu_plato_id)
+        intent: menu_plato_id
+      - slot_was_set:
+          - requested_slot: menu_plato_id
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_hay_plato: true
+      - slot_was_set:
+          - menu_plato_2_id: 0E
+      - slot_was_set:
+          - menu_plato_2_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - menu_plato_2_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
+
+  - story: Menu establecer plato 3
+    steps:
+      - user: |
+          [entrantes](menu_plato_categoria)
+        intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_set
+      - user: |
+          si
+        intent: affirm
+      - action: MenuGet
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
+      - user: |
+          [0E](menu_plato_id)
+        intent: menu_plato_id
+      - slot_was_set:
+          - requested_slot: menu_plato_id
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_hay_plato: true
+      - slot_was_set:
+          - menu_plato_3_id: 0E
+      - slot_was_set:
+          - menu_plato_3_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - menu_plato_3_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
+
+  - story: Menu establecer bebida
+    steps:
+      - user: |
+          [entrantes](menu_plato_categoria)
+        intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_set
+      - user: |
+          si
+        intent: affirm
+      - action: MenuGet
+      - slot_was_set:
+          - menu_plato_categoria: entrantes
+      - action: utter_menu_plato_selecciona
+      - action: menu_plato_id_form
+      - active_loop: menu_plato_id_form
+      - user: |
+          [0E](menu_plato_id)
+        intent: menu_plato_id
+      - slot_was_set:
+          - requested_slot: menu_plato_id
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_plato_id: 0E
+      - slot_was_set:
+          - menu_hay_plato: true
+      - slot_was_set:
+          - menu_bebida_id: 0E
+      - slot_was_set:
+          - menu_bebida_nombre: Alcachofa de temporada con foie caramelizado y velo panceta ibérica
+      - slot_was_set:
+          - menu_bebida_precio: 4,5€ / unidad
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: MenuResetPlatoID
+      - slot_was_set:
+          - menu_plato_id: null
+
+  - story: Menu borrar plato generico happy path
+    steps:
+      - user: |
+          borrar plato
+        intent: menu_borra_plato
+      - or:
+          - slot_was_set:
+              - menu_hay_plato: true
+      - action: MenuGetUser
+      - action: utter_menu_borrar_plato
+      - user: |
+          si
+        intent: affirm
+      - action: utter_menu_borrar_plato_selecciona
+      - intent: menu_plato_id
+        entities:
+          - menu_plato_id: id
+      - slot_was_set:
+          - menu_plato_id: id
+      - action: MenuBorrarPlato
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_plato_1_id: null
+      - slot_was_set:
+          - menu_plato_1_nombre: null
+      - slot_was_set:
+          - menu_plato_1_precio: null
+      - slot_was_set:
+          - menu_hay_plato: false
+
+  - story: Menu borrar todo
+    steps:
+      - user: |
+          borrar menu
+        intent: menu_borra_todo
+      - or:
+          - slot_was_set:
+              - menu_hay_plato: true
+      - action: utter_menu_borrar_todo
+      - user: |
+          si
+        intent: affirm
+      - action: MenuBorrarTodo
+      - slot_was_set:
+          - menu_plato_1_id: null
+      - slot_was_set:
+          - menu_plato_1_nombre: null
+      - slot_was_set:
+          - menu_plato_1_precio: null
+      - slot_was_set:
+          - menu_plato_2_id: null
+      - slot_was_set:
+          - menu_plato_2_nombre: null
+      - slot_was_set:
+          - menu_plato_2_precio: null
+      - slot_was_set:
+          - menu_plato_3_id: null
+      - slot_was_set:
+          - menu_plato_3_nombre: null
+      - slot_was_set:
+          - menu_plato_3_precio: null
+      - slot_was_set:
+          - menu_bebida_id: null
+      - slot_was_set:
+          - menu_bebida_nombre: null
+      - slot_was_set:
+          - menu_bebida_precio: null
+      - slot_was_set:
+          - menu_establecido: false
+      - slot_was_set:
+          - menu_plato_id: null
+      - slot_was_set:
+          - menu_plato_categoria: null
+      - slot_was_set:
+          - menu_hay_plato: false

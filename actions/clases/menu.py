@@ -12,6 +12,7 @@ CATEGORIA_MENU = auxiliar.get_categorias_menu()
 DATA_PATH = auxiliar.get_data_path()
 # -----------------------------------------
 
+
 class MenuBorrarPlato(Action):
     def name(self):
         return 'MenuBorrarPlato'
@@ -20,50 +21,47 @@ class MenuBorrarPlato(Action):
         print("MenuBorrarPlato")
 
         menu_plato_id = tracker.get_slot("menu_plato_id")
-        menu_entrante_id = tracker.get_slot("menu_entrante_id")
-        menu_carne_id = tracker.get_slot("menu_carne_id")
-        menu_pescado_id = tracker.get_slot("menu_pescado_id")
-        menu_postre_id = tracker.get_slot("menu_postre_id")
         menu_bebida_id = tracker.get_slot("menu_bebida_id")
+        menu_plato_1_id = tracker.get_slot("menu_plato_1_id")
+        menu_plato_2_id = tracker.get_slot("menu_plato_2_id")
+        menu_plato_3_id = tracker.get_slot("menu_plato_3_id")
 
-        if menu_entrante_id is None and menu_carne_id is None and menu_pescado_id is None and menu_postre_id is None and menu_bebida_id is None:
+        if menu_plato_1_id is None and menu_plato_2_id is None and menu_plato_3_id is None and menu_bebida_id is None:
             dispatcher.utter_message(text=f'')
-            return ""
+            return [SlotSet("menu_hay_plato", False)]
 
         if menu_plato_id is not None:
             menu_plato_id = menu_plato_id.upper()
-            if menu_plato_id == menu_entrante_id:
+
+            if menu_plato_id == menu_plato_1_id:
                 dispatcher.utter_message(
-                    text=f'Se ha eliminado el plato entrante.')
-                if menu_carne_id is None and menu_pescado_id is None and menu_postre_id is None and menu_bebida_id is None:
-                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_entrante_id", None), SlotSet("menu_entrante_nombre", None), SlotSet("menu_entrante_precio", None)]
-                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_entrante_id", None), SlotSet("menu_entrante_nombre", None), SlotSet("menu_entrante_precio", None)]
-            elif menu_plato_id == menu_carne_id:
+                    text=f'Se ha eliminado el plato.')
+                if menu_plato_2_id is None and menu_plato_3_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_1_id", None), SlotSet("menu_plato_1_nombre", None), SlotSet("menu_plato_1_precio", None), SlotSet("menu_hay_plato", False)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_1_id", None), SlotSet("menu_plato_1_nombre", None), SlotSet("menu_plato_1_precio", None)]
+            elif menu_plato_id == menu_plato_2_id:
                 dispatcher.utter_message(
-                    text=f'Se ha eliminado el plato de carne.')
-                if menu_entrante_id is None and menu_pescado_id is None and menu_postre_id is None and menu_bebida_id is None:
-                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_carne_id", None), SlotSet("menu_carne_nombre", None), SlotSet("menu_carne_precio", None)]
-                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_carne_id", None), SlotSet("menu_carne_nombre", None), SlotSet("menu_carne_precio", None)]
-            elif menu_plato_id == menu_pescado_id:
+                    text=f'Se ha eliminado el plato.')
+                if menu_plato_1_id is None and menu_plato_3_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_2_id", None), SlotSet("menu_plato_2_nombre", None), SlotSet("menu_plato_2_precio", None), SlotSet("menu_hay_plato", False)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_2_id", None), SlotSet("menu_plato_2_nombre", None), SlotSet("menu_plato_2_precio", None)]
+            elif menu_plato_id == menu_plato_3_id:
                 dispatcher.utter_message(
-                    text=f'Se ha eliminado el plato de pescado.')
-                if menu_carne_id is None and menu_entrante_id is None and menu_postre_id is None and menu_bebida_id is None:
-                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_pescado_id", None), SlotSet("menu_pescado_nombre", None), SlotSet("menu_pescado_precio", None)]
-                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_pescado_id", None), SlotSet("menu_pescado_nombre", None), SlotSet("menu_pescado_precio", None)]
-            elif menu_plato_id == menu_postre_id:
-                dispatcher.utter_message(text=f'Se ha eliminado el postre.')
-                if menu_carne_id is None and menu_pescado_id is None and menu_entrante_id is None and menu_bebida_id is None:
-                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_postre_id", None), SlotSet("menu_postre_nombre", None), SlotSet("menu_postre_precio", None)]
-                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_postre_id", None), SlotSet("menu_postre_nombre", None), SlotSet("menu_postre_precio", None)]
+                    text=f'Se ha eliminado el plato.')
+                if menu_plato_2_id is None and menu_plato_1_id is None and menu_bebida_id is None:
+                    return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_3_id", None), SlotSet("menu_plato_3_nombre", None), SlotSet("menu_plato_3_precio", None), SlotSet("menu_hay_plato", False)]
+                return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_3_id", None), SlotSet("menu_plato_3_nombre", None), SlotSet("menu_plato_3_precio", None)]
             elif menu_plato_id == menu_bebida_id:
-                dispatcher.utter_message(text=f'Se ha eliminado la bebida.')
-                if menu_carne_id is None and menu_pescado_id is None and menu_postre_id is None and menu_entrante_id is None:
-                    return [SlotSet("menu_establecido", False), SlotSet("menu_plato_categoria", None), SlotSet("menu_plato_id", None), SlotSet("menu_bebida_id", None), SlotSet("menu_bebida_nombre", None), SlotSet("menu_bebida_precio", None)]
+                dispatcher.utter_message(
+                    text=f'Se ha eliminado la bebida.')
+                if menu_plato_1_id is None and menu_plato_2_id is None and menu_plato_3_id is None:
+                    return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_bebida_id", None), SlotSet("menu_bebida_nombre", None), SlotSet("menu_bebida_precio", None), SlotSet("menu_hay_plato", False)]
                 return [SlotSet("menu_plato_id", None), SlotSet("menu_plato_categoria", None), SlotSet("menu_bebida_id", None), SlotSet("menu_bebida_nombre", None), SlotSet("menu_bebida_precio", None)]
             else:
                 dispatcher.utter_message(
                     text=f'Ese plato no esta establecido no esta guardado, comprueba el ID.')
                 return [SlotSet("menu_plato_id", None)]
+
         else:
             dispatcher.utter_message(
                 text=f'No se ha establecido un ID de plato.')
@@ -78,24 +76,24 @@ class MenuBorrarTodo(Action):
         print("MenuBorrarTodo")
 
         dispatcher.utter_message(text=f'Menu restablecido.')
-        return [SlotSet("menu_entrante_id", None),
-                SlotSet("menu_entrante_nombre", None),
-                SlotSet("menu_entrante_precio", None),
-                SlotSet("menu_carne_id", None),
-                SlotSet("menu_carne_nombre", None),
-                SlotSet("menu_carne_precio", None),
-                SlotSet("menu_pescado_id", None),
-                SlotSet("menu_pescado_nombre", None),
-                SlotSet("menu_pescado_precio", None),
-                SlotSet("menu_postre_id", None),
-                SlotSet("menu_postre_nombre", None),
-                SlotSet("menu_postre_precio", None),
-                SlotSet("menu_bebida_id", None),
-                SlotSet("menu_bebida_nombre", None),
-                SlotSet("menu_bebida_precio", None),
-                SlotSet("menu_establecido", False),
-                SlotSet("menu_plato_id", None),
-                SlotSet("menu_plato_categoria", None)]
+        return [
+            SlotSet("menu_plato_1_id", None),
+            SlotSet("menu_plato_1_nombre", None),
+            SlotSet("menu_plato_1_precio", None),
+            SlotSet("menu_plato_2_id", None),
+            SlotSet("menu_plato_2_nombre", None),
+            SlotSet("menu_plato_2_precio", None),
+            SlotSet("menu_plato_3_id", None),
+            SlotSet("menu_plato_3_nombre", None),
+            SlotSet("menu_plato_3_precio", None),
+            SlotSet("menu_bebida_id", None),
+            SlotSet("menu_bebida_nombre", None),
+            SlotSet("menu_bebida_precio", None),
+            SlotSet("menu_establecido", False),
+            SlotSet("menu_plato_id", None),
+            SlotSet("menu_plato_categoria", None),
+            SlotSet("menu_hay_plato", False)
+        ]
 
 
 class MenuGet(Action):
@@ -126,7 +124,8 @@ class MenuGet(Action):
         if intent == "menu_completo":
             message = ""
             for it in CATEGORIA_MENU:
-                data = auxiliar.get_data_generic(DATA_PATH+"/data/menu/"+it+".json")
+                data = auxiliar.get_data_generic(
+                    DATA_PATH+"/data/menu/"+it+".json")
                 message += it.capitalize() + ":\n"
                 for d in data[it]:
                     message += "- " + d['nombre'] + \
@@ -169,7 +168,6 @@ class MenuGetBotones(Action):
         print("MenuGetBotones")
         menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
 
-
         if menu_plato_categoria is not None:
 
             menu_plato_categoria = menu_plato_categoria.lower()
@@ -179,7 +177,8 @@ class MenuGetBotones(Action):
                     break
             if menu_plato_categoria in CATEGORIA_MENU:
                 buttons = self.get_submenu_botones(menu_plato_categoria)
-                dispatcher.utter_message(text=f'Selecciona el plato que desees', buttons=buttons)
+                dispatcher.utter_message(
+                    text=f'Selecciona el plato que desees', buttons=buttons)
                 return ""
             else:
                 dispatcher.utter_message(text=f'Esa categoria no existe.')
@@ -197,17 +196,17 @@ class MenuCheckCategoria(Action):
         print("MenuCheckCategoria")
         menu_plato_categoria = tracker.get_slot("menu_plato_categoria")
         if menu_plato_categoria is not None:
-          for it in CATEGORIA_MENU:
-            if menu_plato_categoria in it:
-              menu_plato_categoria = it
-              break
-          if menu_plato_categoria in CATEGORIA_MENU:
-            return [SlotSet("menu_plato_categoria", menu_plato_categoria)]
-          else:
-            return [SlotSet("menu_plato_categoria", None)]
+            for it in CATEGORIA_MENU:
+                if menu_plato_categoria in it:
+                    menu_plato_categoria = it
+                    break
+            if menu_plato_categoria in CATEGORIA_MENU:
+                return [SlotSet("menu_plato_categoria", menu_plato_categoria)]
+            else:
+                return [SlotSet("menu_plato_categoria", None)]
 
         else:
-          return ""
+            return ""
 
 
 class MenuGetCategoriasButtons(Action):
@@ -237,42 +236,39 @@ class MenuGetUser(Action):
     def run(self, dispatcher, tracker, domain):
         print("MenuGetUser")
 
-        menu_entrante_id = tracker.get_slot("menu_entrante_id")
-        menu_carne_id = tracker.get_slot("menu_carne_id")
-        menu_pescado_id = tracker.get_slot("menu_pescado_id")
-        menu_postre_id = tracker.get_slot("menu_postre_id")
+        menu_plato_1_id = tracker.get_slot("menu_plato_1_id")
+        menu_plato_2_id = tracker.get_slot("menu_plato_2_id")
+        menu_plato_3_id = tracker.get_slot("menu_plato_3_id")
         menu_bebida_id = tracker.get_slot("menu_bebida_id")
 
         message = ''
-        if menu_entrante_id is not None:
-            message += "Entrante:\n- " + \
-                tracker.get_slot("menu_entrante_id") + ": " + \
-                tracker.get_slot("menu_entrante_nombre") + " - (" + \
-                tracker.get_slot("menu_entrante_precio") + ")\n"
-        if menu_carne_id is not None:
-            message += "Carne:\n- " + \
-                tracker.get_slot("menu_carne_id") + ": " + \
-                tracker.get_slot("menu_carne_nombre") + " - (" + \
-                tracker.get_slot("menu_carne_precio") + ")\n"
-        if menu_pescado_id is not None:
-            message += "Pescado:\n- " + \
-                tracker.get_slot("menu_pescado_id") + ": " + \
-                tracker.get_slot("menu_pescado_nombre") + " - (" + \
-                tracker.get_slot("menu_pescado_precio") + ")\n"
-        if menu_postre_id is not None:
-            message += "Postre:\n- " + \
-                tracker.get_slot("menu_postre_id") + ": " + \
-                tracker.get_slot("menu_postre_nombre") + " - (" + \
-                tracker.get_slot("menu_postre_precio") + ")\n"
+        if menu_plato_1_id is not None:
+            message += "Plato:\n- " + \
+                tracker.get_slot("menu_plato_1_id") + ": " + \
+                tracker.get_slot("menu_plato_1_nombre") + " - (" + \
+                tracker.get_slot("menu_plato_1_precio") + ")\n"
+        if menu_plato_2_id is not None:
+            message += "Plato:\n- " + \
+                tracker.get_slot("menu_plato_2_id") + ": " + \
+                tracker.get_slot("menu_plato_2_nombre") + " - (" + \
+                tracker.get_slot("menu_plato_2_precio") + ")\n"
+        if menu_plato_3_id is not None:
+            message += "Plato:\n- " + \
+                tracker.get_slot("menu_plato_3_id") + ": " + \
+                tracker.get_slot("menu_plato_3_nombre") + " - (" + \
+                tracker.get_slot("menu_plato_3_precio") + ")\n"
         if menu_bebida_id is not None:
             message += "Bebida:\n- " + \
                 tracker.get_slot("menu_bebida_id") + ": " + \
                 tracker.get_slot("menu_bebida_nombre") + " - (" + \
                 tracker.get_slot("menu_bebida_precio") + ")\n"
 
+        # if tracker.get_slot("menu_establecido") == False:
+        #    message += "Aun no has hecho efectivo tu menu, escribe: 'Finalizar menu' para guardarlo.\n"
+
         if message == '':
             dispatcher.utter_message(
-                text=f"No se ha establecido ningun plato aun. Introduce \"Establecer menu\" para añadir un plato.")
+                text=f"No se ha establecido ningun plato aun. Introduce 'Establecer menu' para añadir un plato.")
         else:
             dispatcher.utter_message(text=message)
         return ''
@@ -285,6 +281,35 @@ class MenuResetPlatoID(Action):
     def run(self, dispatcher, tracker, domain):
         print("MenuResetPlatoID")
         return [SlotSet("menu_plato_id", None)]
+
+
+class MenuFinalizar(Action):
+    def name(self):
+        return 'MenuFinalizar'
+
+    def run(self, dispatcher, tracker, domain):
+        print("MenuFinalizar")
+
+        menu_bebida_id = tracker.get_slot("menu_bebida_id")
+        menu_plato_1_id = tracker.get_slot("menu_plato_1_id")
+        menu_plato_2_id = tracker.get_slot("menu_plato_2_id")
+        menu_plato_3_id = tracker.get_slot("menu_plato_3_id")
+
+        if menu_plato_1_id is None and menu_plato_2_id is None and menu_plato_3_id is None:
+            dispatcher.utter_message(
+                text="No hay un plato establecido, debes establecer minimo un plato y una bebida.")
+            return [SlotSet("menu_establecido", False)]
+
+        if menu_bebida_id is None:
+            dispatcher.utter_message(
+                text="No hay una bebida establecida, debes establecer minimo un plato y una bebida.")
+            return [SlotSet("menu_establecido", False)]
+
+        dispatcher.utter_message(text="Se ha guardado el menu elegido.")
+        dispatcher.utter_message(text="Tu menu se compone de:")
+        MenuGetUser.run(self, dispatcher, tracker, domain)
+
+        return [SlotSet("menu_establecido", True)]
 
 
 class ValidateMenuPlatoCategoriaForm(FormValidationAction):
@@ -403,20 +428,36 @@ class ValidateMenuPlatoIDForm(FormValidationAction):
 
             data = auxiliar.get_data_generic(
                 DATA_PATH+"/data/menu/"+menu_plato_categoria+".json")
-            for it in data[menu_plato_categoria]:
-                if it['id'] == str(menu_plato_id):
-                    message = "Guardado plato " + menu_plato_categoria + \
-                        ":\n- " + it['nombre'] + " (" + it['precio'] + ")"
-                    dispatcher.utter_message(text=message)
-                    if menu_plato_categoria == "entrantes":
-                        return {"menu_plato_id": menu_plato_id, "menu_entrante_id": menu_plato_id, "menu_entrante_nombre": it['nombre'], "menu_entrante_precio": it['precio'], "menu_establecido": True}
-                    elif menu_plato_categoria == "carnes":
-                        return {"menu_plato_id": menu_plato_id, "menu_carne_id": menu_plato_id, "menu_carne_nombre": it['nombre'], "menu_carne_precio": it['precio'], "menu_establecido": True}
-                    elif menu_plato_categoria == "pescados":
-                        return {"menu_plato_id": menu_plato_id, "menu_pescado_id": menu_plato_id, "menu_pescado_nombre": it['nombre'], "menu_pescado_precio": it['precio'], "menu_establecido": True}
-                    elif menu_plato_categoria == "postres":
-                        return {"menu_plato_id": menu_plato_id, "menu_postre_id": menu_plato_id, "menu_postre_nombre": it['nombre'], "menu_postre_precio": it['precio'], "menu_establecido": True}
-                    elif menu_plato_categoria == "bebidas":
-                        return {"menu_plato_id": menu_plato_id, "menu_bebida_id": menu_plato_id, "menu_bebida_nombre": it['nombre'], "menu_bebida_precio": it['precio'], "menu_establecido": True}
-        return {"menu_plato_id": None}
 
+            menu_bebida_id = tracker.get_slot("menu_bebida_id")
+            menu_plato_1_id = tracker.get_slot("menu_plato_1_id")
+            menu_plato_2_id = tracker.get_slot("menu_plato_2_id")
+            menu_plato_3_id = tracker.get_slot("menu_plato_3_id")
+
+            if menu_plato_categoria == "bebidas":
+                for it in data[menu_plato_categoria]:
+                    if it['id'] == str(menu_plato_id):
+                        message = "Guardado plato " + menu_plato_categoria + \
+                            ":\n- " + it['nombre'] + " (" + it['precio'] + ")"
+                        if menu_bebida_id is None:
+                            dispatcher.utter_message(text=message)
+                            return {"menu_hay_plato": True, "menu_plato_id": menu_plato_id, "menu_bebida_id": menu_plato_id, "menu_bebida_nombre": it['nombre'], "menu_bebida_precio": it['precio']}
+                        message = "La bebida ya ha sido seleccionada, si deseas cambiarla elimina la bebida y vuelve a asignarla."
+                        dispatcher.utter_message(text=message)
+            else:
+                for it in data[menu_plato_categoria]:
+                    if it['id'] == str(menu_plato_id):
+                        message = "Guardado plato " + menu_plato_categoria + \
+                            ":\n- " + it['nombre'] + " (" + it['precio'] + ")"
+                        if menu_plato_1_id is None:
+                            dispatcher.utter_message(text=message)
+                            return {"menu_hay_plato": True, "menu_plato_id": menu_plato_id, "menu_plato_1_id": menu_plato_id, "menu_plato_1_nombre": it['nombre'], "menu_plato_1_precio": it['precio']}
+                        elif menu_plato_2_id is None:
+                            dispatcher.utter_message(text=message)
+                            return {"menu_hay_plato": True, "menu_plato_id": menu_plato_id, "menu_plato_2_id": menu_plato_id, "menu_plato_2_nombre": it['nombre'], "menu_plato_2_precio": it['precio']}
+                        elif menu_plato_3_id is None:
+                            dispatcher.utter_message(text=message)
+                            return {"menu_hay_plato": True, "menu_plato_id": menu_plato_id, "menu_plato_3_id": menu_plato_id, "menu_plato_3_nombre": it['nombre'], "menu_plato_3_precio": it['precio']}
+                        message = "Ya has seleccionado los tres platos disponibles, si deseas cambiar un plato elimina el plato elegido que desees y vuelve a asignarlo."
+                        dispatcher.utter_message(text=message)
+        return {"requested_slot": None, "menu_plato_id": None}
