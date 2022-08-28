@@ -8,7 +8,7 @@ instance_size="your-instance-type" # eg: e2-small
 user=$(id -nu 1000)
 repo_name="ChatbotTFG"
 dir="/home/${user}"
-redis-password="the-password-of-redis-db" # Change this by your password, by default it will be used as password
+redis_password="the-password-of-redis-db" # Change this by your password, by default it will be used as password
 
 # Create instance
 output=$(gcloud compute instances create ${instance_name} --project=${project} --zone=${instance_zone} --machine-type=${instance_size} --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=741352664526-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --create-disk=auto-delete=yes,boot=yes,device-name=asd,image=projects/debian-cloud/global/images/debian-11-bullseye-v20220719,mode=rw,size=10,type=projects/${project}/zones/${instance_zone}/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any)

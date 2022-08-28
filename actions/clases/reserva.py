@@ -5,7 +5,6 @@ from rasa_sdk.interfaces import Action
 from rasa_sdk.types import DomainDict
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk import Tracker, FormValidationAction
-from sqlalchemy import null
 from actions.clases.auxiliar import *
 from actions.clases.email import *
 from actions.clases.menu import MenuGetUser
