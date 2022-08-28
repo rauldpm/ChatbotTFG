@@ -27,6 +27,11 @@ rules:
       - intent: opciones
       - action: Opciones
 
+  - rule: Ask the user to rephrase in case of low NLU confidence
+    steps:
+      - intent: nlu_fallback
+      - action: utter_fallback
+
   # -------------------------------------
   # Horario
   # -------------------------------------
@@ -89,7 +94,7 @@ rules:
       - action: name_form
       - active_loop: name_form
 
-  - rule: Termina el formulario de ifentificacion
+  - rule: Termina el formulario de identificacion
     condition:
       - active_loop: name_form
     steps:
@@ -117,11 +122,18 @@ rules:
     steps:
       - intent: menu_usuario
       - action: MenuGetUser
+      - action: utter_menu_no_guardado
 
   - rule: Obtener menu completo
     steps:
       - intent: menu_completo
       - action: MenuGet
+
+  - rule: Finalizar menu
+    steps:
+      - intent: menu_finalizar
+      - action: MenuFinalizar
+      - action: utter_menu_no_guardado
 
   # -------------------------------------
   # Reserva
