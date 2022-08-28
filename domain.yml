@@ -13,7 +13,7 @@ intents:
   - dia
   - establecer_menu
   - establecer_menu_plato
-  - finalizar_reserva
+  - reserva_finalizar
   - give_email
   - give_cantidad
   - hora
@@ -23,9 +23,9 @@ intents:
   - identificar_borrar
   - menu_borra_todo
   - menu_borra_plato
-  - menu_borra_plato_especifico
   - menu_categoria
   - menu_completo
+  - menu_finalizar
   - menu_plato_id
   - menu_usuario
   - opciones
@@ -40,24 +40,24 @@ entities:
   - dia
   - first_name
   - first_name_save
+  - menu_hay_plato
   - menu_bebida_id
   - menu_bebida_nombre
   - menu_bebida_precio
-  - menu_carne_id
-  - menu_carne_nombre
-  - menu_carne_precio
-  - menu_entrante_id
-  - menu_entrante_nombre
-  - menu_entrante_precio
+  - menu_plato_1_id
+  - menu_plato_1_nombre
+  - menu_plato_1_precio
+  - menu_plato_2_id
+  - menu_plato_2_nombre
+  - menu_plato_2_precio
+  - menu_plato_3_id
+  - menu_plato_3_nombre
+  - menu_plato_3_precio
+
   - menu_establecido
-  - menu_pescado_id
-  - menu_pescado_nombre
-  - menu_pescado_precio
   - menu_plato_categoria
   - menu_plato_id
-  - menu_postre_id
-  - menu_postre_nombre
-  - menu_postre_precio
+
   - reserva_hora
   - reserva_comensales
   - reserva_dia
@@ -100,6 +100,14 @@ slots:
         conditions:
           - active_loop: name_form
             requested_slot: first_name
+
+  menu_hay_plato:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_hay_plato
+
   menu_bebida_id:
     type: text
     influence_conversation: true
@@ -118,65 +126,66 @@ slots:
     mappings:
       - type: from_entity
         entity: menu_bebida_precio
-  menu_entrante_id:
+  menu_plato_1_id:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: menu_entrante_id
-  menu_entrante_nombre:
+        entity: menu_plato_1_id
+  menu_plato_1_nombre:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: menu_entrante_nombre
-  menu_entrante_precio:
+        entity: menu_plato_1_nombre
+  menu_plato_1_precio:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: menu_entrante_precio
+        entity: menu_plato_1_precio
+  menu_plato_2_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_2_id
+  menu_plato_2_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_2_nombre
+  menu_plato_2_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_2_precio
+  menu_plato_3_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_3_id
+  menu_plato_3_nombre:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_3_nombre
+  menu_plato_3_precio:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: menu_plato_3_precio
+
   menu_establecido:
     type: bool
     mappings:
       - type: from_entity
         entity: menu_establecido
-  menu_carne_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_carne_id
-  menu_carne_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_carne_nombre
-  menu_carne_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_carne_precio
-  menu_pescado_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_pescado_id
-  menu_pescado_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_pescado_nombre
-  menu_pescado_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_pescado_precio
   menu_plato_id:
     type: text
     influence_conversation: true
@@ -189,24 +198,7 @@ slots:
     mappings:
       - type: from_entity
         entity: menu_plato_categoria
-  menu_postre_id:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_postre_id
-  menu_postre_nombre:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_postre_nombre
-  menu_postre_precio:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: menu_postre_precio
+
   name_spelled_correctly:
     type: bool
     mappings:
@@ -339,7 +331,12 @@ responses:
         - type: slot
           name: menu_establecido
           value: false
-      text: "Aun falta por establecer el menu, si deseas establecerlo, escribe: Establecer menu."
+      text: "No se ha establecido un menu, si deseas establecerlo, escribe: 'Establecer menu' o si ya has elegido uno finaliza la eleccion con: 'Finalizar menu'. Para terminar la reserva de la mesa escribe 'Finalizar reserva'."
+    - condition:
+        - type: slot
+          name: menu_establecido
+          value: null
+      text: "No se ha establecido un menu, si deseas establecerlo, escribe: 'Establecer menu' o si ya has elegido uno finaliza la eleccion con: 'Finalizar menu'. Para terminar la reserva de la mesa escribe 'Finalizar reserva'."
     - text: ""
   utter_menu_plato_set:
     - text: "¿Quieres establecer el plato de la categoria: {menu_plato_categoria}?"
@@ -358,7 +355,7 @@ responses:
   utter_menu_borrar_plato:
     - condition:
         - type: slot
-          name: menu_establecido
+          name: menu_hay_plato
           value: true
       text: "¿Estas seguro de querer borrar el plato que seleccionaras a continuacion?"
       button_type: vertical
@@ -371,14 +368,14 @@ responses:
   utter_menu_borrar_plato_selecciona:
     - condition:
         - type: slot
-          name: menu_establecido
+          name: menu_hay_plato
           value: true
       text: "Introduce el identificador del plato a eliminar."
     - text: "Antes tienes que establecer un menu."
   utter_menu_borrar_todo:
     - condition:
         - type: slot
-          name: menu_establecido
+          name: menu_hay_plato
           value: true
       text: ¿Estas seguro de querer eliminar todo?
       button_type: vertical
@@ -387,7 +384,7 @@ responses:
           payload: "/affirm"
         - title: "No"
           payload: "/deny"
-    - text: "Antes tienes que establecer un menu."
+    - text: "Antes tienes que establecer algun plato."
   utter_menu_plato_selecciona:
     - text: Selecciona el plato introduciendo el identificador.
   utter_reserva_borrar:
@@ -485,6 +482,17 @@ responses:
           value: true
       text: ""
     - text: "Para finalizar la reserva es necesario saber quien eres, identificate introduciendo: Indentificarme."
+  utter_fallback:
+    - text: "Ha habido un problema y no se podido guardar el proceso actual, perdon por las inconveniencias. Por favor, envia un email a email@email.com con la conversacion y poder analizar el problema. Gracias!"
+  utter_parar:
+    - text: "Parando."
+  utter_menu_no_guardado:
+    - condition:
+        - type: slot
+          name: menu_establecido
+          value: false
+      text: "Aun no has hecho efectivo tu menu, escribe: 'Finalizar menu' para guardarlo."
+    - text: ""
 actions:
   - HorarioGet
   - IdentificarBorrarUsername
@@ -495,6 +503,7 @@ actions:
   - MenuGetBotones
   - MenuGetCategoriasButtons
   - MenuGetUser
+  - MenuFinalizar
   - MenuResetPlatoID
   - ReservaBorrar
   - ReservaFinalizarBorrar
@@ -506,6 +515,7 @@ actions:
   - utter_reserva_need_name
   - utter_despedida
   - utter_reserva_finalizar
+  - utter_fallback
   - utter_horario
   - utter_menu
   - utter_menu_aviso
@@ -513,6 +523,7 @@ actions:
   - utter_menu_borrar_plato
   - utter_menu_categorias
   - utter_menu_deny
+  - utter_menu_no_guardado
   - utter_menu_plato_selecciona
   - utter_menu_plato_set
   - utter_reserva_ask_code
@@ -532,6 +543,7 @@ actions:
   - utter_saludo
   - utter_saludo_identificacion
   - utter_start
+  - utter_parar
   - utter_te_llamas
   - utter_ya_identificado
   - validate_menu_plato_categoria_form
