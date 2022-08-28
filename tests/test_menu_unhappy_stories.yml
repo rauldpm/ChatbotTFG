@@ -2,11 +2,14 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 version: "3.1"
 stories:
-  - story: Borrar plato unhappy path
+  - story: Menu borrar plato deny
     steps:
       - user: |
           borrar plato
         intent: menu_borra_plato
+      - or:
+          - slot_was_set:
+              - menu_hay_plato: true
       - action: MenuGetUser
       - action: utter_menu_borrar_plato
       - user: |
@@ -14,18 +17,36 @@ stories:
         intent: deny
       - action: utter_menu_borrar_deny
 
-  - story: Borrar menu unhappy path
+  - story: Menu borrar todo deny
     steps:
       - user: |
           borrar menu
         intent: menu_borra_todo
+      - or:
+          - slot_was_set:
+              - menu_hay_plato: true
       - action: utter_menu_borrar_todo
       - user: |
           no
         intent: deny
       - action: utter_menu_borrar_deny
 
-  - story: Establecer plato unhappy path
+  - story: Menu establecer plato deny
+    steps:
+      - user: |
+          [entrantes](menu_plato_categoria)
+        intent: establecer_menu_plato
+        entities:
+          - menu_plato_categoria: entrantes
+      - slot_was_set:
+          - menu_plato_categoria: category
+      - action: utter_menu_plato_set
+      - user: |
+          no
+        intent: stop
+      - action: utter_menu_deny
+
+  - story: Menu establecer plato stop 1
     steps:
       - user: |
           [entrantes](menu_plato_categoria)
@@ -36,6 +57,6 @@ stories:
           - menu_plato_categoria: entrantes
       - action: utter_menu_plato_set
       - user: |
-          no
-        intent: deny
-      - action: utter_menu_deny
+          parar
+        intent: stop
+      - action: utter_parar
