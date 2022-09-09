@@ -29,8 +29,6 @@ As an example of functionality, the development process would be as follows for 
 - Merge from 5.5 to main.
 - Production servers are updated with the new version.
 
-
-
 ## Tags and releases
 
 The [tags](https://github.com/rauldpm/ChatbotTFG/tags) contain a specific and final version of the development, it is highly recommended to use the last tag created.
@@ -39,17 +37,20 @@ The [releases](https://github.com/rauldpm/ChatbotTFG/releases) contain a changel
 
 ## How to use it
 
-- See the [Wiki](https://github.com/rauldpm/ChatbotTFG/wiki) section of the repository.
+- See the [How To Use It](https://github.com/rauldpm/ChatbotTFG/wiki/How-To-Use-this-Chatbot) wiki page of the repository.
 
 ## How to contribute
 
-- If you want to propose an improvement or comment on ideas, use the [Discussions](https://github.com/rauldpm/ChatbotTFG/discussions) section.
-- If you have found a bug and want to report it, create an [Issue](https://github.com/rauldpm/ChatbotTFG/issues).
-- In case you want to add your code contribution, keep in mind the following:
-   - Read the Branches section to learn how branching works.
-   - No Pull Request addressed to the main branch will be accepted.
-   - Create your [Pull Requests](https://github.com/rauldpm/ChatbotTFG/pulls) to the numbered main branch you want.
-   - Add a good and clear description of the changes introduced in addition to the largest number of possible tests (tests, conversations, etc)
+- See the [Contribute](https://github.com/rauldpm/ChatbotTFG/wiki/Contribute) wiki page of the repository.
+
+## Repository structure
+
+- See the [Repository structure](https://github.com/rauldpm/ChatbotTFG/wiki/Repository-structure) wiki page of the repository.
+
+## Deploy the chatbot
+
+- See the [Deployment](https://github.com/rauldpm/ChatbotTFG/wiki/Deployment) wiki page of the repository.
+
 
 ## Licence
 
