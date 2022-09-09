@@ -1,5 +1,3 @@
-# Contribute
-
 If you want to propose an improvement or comment on ideas, use the Discussions section.
 
 If you have found a bug and want to report it, create an Issue.

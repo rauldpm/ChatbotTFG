@@ -1,5 +1,3 @@
-# Repository structure
-
 This repository is made up of the following main files and folders:
 
 - [.github](#id1)

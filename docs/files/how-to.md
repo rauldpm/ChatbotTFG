@@ -1,5 +1,3 @@
-# How to use this chatbot
-
 ### Talk to the bot
 
 Once you have the bot deployed locally, you can chat with it in two

@@ -37,7 +37,7 @@ The [releases](https://github.com/rauldpm/ChatbotTFG/releases) contain a changel
 
 ## How to use it
 
-- See the [How To Use It](https://github.com/rauldpm/ChatbotTFG/wiki/HowTo) wiki page of the repository.
+- See the [How To Use It](https://github.com/rauldpm/ChatbotTFG/wiki/How-To-Use-this-Chatbot) wiki page of the repository.
 
 ## How to contribute
 
@@ -45,7 +45,7 @@ The [releases](https://github.com/rauldpm/ChatbotTFG/releases) contain a changel
 
 ## Repository structure
 
-- See the [Contribute](https://github.com/rauldpm/ChatbotTFG/wiki/Contribute) wiki page of the repository.
+- See the [Contribute](https://github.com/rauldpm/ChatbotTFG/wiki/Repository-structure) wiki page of the repository.
 
 ## Deploy the chatbot
 

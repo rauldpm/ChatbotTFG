@@ -1,5 +1,3 @@
-#bot deployment
-
 1. [Clone repository](#id1)
 2. [Deployment](#id2)
    * [Deploy Rasa on local](#id3)

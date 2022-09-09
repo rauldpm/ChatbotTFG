@@ -1,8 +1,6 @@
-# Repository wiki
+In this wiki you will find information about the repository, from how to use the bot to how to deploy it.
 
-En esta wiki encontraras informacion acerca del repositorio, desde como usar el bot hasta como desplegarlo.
-
-### Secciones
+### Sections
 
 - [Repository structure](./repository_structure.md)
 - [Deployment](./deployment.md)
