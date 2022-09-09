@@ -45,7 +45,7 @@ The [releases](https://github.com/rauldpm/ChatbotTFG/releases) contain a changel
 
 ## Repository structure
 
-- See the [Contribute](https://github.com/rauldpm/ChatbotTFG/wiki/Repository-structure) wiki page of the repository.
+- See the [Repository structure](https://github.com/rauldpm/ChatbotTFG/wiki/Repository-structure) wiki page of the repository.
 
 ## Deploy the chatbot
 
